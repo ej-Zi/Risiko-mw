@@ -1,4 +1,4 @@
-//###########nur zum testen, später löschen; kann beliebig verändert werden###########
+//###########nur zum testen, später löschen###########
 
 package risiko;
 
