@@ -16,7 +16,7 @@ public class TestMain {
 	public static void main(String[] args) {
 		
 		//Karte als Bild anzeigen:
-		File image = new File("assets\\Risiko-Karte.jpg");
+		File image = new File("assets\\risk-map.jpg");
 		BufferedImage map = null;
 		try {
 			map = ImageIO.read(image);
@@ -26,7 +26,7 @@ public class TestMain {
 		
 		//resize image: (muss im Verhältnis zur Bildschirmgröße angepasst werden)
 		try {
-		map = resizeImage(map, 1654, 1169);
+		map = resizeImage(map, 1500, 1000);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
