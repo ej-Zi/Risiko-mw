@@ -2,6 +2,7 @@
 
 ## Spielstart ##
 - Starteinheiten: (eventuell anpassen an Anzahl der Gebiete)
+	2 Spieler: 40
 	3 Spieler: 35
 	4 Spieler: 30
 	5 Spieler: 25

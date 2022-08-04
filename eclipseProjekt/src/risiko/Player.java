@@ -9,7 +9,10 @@ public class Player {
 	public ArrayList<Territory> occupiedTerritories;
 	public ArrayList<Card> cardsInHand;
 	
-	//TODO Konstruktor
+	Player(String name, int armies){
+		this.name = name;
+		this.armies = armies;
+	}
 	
 	public int getArmies() {
 		return armies;

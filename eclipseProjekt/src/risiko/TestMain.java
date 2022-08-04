@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,6 +16,16 @@ import javax.swing.*;
 public class TestMain {
 
 	public static void main(String[] args) {
+		
+		
+		ArrayList<String> namen = new ArrayList<String>( Arrays.asList("Lord", "Ladada", "X2", "hallo"));
+		GameEngine engine = GameEngine.getInstance(3, namen);
+		
+		for(Player n : engine.getPlayers()) {
+			System.out.println(n.getName() + " " + n.getArmies());
+		}
+
+		
 		
 		//Karte als Bild anzeigen:
 		File image = new File("assets\\risk-map.jpg");
@@ -44,7 +56,7 @@ public class TestMain {
 		f.setVisible(true);
 		
 	}
-		//Bitte nicht löschen:
+		//Bitte nicht loeschen:
 	    public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
 			Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
 			BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
