@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-	//optional:
-	//String name; //beim Spielstart festlegen? alernativ vorher festlegen
-	
+	private String name;
 	private int armies;
 	public ArrayList<Territory> occupiedTerritories;
 	public ArrayList<Card> cardsInHand;
@@ -18,6 +16,9 @@ public class Player {
 	}
 	public void setArmies(int armies) {
 		this.armies = armies;
+	}
+	public String getName() {
+		return name;
 	}
 	
 	

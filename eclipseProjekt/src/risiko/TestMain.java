@@ -37,7 +37,7 @@ public class TestMain {
 		
 		//resize image: (muss im Verhältnis zur Bildschirmgröße angepasst werden)
 		try {
-		map = resizeImage(map, 1654, 1169);
+		map = resizeImage(map, 1500, 1000);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}*/
