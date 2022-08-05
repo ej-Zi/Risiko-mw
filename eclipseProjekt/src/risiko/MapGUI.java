@@ -1,4 +1,4 @@
-
+package risiko;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class MapGUI {
-	
-		
 	
 	public static void main(String[] args) {
 		
@@ -22,7 +20,6 @@ public class MapGUI {
 		JPanel panel1 = new JPanel();
 		JPanel panel2 = new JPanel();
 		JLabel mapLabel = new JLabel(mapIcon);
-		JButton button = new JButton("Button");
 		
 		panel1.add(mapLabel);
 		panel1.setPreferredSize(new Dimension(screenSize.width*8/10,screenSize.height*9/10));
