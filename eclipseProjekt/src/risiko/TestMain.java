@@ -13,10 +13,21 @@ import javax.swing.*;
 
 public class TestMain {
 
+	private RiskGUI view;
+	
+	
+	
+	public TestMain() {
+		super();
+		this.view = new RiskGUI();
+	}
+	
 	public static void main(String[] args) {
 		
+		
+		
 		//Karte als Bild anzeigen:
-		File image = new File("assets\\risk-map.jpg");
+		/*File image = new File("assets\\Risiko-Karte.jpg");
 		BufferedImage map = null;
 		try {
 			map = ImageIO.read(image);
@@ -29,12 +40,13 @@ public class TestMain {
 		map = resizeImage(map, 1500, 1000);
 		}catch(IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		
+		TestMain testmain = new TestMain();
+		testmain.view.setVisible(true);
 		
-		
-		JLabel mapLabel = new JLabel(new ImageIcon(map));
+		/*JLabel mapLabel = new JLabel(new ImageIcon(map));
 		JPanel jPanel = new JPanel();
 		jPanel.add(mapLabel);
 	
@@ -49,9 +61,10 @@ public class TestMain {
 			Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
 			BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
 			outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
-			return outputImage;
-}
-	
+			return outputImage;*/
+
+	 }
+	    
 }
 
 
