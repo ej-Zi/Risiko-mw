@@ -12,20 +12,20 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class TestMain {
-
-	private RiskGUI view;
-	
-	
-	
-	public TestMain() {
-		super();
-		this.view = new RiskGUI();
-	}
+//
+//	private RiskGUI view;
+//	
+//	
+//	
+//	public TestMain() {
+//		super();
+//		this.view = new RiskGUI();
+//	}
 	
 	public static void main(String[] args) {
 		
-		
-		
+		RiskGUI view = new RiskGUI();
+		view.setVisible(true);
 		//Karte als Bild anzeigen:
 		/*File image = new File("assets\\Risiko-Karte.jpg");
 		BufferedImage map = null;
@@ -43,8 +43,8 @@ public class TestMain {
 		}*/
 		
 		
-		TestMain testmain = new TestMain();
-		testmain.view.setVisible(true);
+//		TestMain testmain = new TestMain();
+//		testmain.view.setVisible(true);
 		
 		/*JLabel mapLabel = new JLabel(new ImageIcon(map));
 		JPanel jPanel = new JPanel();

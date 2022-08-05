@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.Transparency;
 
 import javax.swing.JLabel;
@@ -20,9 +22,13 @@ import javax.swing.JFrame;
 public class RiskGUI extends JFrame {
 	
 	//private JFrame jframe = new JFrame();
-	private JLabel controlBar;
+	private JPanel panelMap;
+	private JPanel panelCf;
+	private JLabel mapLabel;	
+	
+	private JLabel controlfieldLabel;
 	private JLabel anzeige;
-	private ImageIcon image;
+	private ImageIcon controlfieldIcon;
 	
 	
 	private JMenuBar menuBar;
@@ -38,93 +44,112 @@ public class RiskGUI extends JFrame {
 	private JButton button3;
 	private JButton button4;
 	
+	
+	
 	//private JPanel panel1;
 	//private JPanel panel2;
 	
 	
-	private GridLayout gridlayout = new GridLayout(2, 1);
+	//private GridLayout gridlayout = new GridLayout(2, 1);
 	
 	
 	public RiskGUI() {
 		
-		//this.setLayout(null);
-		//this.getContentPane().setBackground(Color.blue.brighter());
 		
-		this.setSize(300, 1000);
-		this.setLocation(-10,-35);
+		//Bild einlesen
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
+		ImageIcon mapIcon = new ImageIcon("assets\\risk-map.jpg");
+		Image map = mapIcon.getImage();
+		Image modmap = map.getScaledInstance(screenSize.width*8/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
+		mapIcon = new ImageIcon(modmap);
+		
+
+		controlfieldIcon = new ImageIcon("assets\\Velazquez-The_Surrender_of_Breda.jpg");
+		Image controlfieldImage = controlfieldIcon.getImage();
+		Image modControlfieldImage = controlfieldImage.getScaledInstance(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
+		controlfieldIcon = new ImageIcon(modControlfieldImage);
+
+		
+		panelMap = new JPanel();
+		panelCf = new JPanel();
+		
+		mapLabel = new JLabel(mapIcon);
+		//mapLabel.setBounds(0, 0, screenSize.width*8/10, screenSize.height);
+		controlfieldLabel = new JLabel (controlfieldIcon);
+		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 		
 		
-		image = new ImageIcon("assets\\Velazquez-The_Surrender_of_Breda.jpg");
-		controlBar = new JLabel(image);
-		this.add(controlBar);
+		panelMap.setPreferredSize(new Dimension(screenSize.width*8/10,screenSize.height));
+		panelCf.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
+
+
+		panelCf.setLayout(new BorderLayout());
+		
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu("M");
 		speichern = new JMenuItem("Speichern");
 		beenden = new JMenuItem("Beenden");
 		menuBar.setBackground(Color.lightGray);
-		menuBar.setBounds(0,0,50,30);
+		menuBar.setBounds(0,0,screenSize.width,30);
 		menu.add(speichern);
 		menu.add(beenden);
 		menuBar.add(menu);
-		this.setJMenuBar(menuBar);
+		
+		panelCf.add(menuBar, BorderLayout.NORTH);
+		
+		panelCf.setLayout(null);
 		
 		textAreaPlayerRequest = new JTextArea();
 		Color myColor = new Color(239,222,176);
 		textAreaPlayerRequest.setBounds(40, 30, 200, 40);
 		textAreaPlayerRequest.setBackground(myColor);
-		controlBar.add(textAreaPlayerRequest);
+		panelCf.add(textAreaPlayerRequest);
 		
 		button1 = new JButton("Knopf One");
 		button1.setBounds(90, 100, 100, 20);
 		button1.setBackground(Color.cyan.darker());
-		controlBar.add(button1);
+		panelCf.add(button1);
 		
 		button2 = new JButton("Knopf Two");
 		button2.setBounds(90, 160, 100, 20);
 		button2.setBackground(Color.cyan.darker());
-		controlBar.add(button2);
+		panelCf.add(button2);
 		
 		button3 = new JButton("Knopf Three");
 		button3.setBounds(90, 220, 100, 20);
 		button3.setBackground(Color.cyan.darker());
-		controlBar.add(button3);
+		panelCf.add(button3);
 		
 		button4 = new JButton("Knopf Four");
 		button4.setBounds(90, 280, 100, 20);
 		//button4.setBackground(Color.cyan.darker());
-		button4.setIcon(image);
+		button4.setIcon(mapIcon);
 		JLabel button4Text = new JLabel ("Hallo");
 		button4.add(button4Text);
-		controlBar.add(button4);
+		panelCf.add(button4);
 		
 		textAreaPlayerInformation = new JTextArea();
 		textAreaPlayerInformation.setBounds(30, 500, 220, 200);
 		textAreaPlayerInformation.setBackground(Color.RED.darker());
-		controlBar.add(textAreaPlayerInformation);
+		panelCf.add(textAreaPlayerInformation);
 		
 		anzeige = new JLabel("Anzeige");
 		anzeige.setBounds(0, 0, 100, 15);
-		controlBar.add(anzeige);
+		panelCf.add(anzeige);
 		
-		//this.setLayout(gridlayout);
+
+		//Bild auf Panel
+		panelMap.add(mapLabel);
+		panelCf.add(controlfieldLabel);
 		
-		/*panel1 = new JPanel();
-		panel2 = new JPanel();
-				
-		panel1.setLayout(new BorderLayout());
-		panel2.setLayout(new FlowLayout());
-		//panel1.setPreferredSize(new Dimension(300,20));
-				
-				
-		*/
-		
-		
-		
-		/*panel2.add(controlBar);
-		this.add(panel1);
-		this.add(panel2);*/
-	
+		//Panel auf JFrame
+		this.setLayout(new BorderLayout());
+		this.add(panelMap, BorderLayout.EAST);
+		this.add(panelCf,BorderLayout.WEST);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setUndecorated(true);
+		this.setVisible(true);
 	}
 	
 	

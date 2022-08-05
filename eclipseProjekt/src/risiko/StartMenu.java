@@ -6,7 +6,7 @@ public class StartMenu {
 
 	private JLabel startMenu;
 	
-	public StartMenu{
+	public StartMenu(){
 		
 		
 	}
