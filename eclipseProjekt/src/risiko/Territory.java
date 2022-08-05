@@ -9,10 +9,11 @@ public class Territory {
 	private String name;
 	private ArrayList<Territory> borderingTerritories;
 	private Player occupier;
+	private Continent continent; //vielleicht unnoetig
 	
-	Territory(String name, ArrayList<Territory> borderingTerritories){
+	Territory(String name){
 		this.name = name;
-		this.borderingTerritories = borderingTerritories;
+		this.borderingTerritories = new ArrayList<>();
 	}
 	
 	
@@ -28,8 +29,21 @@ public class Territory {
 		return occupier;
 	}
 
-	public void setBesetzer(Player occupier) {
+	public void setOccupier(Player occupier) {
 		this.occupier = occupier;
+	}
+	
+	public void setBorderingTerritories(ArrayList<Territory> territories) {
+		this.borderingTerritories = territories;
+	}
+
+	public Continent getContinent() {
+		return continent;
+	}
+
+
+	public void setContinent(Continent continent) {
+		this.continent = continent;
 	}
 	
 }

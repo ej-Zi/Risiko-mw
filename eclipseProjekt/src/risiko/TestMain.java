@@ -24,36 +24,15 @@ public class TestMain {
 		for(Player n : engine.getPlayers()) {
 			System.out.println(n.getName() + " " + n.getArmies());
 		}
+		
+		
+		System.out.println(engine.getTerritories().get(0).getBorderingTerritories().get(1).getName());
 
 		
 		
-		//Karte als Bild anzeigen:
-		File image = new File("assets\\risk-map.jpg");
-		BufferedImage map = null;
-		try {
-			map = ImageIO.read(image);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		//resize image: (muss im Verhältnis zur Bildschirmgröße angepasst werden)
-		try {
-		map = resizeImage(map, 1500, 1000);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
 		
 		
-		
-		
-		JLabel mapLabel = new JLabel(new ImageIcon(map));
-		JPanel jPanel = new JPanel();
-		jPanel.add(mapLabel);
 	
-		JFrame f = new JFrame();
-		f.setSize(new Dimension(map.getWidth(), map.getHeight()));
-		f.add(jPanel);
-		f.setVisible(true);
 		
 	}
 		//Bitte nicht loeschen:
