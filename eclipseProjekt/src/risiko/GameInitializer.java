@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class GameEngine { //Bezeichnung vielleicht noch ändern?; Konstruktor in Main aufrufen -> erstellt Spieler, Gebiete etc.
+public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; Konstruktor in Main aufrufen -> erstellt Spieler, Gebiete etc.
 
-	private static GameEngine instance = null;
 	private ArrayList<Territory> territories;
 	private ArrayList<Continent> continents;
 	private ArrayList<Player> players;
 	private ArrayList<String> namen;
 	private ArrayList<Card> cards;
 	
-	private GameEngine(int anzahlSpieler, ArrayList<String> namen) {
+	protected GameInitializer(int anzahlSpieler, ArrayList<String> namen) {
 		
 		this.namen = namen;
 		//-----Spieler erstellen-----
@@ -180,12 +179,7 @@ public class GameEngine { //Bezeichnung vielleicht noch ändern?; Konstruktor in
 		
 	}
 	
-	public static GameEngine getInstance(int anzahlSpieler, ArrayList<String> namen) {
-		if(instance == null) {
-			instance =  new GameEngine(anzahlSpieler, namen);
-		}
-		return instance;
-	}
+	
 
 	public ArrayList<Player> getPlayers() {
 		return players;

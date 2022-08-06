@@ -19,7 +19,7 @@ public class TestMain {
 		
 		
 		ArrayList<String> namen = new ArrayList<String>( Arrays.asList("Lord", "Ladada", "X2", "hallo"));
-		GameEngine engine = GameEngine.getInstance(4, namen);
+		Game engine = Game.getInstance(4, namen);
 		
 		
 		for(Territory t : engine.getPlayers().get(0).getOccupiedTerritories()) {
