@@ -6,8 +6,8 @@ public class Player {
 
 	private String name;
 	private int armies;
-	public ArrayList<Territory> occupiedTerritories;
-	public ArrayList<Card> cardsInHand;
+	private ArrayList<Territory> occupiedTerritories;
+	private ArrayList<Card> cardsInHand;
 	
 	Player(String name, int armies){
 		this.name = name;
@@ -23,7 +23,16 @@ public class Player {
 	public String getName() {
 		return name;
 	}
+
+	public ArrayList<Territory> getOccupiedTerritories() {
+		return occupiedTerritories;
+	}
+
+	public void setOccupiedTerritories(ArrayList<Territory> occupiedTerritories) {
+		this.occupiedTerritories = occupiedTerritories;
+	}
 	
+
 	
 	
 	

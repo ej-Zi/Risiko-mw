@@ -2,6 +2,7 @@ package risiko;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class GameEngine { //Bezeichnung vielleicht noch ändern?; Konstruktor in Main aufrufen -> erstellt Spieler, Gebiete etc.
 
@@ -10,6 +11,7 @@ public class GameEngine { //Bezeichnung vielleicht noch ändern?; Konstruktor in
 	private ArrayList<Continent> continents;
 	private ArrayList<Player> players;
 	private ArrayList<String> namen;
+	private ArrayList<Card> cards;
 	
 	private GameEngine(int anzahlSpieler, ArrayList<String> namen) {
 		
@@ -159,6 +161,22 @@ public class GameEngine { //Bezeichnung vielleicht noch ändern?; Konstruktor in
 		boria.setBorderingTerritories(new ArrayList<Territory>( Arrays.asList(easternAlgos, aroya)));
 		
 		
+		//Karten erstellen:
+		this.cards = new ArrayList<>(44);
+		String[] symbols = {"Infanterie", "Artillerie", "Kavallerie"};
+		for(int i = 0; i < 42; i++) {
+			this.cards.add(new Card(this.territories.get(i).getName(), symbols[i % 3]));
+		}
+		symbols = null;
+		for(int i = 0; i < 2; i++) {
+			this.cards.add(new Card("Joker", "Joker"));
+		}
+		
+		//Spielern Territorien zuordnen:
+		this.setStartingTerritories();
+
+		
+		
 		
 	}
 	
@@ -188,5 +206,102 @@ public class GameEngine { //Bezeichnung vielleicht noch ändern?; Konstruktor in
 	public ArrayList<Territory> getTerritories(){
 		return this.territories;
 	}
+	
+	public ArrayList<Card> getCards(){
+		return cards;
+	}
+	
+	private void setStartingTerritories() {
+		Random random = new Random();
+		ArrayList<ArrayList<Territory>> assignedTerritories = new ArrayList<>();
+		for(int i = 0; i < this.players.size(); i++) {
+			assignedTerritories.add(new ArrayList<Territory>());
+		}
+		
+		if(this.players.size() == 2 || this.players.size() == 3) {
+			for(ArrayList<Territory> list : assignedTerritories) {
+				while(list.size() < (42 / this.players.size())) {
+					int randomNumber = random.nextInt(42);
+					boolean available = true;
+					for(ArrayList<Territory> list2 : assignedTerritories) {
+						if(list2.contains(this.territories.get(randomNumber))) {
+							available = false;
+						}
+					}
+					if(available){
+						list.add(this.territories.get(randomNumber));
+					}
+				}
+			}
+		}else if(this.players.size() == 4) {
+			for(int i = 0; i < 2; i++) {
+				while(assignedTerritories.get(i).size() < 11) {
+					int randomNumber = random.nextInt(42);
+					boolean available = true;
+					for(ArrayList<Territory> list2 : assignedTerritories) {
+						if(list2.contains(this.territories.get(randomNumber))) {
+							available = false;
+						}
+					}
+					if(available){
+						assignedTerritories.get(i).add(this.territories.get(randomNumber));
+					}
+				}
+			}
+			
+			for(int i = 2; i < 4; i++) {
+				while(assignedTerritories.get(i).size() < 10) {
+					int randomNumber = random.nextInt(42);
+					boolean available = true;
+					for(ArrayList<Territory> list2 : assignedTerritories) {
+						if(list2.contains(this.territories.get(randomNumber))) {
+							available = false;
+						}
+					}
+					if(available){
+						assignedTerritories.get(i).add(this.territories.get(randomNumber));
+					}
+				}
+			}
+		}else if(this.players.size() == 5) {
+			for(int i = 0; i < 2; i++) {
+				while(assignedTerritories.get(i).size() < 9) {
+					int randomNumber = random.nextInt(42);
+					boolean available = true;
+					for(ArrayList<Territory> list2 : assignedTerritories) {
+						if(list2.contains(this.territories.get(randomNumber))) {
+							available = false;
+						}
+					}
+					if(available){
+						assignedTerritories.get(i).add(this.territories.get(randomNumber));
+					}
+				}
+			}
+			
+			for(int i = 2; i < 5; i++) {
+				while(assignedTerritories.get(i).size() < 8) {
+					int randomNumber = random.nextInt(42);
+					boolean available = true;
+					for(ArrayList<Territory> list2 : assignedTerritories) {
+						if(list2.contains(this.territories.get(randomNumber))) {
+							available = false;
+						}
+					}
+					if(available){
+						assignedTerritories.get(i).add(this.territories.get(randomNumber));
+					}
+				}
+			}
+		}
+		
+		for(int i = 0; i < this.players.size(); i++) {
+			this.players.get(i).setOccupiedTerritories(assignedTerritories.get(i));
+		}
+	}
+	
+	
+	
+	
 	
 }

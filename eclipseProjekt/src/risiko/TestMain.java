@@ -19,17 +19,27 @@ public class TestMain {
 		
 		
 		ArrayList<String> namen = new ArrayList<String>( Arrays.asList("Lord", "Ladada", "X2", "hallo"));
-		GameEngine engine = GameEngine.getInstance(3, namen);
+		GameEngine engine = GameEngine.getInstance(4, namen);
 		
-		for(Player n : engine.getPlayers()) {
-			System.out.println(n.getName() + " " + n.getArmies());
+		
+		for(Territory t : engine.getPlayers().get(0).getOccupiedTerritories()) {
+			System.out.println(t.getName());
+		}
+		System.out.println();
+		
+		for(Territory t : engine.getPlayers().get(1).getOccupiedTerritories()) {
+			System.out.println(t.getName());
+		}
+		System.out.println();
+		
+		for(Territory t : engine.getPlayers().get(2).getOccupiedTerritories()) {
+			System.out.println(t.getName());
 		}
 		
-		
-		System.out.println(engine.getTerritories().get(0).getBorderingTerritories().get(1).getName());
-
-		
-		
+		System.out.println();
+		for(Territory t : engine.getPlayers().get(3).getOccupiedTerritories()) {
+			System.out.println(t.getName());
+		}
 		
 		
 	
