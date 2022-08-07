@@ -21,26 +21,21 @@ public class TestMain {
 		ArrayList<String> namen = new ArrayList<String>( Arrays.asList("Lord", "Ladada", "X2", "hallo"));
 		Game engine = Game.getInstance(4, namen);
 		
-		
-		for(Territory t : engine.getPlayers().get(0).getOccupiedTerritories()) {
-			System.out.println(t.getName());
-		}
-		System.out.println();
-		
-		for(Territory t : engine.getPlayers().get(1).getOccupiedTerritories()) {
-			System.out.println(t.getName());
-		}
-		System.out.println();
-		
-		for(Territory t : engine.getPlayers().get(2).getOccupiedTerritories()) {
-			System.out.println(t.getName());
+		for(int i = 0; i < 10; i++) {
+			engine.drawCard(engine.getPlayers().get(0));
 		}
 		
-		System.out.println();
-		for(Territory t : engine.getPlayers().get(3).getOccupiedTerritories()) {
-			System.out.println(t.getName());
-		}
 		
+		for(Card c : engine.getPlayers().get(0).getCardsInHand()) {
+			System.out.println(c.getTerritory().getName() + " " + c.getSymbol());
+		}
+		System.out.println("-----------------------");
+		
+		engine.tradeCards(engine.getPlayers().get(0), engine.getPlayers().get(0).getCardsInHand().get(0), engine.getPlayers().get(0).getCardsInHand().get(1), engine.getPlayers().get(0).getCardsInHand().get(2));
+		
+		for(Card c : engine.getPlayers().get(0).getCardsInHand()) {
+			System.out.println(c.getTerritory().getName() + " " + c.getSymbol());
+		}
 		
 	
 		

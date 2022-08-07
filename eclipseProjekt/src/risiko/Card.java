@@ -2,15 +2,15 @@ package risiko;
 
 public class Card {
 	
-	private String territory;
+	private Territory territory;
 	private String symbol;
 	
-	Card(String territory, String symbol){
+	Card(Territory territory, String symbol){
 		this.territory = territory;
 		this.symbol = symbol;
 	}
 	
-	public String getTerritory() {
+	public Territory getTerritory() {
 		return territory;
 	}
 

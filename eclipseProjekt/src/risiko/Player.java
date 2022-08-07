@@ -12,6 +12,7 @@ public class Player {
 	Player(String name, int armies){
 		this.name = name;
 		this.armies = armies;
+		this.cardsInHand = new ArrayList<>();
 	}
 	
 	public int getArmies() {
@@ -30,6 +31,13 @@ public class Player {
 
 	public void setOccupiedTerritories(ArrayList<Territory> occupiedTerritories) {
 		this.occupiedTerritories = occupiedTerritories;
+		for(Territory t : occupiedTerritories) {
+			t.setOccupier(this);
+		}
+	}
+	
+	public ArrayList<Card> getCardsInHand(){
+		return cardsInHand;
 	}
 	
 

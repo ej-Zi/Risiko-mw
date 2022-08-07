@@ -6,11 +6,11 @@ import java.util.Random;
 
 public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; Konstruktor in Main aufrufen -> erstellt Spieler, Gebiete etc.
 
-	private ArrayList<Territory> territories;
-	private ArrayList<Continent> continents;
-	private ArrayList<Player> players;
-	private ArrayList<String> namen;
-	private ArrayList<Card> cards;
+	protected ArrayList<Territory> territories;
+	protected ArrayList<Continent> continents;
+	protected ArrayList<Player> players;
+	protected ArrayList<String> namen;
+	protected ArrayList<Card> cards;
 	
 	protected GameInitializer(int anzahlSpieler, ArrayList<String> namen) {
 		
@@ -161,14 +161,15 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 		
 		
 		//Karten erstellen:
+		Territory dummy = new Territory("Joker");
 		this.cards = new ArrayList<>(44);
 		String[] symbols = {"Infanterie", "Artillerie", "Kavallerie"};
 		for(int i = 0; i < 42; i++) {
-			this.cards.add(new Card(this.territories.get(i).getName(), symbols[i % 3]));
+			this.cards.add(new Card(this.territories.get(i), symbols[i % 3]));
 		}
 		symbols = null;
 		for(int i = 0; i < 2; i++) {
-			this.cards.add(new Card("Joker", "Joker"));
+			this.cards.add(new Card(dummy, "Joker"));
 		}
 		
 		//Spielern Territorien zuordnen:
