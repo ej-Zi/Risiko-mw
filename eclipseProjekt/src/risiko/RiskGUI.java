@@ -2,12 +2,18 @@ package risiko;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Transparency;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,18 +24,18 @@ import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 
-public class RiskGUI extends JFrame {
+
+
+public class RiskGUI extends JFrame implements MouseListener{
 	
-	//private JFrame jframe = new JFrame();
 	private JPanel panelMap;
 	private JPanel panelCf;
 	private JLabel mapLabel;	
 	
 	private JLabel controlfieldLabel;
-	private JLabel anzeige;
-	private ImageIcon controlfieldIcon;
-	
+	private JLabel anzeige;	
 	
 	private JMenuBar menuBar;
 	private JMenu menu;
@@ -44,37 +50,51 @@ public class RiskGUI extends JFrame {
 	private JButton button3;
 	private JButton button4;
 	
-	
-	
-	//private JPanel panel1;
-	//private JPanel panel2;
-	
-	
-	//private GridLayout gridlayout = new GridLayout(2, 1);
-	
+	private int xpos;
+	private int ypos;
 	
 	public RiskGUI() {
 		
-		
-		//Bild einlesen
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
+		
+		//Bilder einlesen
 		ImageIcon mapIcon = new ImageIcon("assets\\risk-map.jpg");
 		Image map = mapIcon.getImage();
-		Image modmap = map.getScaledInstance(screenSize.width*8/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
+		Image modmap = map.getScaledInstance
+				(screenSize.width*8/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
 		mapIcon = new ImageIcon(modmap);
 		
+		File input = new File("assets\\risk-pos-map1.png");
+        BufferedImage image = null;
+		try {
+			image = ImageIO.read(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		image = (BufferedImage) image.getScaledInstance
+				(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
 
-		controlfieldIcon = new ImageIcon("assets\\Velazquez-The_Surrender_of_Breda.jpg");
+		ImageIcon controlfieldIcon = new ImageIcon
+				("assets\\Velazquez-The_Surrender_of_Breda.jpg");
 		Image controlfieldImage = controlfieldIcon.getImage();
-		Image modControlfieldImage = controlfieldImage.getScaledInstance(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
+		Image modControlfieldImage = controlfieldImage.getScaledInstance
+				(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
 		controlfieldIcon = new ImageIcon(modControlfieldImage);
 
 		
 		panelMap = new JPanel();
 		panelCf = new JPanel();
+		panelMap.addMouseListener(this);
+
+		int colImage = image.getRGB(xpos,ypos);
+		System.out.println(colImage);
+
+		//-------------------------TEST--------------------
 		
 		mapLabel = new JLabel(mapIcon);
-		//mapLabel.setBounds(0, 0, screenSize.width*8/10, screenSize.height);
+		mapLabel.setLayout(null);
+		mapLabel.setBounds(20, 20, screenSize.width*8/10, screenSize.height);
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 		
@@ -138,19 +158,48 @@ public class RiskGUI extends JFrame {
 		anzeige.setBounds(0, 0, 100, 15);
 		panelCf.add(anzeige);
 		
-
-		//Bild auf Panel
-		panelMap.add(mapLabel);
-		panelCf.add(controlfieldLabel);
 		
+		//Bild auf Panel
+		panelMap.setBorder(null);
+		//panelMap.add(mapLabel);
+		panelCf.add(controlfieldLabel);
+		panelMap.setBackground(myColor);
 		//Panel auf JFrame
-		this.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout(0,200));
 		this.add(panelMap, BorderLayout.EAST);
 		this.add(panelCf,BorderLayout.WEST);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setUndecorated(true);
 		this.setVisible(true);
 	}
-	
-	
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		xpos = e.getX();
+		ypos = e.getY();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}	
 }
