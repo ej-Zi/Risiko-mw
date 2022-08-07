@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -32,10 +33,11 @@ public class RiskGUI extends JFrame implements MouseListener{
 	
 	private JPanel panelMap;
 	private JPanel panelCf;
-	private JLabel mapLabel;	
 	
+	private JLabel mapLabel;	
 	private JLabel controlfieldLabel;
 	private JLabel anzeige;	
+	private JLabel posLabel;
 	
 	private JMenuBar menuBar;
 	private JMenu menu;
@@ -50,12 +52,13 @@ public class RiskGUI extends JFrame implements MouseListener{
 	private JButton button3;
 	private JButton button4;
 	
-	private int xpos;
-	private int ypos;
+	private int rgb;
+	private BufferedImage posBuffImage;
+	private Dimension screenSize;
 	
 	public RiskGUI() {
 		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		//Bilder einlesen
 		ImageIcon mapIcon = new ImageIcon("assets\\risk-map.jpg");
@@ -63,18 +66,7 @@ public class RiskGUI extends JFrame implements MouseListener{
 		Image modmap = map.getScaledInstance
 				(screenSize.width*8/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
 		mapIcon = new ImageIcon(modmap);
-		
-		File input = new File("assets\\risk-pos-map1.png");
-        BufferedImage image = null;
-		try {
-			image = ImageIO.read(input);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		image = (BufferedImage) image.getScaledInstance
-				(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
-
+				
 		ImageIcon controlfieldIcon = new ImageIcon
 				("assets\\Velazquez-The_Surrender_of_Breda.jpg");
 		Image controlfieldImage = controlfieldIcon.getImage();
@@ -82,29 +74,28 @@ public class RiskGUI extends JFrame implements MouseListener{
 				(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
 		controlfieldIcon = new ImageIcon(modControlfieldImage);
 
+		File input = new File("assets\\risk-pos-map1.png");
+		try {
+			posBuffImage = ImageIO.read(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		//Panel anpassen
 		panelMap = new JPanel();
 		panelCf = new JPanel();
 		panelMap.addMouseListener(this);
-
-		int colImage = image.getRGB(xpos,ypos);
-		System.out.println(colImage);
-
-		//-------------------------TEST--------------------
-		
+				
 		mapLabel = new JLabel(mapIcon);
 		mapLabel.setLayout(null);
 		mapLabel.setBounds(20, 20, screenSize.width*8/10, screenSize.height);
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 		
-		
 		panelMap.setPreferredSize(new Dimension(screenSize.width*8/10,screenSize.height));
 		panelCf.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
-
-
 		panelCf.setLayout(new BorderLayout());
-		
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu("M");
@@ -158,11 +149,11 @@ public class RiskGUI extends JFrame implements MouseListener{
 		anzeige.setBounds(0, 0, 100, 15);
 		panelCf.add(anzeige);
 		
-		
 		//Bild auf Panel
 		panelMap.setBorder(null);
 		//panelMap.add(mapLabel);
 		panelCf.add(controlfieldLabel);
+		panelMap.add(mapLabel);
 		panelMap.setBackground(myColor);
 		//Panel auf JFrame
 		this.setLayout(new BorderLayout(0,200));
@@ -173,10 +164,14 @@ public class RiskGUI extends JFrame implements MouseListener{
 		this.setVisible(true);
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent e) {
-		xpos = e.getX();
-		ypos = e.getY();
+		
+		int posX = posBuffImage.getWidth()* e.getX()/(screenSize.width*8/10);
+		int posY = posBuffImage.getHeight()*e.getY()/screenSize.height;
+		
+		rgb = posBuffImage.getRGB(posX, posY);	
+		Color col = new Color(rgb);
+		panelMap.setBackground(col);
 	}
 
 	@Override
@@ -201,5 +196,5 @@ public class RiskGUI extends JFrame implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
 }
