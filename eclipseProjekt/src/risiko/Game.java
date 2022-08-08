@@ -7,10 +7,14 @@ public class Game extends GameInitializer {
 
 	private static Game instance = null;
 	private static int cardSetCount;
+	private static ArrayList<Territory> tmp; //benutzt fuer Wegsuche beim verschieben
+	private static boolean valid;
 	
 	private Game(int anzahlSpieler, ArrayList<String> namen) {
 		super(anzahlSpieler, namen);
 		cardSetCount = 0;
+		tmp = new ArrayList<>();
+		valid = false;
 	}
 
 	public static Game getInstance(int anzahlSpieler, ArrayList<String> namen) {
@@ -84,6 +88,72 @@ public class Game extends GameInitializer {
 		}else {
 			return false;
 		}
+	}
+	
+	//Armee setzen
+	public boolean placeArmies(Player player, Territory territory, int amount) {
+		if((player.getArmies() - amount) > 0) {
+			territory.setArmiesOnTerritory(territory.getArmiesOnTerritory() + amount);
+			player.setArmies(player.getArmies() - amount);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//Armeen verschieben
+	public boolean moveArmies(Player player, Territory start, Territory destination, int amount) {
+		if(start.getArmiesOnTerritory() - amount > 0 && movePossible(player, start, destination)) {
+			valid = false; tmp.clear();
+			start.setArmiesOnTerritory(start.getArmiesOnTerritory() - amount);
+			destination.setArmiesOnTerritory(destination.getArmiesOnTerritory() + amount);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	//TODO private machen, wenn mit testen fertig
+	public boolean movePossible(Player player, Territory start, Territory destination) {
+		tmp.add(destination);
+		if(start.getOccupier() == player) {
+			for(Territory t : destination.getBorderingTerritories()) {
+				if(t.getOccupier() == player) {
+					if(t == start) {
+						valid = true;
+					}else if(!tmp.contains(t)){
+						movePossible(player, start, t);
+					}
+				}
+			}
+			return valid;
+		}else {
+			return false;
+		}
+	}
+	
+	//Armeen erhalten in Nachschubphase/Verstaerkungsphase:
+	public void recruiting(Player player) {
+		int numberOfArmies;
+		numberOfArmies = player.getOccupiedTerritories().size()/3;
+		if(numberOfArmies < 3) {
+			numberOfArmies = 3;
+		}
+		for(Continent c : this.continents) {
+			if(occupiesContinent(player, c)) {
+				numberOfArmies = numberOfArmies + c.getBonusArmies();
+			}
+		}
+		player.setArmies(player.getArmies() + numberOfArmies);
+	}
+	
+	//besetzt gesamten Kontinent
+	private boolean occupiesContinent(Player player, Continent continent) {
+		for(Territory t : continent.getTerritoriesOnContinent()) {
+			if(!player.getOccupiedTerritories().contains(t)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

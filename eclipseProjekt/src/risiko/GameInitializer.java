@@ -42,7 +42,6 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 		case 5:
 			this.players = new ArrayList<>(5);
 			startingArmies = 25;
-			System.out.println("case 5");
 			for(int i = 0; i < 5; i++) {
 				this.players.add(new Player(this.namen.get(i), startingArmies));
 			}
@@ -62,58 +61,58 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 		//-----Territorien erstellen-----
 		this.territories = new ArrayList<>(42);
 		//Schataria
-		Territory shalathra = createTerritory("Shalathra", 0);
-		Territory northernSchataria = createTerritory("Northern Schataria", 0);
-		Territory azealon = createTerritory("Azealon", 0);
-		Territory travaria = createTerritory("Travaria", 0);
-		Territory northValoran = createTerritory("North Valoran", 0);
-		Territory southValoran = createTerritory("South Valoran", 0);
-		Territory wraithilles = createTerritory("Wraithilles", 0);
-		Territory terrafen = createTerritory("Terrafen", 0);
-		Territory theKingdomOfSun = createTerritory("The Kingdom of Sun", 0);
+		Territory shalathra = createTerritory("Shalathra", 0);//0
+		Territory northernSchataria = createTerritory("Northern Schataria", 0);//1
+		Territory azealon = createTerritory("Azealon", 0);//2
+		Territory travaria = createTerritory("Travaria", 0);//3
+		Territory northValoran = createTerritory("North Valoran", 0);//4
+		Territory southValoran = createTerritory("South Valoran", 0);//5
+		Territory wraithilles = createTerritory("Wraithilles", 0);//6
+		Territory terrafen = createTerritory("Terrafen", 0);//7
+		Territory theKingdomOfSun = createTerritory("The Kingdom of Sun", 0);//8
 		
 		//Arillia
-		Territory drakeland = createTerritory("Drakeland", 1);
-		Territory ssizara = createTerritory("Ssizara", 1);
-		Territory azissa = createTerritory("Azissa", 1);
-		Territory shajera = createTerritory("Shajera", 1);
-		Territory myridia = createTerritory("Myridia", 1);
-		Territory inghal = createTerritory("Inghal", 1);
-		Territory westernArillia = createTerritory("Western Arillia", 1);
-		Territory southernArillia = createTerritory("Southern Arillia", 1);
-		Territory dreadmarch = createTerritory("Dreadmarch", 1);
-		Territory druhm = createTerritory("Druhm", 1);
-		Territory aroya = createTerritory("Aroya", 1);
-		Territory azureKingdom = createTerritory("Azure Kingdom", 1);
+		Territory drakeland = createTerritory("Drakeland", 1);//9
+		Territory ssizara = createTerritory("Ssizara", 1);//10
+		Territory azissa = createTerritory("Azissa", 1);//11
+		Territory shajera = createTerritory("Shajera", 1);//12
+		Territory myridia = createTerritory("Myridia", 1);//13
+		Territory inghal = createTerritory("Inghal", 1);//14
+		Territory westernArillia = createTerritory("Western Arillia", 1);//15
+		Territory southernArillia = createTerritory("Southern Arillia", 1);//16
+		Territory dreadmarch = createTerritory("Dreadmarch", 1);//17
+		Territory druhm = createTerritory("Druhm", 1);//18
+		Territory aroya = createTerritory("Aroya", 1);//19
+		Territory azureKingdom = createTerritory("Azure Kingdom", 1);//20
 		
 		//Gilacia
-		Territory gilacianIsles = createTerritory("Gilacian Isles", 2); 
-		Territory whiteTundra = createTerritory("White Tundra", 2);
-		Territory glice = createTerritory("Glice", 2);
-		Territory fridigia = createTerritory("Fridigia", 2);
+		Territory gilacianIsles = createTerritory("Gilacian Isles", 2); //21
+		Territory whiteTundra = createTerritory("White Tundra", 2);//22
+		Territory glice = createTerritory("Glice", 2);//23
+		Territory fridigia = createTerritory("Fridigia", 2);//24
 		
 		//Urza
-		Territory uria = createTerritory("Uria", 3);
-		Territory lunador = createTerritory("Lunador", 3);
-		Territory veylor = createTerritory("Veylor", 3);
-		Territory solador = createTerritory("Solador", 3);
-		Territory centralUrza = createTerritory("Central Urza", 3);
-		Territory glendara = createTerritory("Glendara", 3);
-		Territory easternUrza = createTerritory("Eastern Urza", 3);
+		Territory uria = createTerritory("Uria", 3);//25
+		Territory lunador = createTerritory("Lunador", 3);//26
+		Territory veylor = createTerritory("Veylor", 3);//27
+		Territory solador = createTerritory("Solador", 3);//28
+		Territory centralUrza = createTerritory("Central Urza", 3);//29
+		Territory glendara = createTerritory("Glendara", 3);//30
+		Territory easternUrza = createTerritory("Eastern Urza", 3);//31
 		
 		//Arlas
-		Territory northernArlas = createTerritory("Northern Arlas", 4);
-		Territory hagros = createTerritory("Hagros", 4);
-		Territory arlasBarrens = createTerritory("Arlas Barrens", 4);
-		Territory zeish = createTerritory("Zeish", 4);
-		Territory agashar = createTerritory("Agashar", 4);
-		Territory southernArlas = createTerritory("Southern Arlas", 4);
+		Territory northernArlas = createTerritory("Northern Arlas", 4);//32
+		Territory hagros = createTerritory("Hagros", 4);//33
+		Territory arlasBarrens = createTerritory("Arlas Barrens", 4);//34
+		Territory zeish = createTerritory("Zeish", 4);//35
+		Territory agashar = createTerritory("Agashar", 4);//36
+		Territory southernArlas = createTerritory("Southern Arlas", 4);//37
 		
 		//Algos
-		Territory velis = createTerritory("Velis", 5);
-		Territory westernAlgos = createTerritory("Western Algos", 5);
-		Territory easternAlgos = createTerritory("Eastern Algos", 5);
-		Territory boria = createTerritory("Boria", 5);
+		Territory velis = createTerritory("Velis", 5);//38
+		Territory westernAlgos = createTerritory("Western Algos", 5);//39
+		Territory easternAlgos = createTerritory("Eastern Algos", 5);//40
+		Territory boria = createTerritory("Boria", 5);//41
 		
 		//set borderingTerritories
 		shalathra.setBorderingTerritories(new ArrayList<Territory>( Arrays.asList(northernSchataria, azealon, lunador)));

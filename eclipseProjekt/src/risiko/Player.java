@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
 
 	private String name;
-	private int armies;
+	private int armies; //nicht auf Karte verteilte Armeen
 	private ArrayList<Territory> occupiedTerritories;
 	private ArrayList<Card> cardsInHand;
 	
