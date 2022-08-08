@@ -25,6 +25,8 @@ public class TestMain {
 	public static void main(String[] args) {
 		
 		RiskGUI view = new RiskGUI();
+		view.enableChooseTerritory();
+		view.addCoatToMap(2);
 		view.setVisible(true);
 		//Karte als Bild anzeigen:
 		/*File image = new File("assets\\Risiko-Karte.jpg");
