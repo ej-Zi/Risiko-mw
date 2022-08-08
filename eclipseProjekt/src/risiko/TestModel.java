@@ -26,7 +26,7 @@ public class TestModel {
 		System.out.println(game.movePossible(game.getPlayers().get(0), game.getTerritories().get(indexStart)
 				,game.getTerritories().get(indexZiel)));
 		
-		
+		input.close();
 		
 	}
 

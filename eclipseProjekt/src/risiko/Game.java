@@ -92,7 +92,7 @@ public class Game extends GameInitializer {
 	
 	//Armee setzen
 	public boolean placeArmies(Player player, Territory territory, int amount) {
-		if((player.getArmies() - amount) > 0) {
+		if((player.getArmies() - amount) > 0 && territory.getOccupier() == player) {
 			territory.setArmiesOnTerritory(territory.getArmiesOnTerritory() + amount);
 			player.setArmies(player.getArmies() - amount);
 			return true;
@@ -115,7 +115,7 @@ public class Game extends GameInitializer {
 	//TODO private machen, wenn mit testen fertig
 	public boolean movePossible(Player player, Territory start, Territory destination) {
 		tmp.add(destination);
-		if(start.getOccupier() == player) {
+		if(start.getOccupier() == player && destination.getOccupier() == player) {
 			for(Territory t : destination.getBorderingTerritories()) {
 				if(t.getOccupier() == player) {
 					if(t == start) {
