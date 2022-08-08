@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -41,8 +43,7 @@ public class TestMain {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}*/
-		
-		
+
 //		TestMain testmain = new TestMain();
 //		testmain.view.setVisible(true);
 		
@@ -50,13 +51,9 @@ public class TestMain {
 		JPanel jPanel = new JPanel();
 		jPanel.add(mapLabel);
 	
-		JFrame f = new JFrame();
-		f.setSize(new Dimension(map.getWidth(), map.getHeight()));
-		f.add(jPanel);
-		f.setVisible(true);
 		
 	}
-		//Bitte nicht löschen:
+		//Bitte nicht loeschen:
 	    public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
 			Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
 			BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
@@ -66,5 +63,4 @@ public class TestMain {
 	 }
 	    
 }
-
 
