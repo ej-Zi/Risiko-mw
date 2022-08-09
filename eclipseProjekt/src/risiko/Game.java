@@ -219,6 +219,9 @@ public class Game extends GameInitializer {
 			return false;
 		}
 	}
+	public void removePlayer(Player player) {
+		this.players.remove(player);
+	}
 	
 	//Sieg: (nach jedem Besiegen eines Spielers aufrufen)
 	public boolean victory(Player player) {
@@ -233,7 +236,7 @@ public class Game extends GameInitializer {
 }
 
 
-
+//TODO Funktionen ueberarbeiten basierend auf Abfragen Struktur im Controller
 
 
 
