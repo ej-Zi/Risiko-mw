@@ -1,6 +1,8 @@
 package risiko;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 public class Game extends GameInitializer {
@@ -145,7 +147,6 @@ public class Game extends GameInitializer {
 		}
 		player.setArmies(player.getArmies() + numberOfArmies);
 	}
-	
 	//besetzt gesamten Kontinent
 	private boolean occupiesContinent(Player player, Continent continent) {
 		for(Territory t : continent.getTerritoriesOnContinent()) {
@@ -156,4 +157,88 @@ public class Game extends GameInitializer {
 		return true;
 	}
 	
+	//Angriff: returns Liste mit gewuerfelten Zahlen wenn erfolgreich (attacker index 0, defender index 1), sonst returns null
+	public ArrayList<Integer[]> attack(Player attacker, int armies, Territory start, Territory target){
+		if(start.getOccupier() == attacker && target.getOccupier() != attacker && start.getBorderingTerritories().contains(target)) {
+			Random random = new Random();
+			ArrayList<Integer[]> dice = new ArrayList<>(2);
+			start.setArmiesOnTerritory(start.getArmiesOnTerritory() - armies);
+			
+			Integer[] diceDefender = new Integer[Math.min(2, target.getArmiesOnTerritory())];
+			Integer[] diceAttacker = new Integer[Math.min(3, armies)];
+			
+			//Wuerfeln
+			for(int i = 0; i < target.getArmiesOnTerritory() && i < 2; i++) {
+				diceDefender[i] = random.nextInt(5) + 1;
+			}
+			for(int i = 0; i < armies && i < 3; i++) {
+				diceAttacker[i] = random.nextInt(5) + 1;
+			}
+			
+			//Wuerfel absteigend sortieren:
+			Arrays.sort(diceDefender, Collections.reverseOrder());
+			Arrays.sort(diceAttacker, Collections.reverseOrder());
+			
+			dice.add(diceAttacker);
+			dice.add(diceDefender);
+			
+			//Armeen abziehen:
+			for(int i = 0; i < Math.min(diceDefender.length, diceAttacker.length); i++) {
+				if(diceDefender[i] >= diceAttacker[i]) {
+					armies -= 1;
+				}else {
+					target.setArmiesOnTerritory(target.getArmiesOnTerritory() -1 );
+				}
+			}
+			start.setArmiesOnTerritory(start.getArmiesOnTerritory() + armies);
+			return dice;
+		}else {
+			return null;
+		}
+	}
+	
+	//Land erobert: (nach jedem Angriff aufrufen)
+	public boolean territoryConquered(Player attacker, Territory target) {
+		if(target.getArmiesOnTerritory() == 0) {
+			target.setOccupier(attacker);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//Spieler besiegt: (nach jeder erfolgreichen Eroberung aufrufen)
+	public boolean playerDefeated(Player attacker, Player defender) {
+		if(defender.getOccupiedTerritories().isEmpty()) {
+			for(int i = 0; i < defender.getCardsInHand().size(); i++) {
+				attacker.getCardsInHand().add(defender.getCardsInHand().get(i));
+			}
+			defender.getCardsInHand().clear();
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//Sieg: (nach jedem Besiegen eines Spielers aufrufen)
+	public boolean victory(Player player) {
+		for(Territory t : this.territories) {
+			if(t.getOccupier() != player) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -11,7 +11,7 @@
 - Eine Einheit auf jedes Gebiet, dann nacheinander Einheiten verteilen bis alle Starteinheiten aufgebraucht sind.
 
 
-## Die 3 Phasen ##
+## Die 3(4) Phasen ##
 
 ~~~Nachschubphase/Verstärkungsphase~~~
 -> neue Einheiten bekommen
@@ -20,16 +20,7 @@
 - Spieler erhält bei gesamten besetztem Kontinent Bonus Einheiten des Kontinents (Bonus ist festgelegt)
 
 - Gebietskarten eintauschen:
-	- Tausch möglich bei 3 gleichen Symbolen oder 3 verschiedenen Symbolen (bei möglichem Tausch wird Tausch erzwungen)
-	- Zu erhaltende Einheiten:
-		Nummer Kartensatz		Einheiten
-			1.				4
-			2.				6
-			3.				8
-			4.				10
-			5.				12
-			6.				15
-	- wenn ein Gebiet der eingetauschten Karten in Besitz: 2 Bonuseinheiten
+	
 
 ~~~Eroberungsphase/Angriffsphase~~~
 - beliebiges angrenzendes Gebiet kann angegriffen werden, höchstens 3 Einheiten, mind. eine Einheit muss im Angriffsgebiet verbleiben
@@ -41,6 +32,18 @@
 
 - Phasenende:
 	bei mind. einer gewonnen Schlacht: Spieler zieht eine Gebietskarte; wenn Kartentausch möglich, muss sofort getauscht werden
+
+~~~Kartentausch~~~
+	- Tausch möglich bei 3 gleichen Symbolen oder 3 verschiedenen Symbolen (bei möglichem Tausch wird Tausch erzwungen)
+	- Zu erhaltende Einheiten:
+		Nummer Kartensatz		Einheiten
+			1.				4
+			2.				6
+			3.				8
+			4.				10
+			5.				12
+			6.				15
+	- wenn ein Gebiet der eingetauschten Karten in Besitz: 2 Bonuseinheiten
 
 ~~~Ziehen/Verschieben~~~
 -> Einheiten können in andere Gebiete verschoben werden, es darf nur über eigene Grenzen gegangen werden
