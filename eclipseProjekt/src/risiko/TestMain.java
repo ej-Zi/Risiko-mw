@@ -27,11 +27,11 @@ public class TestMain {
 		RiskGUI view = new RiskGUI();
 		view.setVisible(true);
 		
-		IntroGUI view2 = new IntroGUI();
-		view2.setVisible(true);
+		//IntroGUI view2 = new IntroGUI();
+		//view2.setVisible(true);
 		
-		StartMenuGUI view3 = new StartMenuGUI();
-		view3.setVisible(true);
+		//StartMenuGUI view3 = new StartMenuGUI();
+		//view3.setVisible(true);
 		
 		//Karte als Bild anzeigen:
 		/*File image = new File("assets\\Risiko-Karte.jpg");
