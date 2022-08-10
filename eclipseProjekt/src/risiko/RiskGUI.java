@@ -278,11 +278,6 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 
 //Functions
 	
-	// when enabled, mouseclick changes attribute active territory
-	public void chooseTerritory(boolean b) {
-		panelMap.addMouseListener(this);
-		panelMap.addMouseMotionListener(this);
-	}
 	
 	private Territory createTerritory(String name, int continentIndex) {
 		Territory newTerritory = new Territory(name);
@@ -385,6 +380,7 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 		}
 	}
 	
+	// when enabled, mouseclick changes attribute active territory
 	public void enableChooseTerritory() {
 		chooseTerritory = true;
 		panelMap.addMouseListener(this);
