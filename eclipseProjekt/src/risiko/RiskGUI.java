@@ -1,5 +1,4 @@
 package risiko;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -17,10 +16,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -33,8 +38,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.imageio.ImageIO;
-
-
 
 public class RiskGUI extends JFrame implements MouseListener, MouseMotionListener{
 	
@@ -59,16 +62,30 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 	private JButton button4;
 	
 	private boolean chooseTerritory;
+	
 	private Territory activeTerritory;
+	
 	private int rgb;
 	private int currentRGB;
+	
 	private BufferedImage posBuffImage;
+	
 	private Dimension screenSize;
+	
 	private ArrayList<Territory> territories;
+	private ArrayList<ImageIcon> coa; 
+	
 	private HashMap<Integer, Territory> colorToTerritory;
+	private HashMap <String, Entry<Integer, JLabel>> coaOnMap;
+	private HashMap <String, Entry<Integer, JLabel>> armiesOnMap;
+
+
+
 	
 	public RiskGUI() {
 		
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();	
+	
 	//TerritoryList
 		this.territories = new ArrayList<>(42);
 		//Schataria
@@ -126,44 +143,51 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 		Territory boria = createTerritory("Boria", 5);
 		
 	
+		//Match colors with territories
 		colorToTerritory= new HashMap<>();
 		for(int i = 0; i< 41; ++i) {
 			colorToTerritory.put(i, territories.get(i));
-		}		
+		}
 		
-		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
+		//Track coas on map
+		coaOnMap = new HashMap<>();
 		
-		//Bilder einlesen
+		//Track armies on map
+		armiesOnMap = new HashMap<>();
+
+		
+		//List of all coas
+		coa = new ArrayList<>();
+		for(int i = 1; i< 6; ++i) {
+			ImageIcon coatIcon = new ImageIcon("assets\\coa" + i + ".png");
+			coa.add(coatIcon);
+		}
+		
+		
+		
+		//read images for background and positioning
 		ImageIcon mapIcon = new ImageIcon("assets\\risk-map.jpg");
-		Image map = mapIcon.getImage();
-		Image modmap = map.getScaledInstance
-				(screenSize.width*8/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
-		mapIcon = new ImageIcon(modmap);
+		mapIcon = scaleIcon(mapIcon, screenSize.width*8/10, screenSize.height);
 				
-		ImageIcon controlfieldIcon = new ImageIcon
-				("assets\\Velazquez-The_Surrender_of_Breda.jpg");
-		Image controlfieldImage = controlfieldIcon.getImage();
-		Image modControlfieldImage = controlfieldImage.getScaledInstance
-				(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
-		controlfieldIcon = new ImageIcon(modControlfieldImage);
+		ImageIcon controlfieldIcon = new ImageIcon("assets\\Velazquez-The_Surrender_of_Breda.jpg");
+		controlfieldIcon = scaleIcon(controlfieldIcon,screenSize.width*9/10, screenSize.height);
 
 		File input = new File("assets\\risk-pos-map.png");
 		try {
 			posBuffImage = ImageIO.read(input);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	
-		//Panel anpassen
+		//editing panels
 		panelMap = new JPanel();
 		panelMap.setPreferredSize(new Dimension(screenSize.width*8/10, screenSize.height));
 		panelCf = new JPanel();
 				
 		mapLabel = new JLabel(mapIcon);
 		mapLabel.setLayout(null);
-		mapLabel.setBounds(20, 20, screenSize.width*8/10, screenSize.height);
+		mapLabel.setBounds(0, 0, screenSize.width*8/10, screenSize.height);
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 		
@@ -171,6 +195,7 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 		panelCf.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
 		panelCf.setLayout(new BorderLayout());
 		
+//-------Matthias part----------------------------------
 		menuBar = new JMenuBar();
 		menu = new JMenu("M");
 		speichern = new JMenuItem("Speichern");
@@ -207,7 +232,6 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 		
 		button4 = new JButton("Knopf Four");
 		button4.setBounds(90, 280, 100, 20);
-		//button4.setBackground(Color.cyan.darker());
 		button4.setIcon(mapIcon);
 		JLabel button4Text = new JLabel ("Hallo");
 		button4.add(button4Text);
@@ -221,21 +245,40 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 		anzeige = new JLabel("Anzeige");
 		anzeige.setBounds(0, 0, 100, 15);
 		panelCf.add(anzeige);
-		
-		//Bild auf Panel
+//--------------------------------------------------------------------		
+		//place images on Panel
 		panelMap.setLayout(new BorderLayout());
 		panelMap.add(mapLabel);
 		panelCf.add(controlfieldLabel);
 		
-		//Panel auf JFrame
+		
+		//place Panel on JFrame
 		this.setLayout(new BorderLayout());
 		this.add(panelMap, BorderLayout.EAST);
 		this.add(panelCf,BorderLayout.WEST);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setUndecorated(true);
 		this.setVisible(true);
+		panelMap.addMouseListener(this);
+		panelMap.addMouseMotionListener(this);
+		
+//------Check functions------------------
+		for(Territory t : territories) {
+			placeCoa(t.getName(),5);
+			placeArmy(t.getName(),9);
+		}
+		
+		placeCoa("Uria",2);
+		placeArmy("Uria",10);
+		removeCoa("Veylor");
+		removeArmy("Veylor");		
 	}
+//---------------------------------------
+
+
+//Functions
 	
+	// when enabled, mouseclick changes attribute active territory
 	public void chooseTerritory(boolean b) {
 		panelMap.addMouseListener(this);
 		panelMap.addMouseMotionListener(this);
@@ -248,17 +291,104 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 		//this.continents.get(continentIndex).addTerritory(newTerritory);
 		return newTerritory;
 	}
+
+	public Dimension getCoaCoordinates(String t) {
+		int x = 0;
+	    int y = 0;
+	    boolean foundTerr = false;
+		try (BufferedReader br = new BufferedReader(new FileReader("assets//coatPos.txt"))) {
+		    String line;
+		    String [] parts;
+		    String territory;
+		    while ((line = br.readLine()) != null && !foundTerr) {
+		    	parts = line.split(",");
+		    	territory = parts[0];
+		    	if(territory.equals(t)) {
+		    		foundTerr = true;
+		    		x = (int) (Double.parseDouble(parts[1])*(screenSize.width*8/10));
+			    	y = (int) (Double.parseDouble(parts[2])*screenSize.height);
+		    	}
+		    }
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return new Dimension(x,y);	
+	}
+
+	public ImageIcon scaleIcon(ImageIcon icon, int width, int height) {
+			Image image = icon.getImage();
+			Image modImage = image.getScaledInstance
+					(width, height, java.awt.Image.SCALE_SMOOTH);
+			icon = new ImageIcon(modImage);
+			return icon;
+		}
 	
-	public void addCoatToMap(int numCoat) {
-		panelMap.remove(mapLabel);
-		ImageIcon coatIcon = new ImageIcon("assets\\coa" + numCoat + ".png");
-		JLabel coat = new JLabel(coatIcon);
-		coat.setBounds(0,0,500,500);
-		coat.setOpaque(false);
-		panelMap.setLayout(new BorderLayout());
-		mapLabel.add(coat);
-		panelMap.add(mapLabel);
+	public void placeCoa(String territory, int numCoat) {
 		
+		if(numCoat < coa.size()+1 && getCoaCoordinates(territory).width != 0) {
+			if(!coaOnMap.containsKey(territory)){
+				int x = getCoaCoordinates(territory).width;
+				int y = getCoaCoordinates(territory).height;
+				ImageIcon coaIcon = coa.get(numCoat-1);
+				coaIcon = scaleIcon(coaIcon, 25, 40);
+				JLabel coat = new JLabel(coaIcon);
+				coat.setBounds(x-15,y-15, 30, 30);
+				coat.setOpaque(false);
+				mapLabel.add(coat);
+				repaint();
+				coaOnMap.put(territory, new SimpleEntry<>(numCoat, coat));	
+			}
+			else {
+				removeCoa(territory);
+				placeCoa(territory,numCoat);
+			}	
+		}
+	}	
+	
+	public void removeCoa(String territory) {
+		if(coaOnMap.containsKey(territory)){
+			JLabel toBeRemoved = coaOnMap.get(territory).getValue();
+			coaOnMap.remove(territory);
+			mapLabel.remove(toBeRemoved);
+		}
+	}
+
+	public void placeArmy(String territory, Integer army){
+		
+		if(!armiesOnMap.containsKey(territory)) {
+			Dimension dim = getCoaCoordinates(territory);
+			int x = dim.width;
+			int y = dim.height;
+			JLabel numArm = new JLabel(army.toString());
+			numArm.setForeground(Color.RED);
+			numArm.setBounds(x-3,y+4, 30, 30);
+			numArm.setOpaque(false);
+			mapLabel.add(numArm);
+			armiesOnMap.put(territory, new SimpleEntry<>(army, numArm));
+			repaint();
+		}
+		else {
+			removeArmy(territory);
+			placeArmy(territory, army);
+		}	
+	}
+	
+	public void removeArmy(String territory) {
+		if(armiesOnMap.containsKey(territory)){
+			JLabel toBeRemoved = armiesOnMap.get(territory).getValue();
+			mapLabel.remove(toBeRemoved);
+			armiesOnMap.remove(territory);
+		}
+	}
+	
+	public void enableChooseTerritory() {
+		chooseTerritory = true;
+		panelMap.addMouseListener(this);
+		panelMap.addMouseMotionListener(this);	
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -269,12 +399,23 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 				panelMap.removeMouseMotionListener(this);
 				panelMap.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				int colorCode = new Color(rgb).getRed();
-				System.out.println(colorToTerritory.get(colorCode).getName());
 				activeTerritory = colorToTerritory.get(colorCode);
+				System.out.println(activeTerritory.getName());
 				}
 		}
 	}
 	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		int posX = posBuffImage.getWidth()* e.getX()/(screenSize.width*8/10);
+		int posY = posBuffImage.getHeight()*e.getY()/screenSize.height;
+		currentRGB = posBuffImage.getRGB(posX, posY);
+		if(currentRGB != 0) { 
+			panelMap.setCursor(new Cursor(Cursor.HAND_CURSOR));}
+		else{
+			panelMap.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		}
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -303,23 +444,5 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	public void enableChooseTerritory() {
-		chooseTerritory = true;
-		panelMap.addMouseListener(this);
-		panelMap.addMouseMotionListener(this);	
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		int posX = posBuffImage.getWidth()* e.getX()/(screenSize.width*8/10);
-		int posY = posBuffImage.getHeight()*e.getY()/screenSize.height;
-		currentRGB = posBuffImage.getRGB(posX, posY);
-		if(currentRGB != 0) { 
-			panelMap.setCursor(new Cursor(Cursor.HAND_CURSOR));}
-		else{
-			panelMap.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		}
 	}
 }
