@@ -14,6 +14,7 @@ public class TestMain {
 		
 		
 		RiskGUI view = new RiskGUI();
+		view.enableDrawCards(true);
 //		view.placeCoaOnMap("Zeish",5);
 		view.setVisible(true);
 	}

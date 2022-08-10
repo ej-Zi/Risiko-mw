@@ -412,6 +412,12 @@ public class RiskGUI extends JFrame implements MouseListener, MouseMotionListene
 			panelMap.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
+	
+	public void enableDrawCards(boolean b) {
+		panelMap.remove(mapLabel);
+		drawCards dC = new drawCards();
+		panelMap.add(dC);
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
