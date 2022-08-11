@@ -27,9 +27,11 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 public class RiskGUI extends JFrame implements ActionListener{
@@ -38,6 +40,8 @@ public class RiskGUI extends JFrame implements ActionListener{
 	private JPanel panelMap;
 	private JPanel panelCf;
 	private JLabel mapLabel;	
+	
+	
 	
 	private JLabel controlfieldLabel;
 	private ImageIcon controlfieldIcon;
@@ -54,13 +58,21 @@ public class RiskGUI extends JFrame implements ActionListener{
 	
 	//Spieleranweisung
 	private JTextField guideDisplay;
-	private JScrollPane scrollGuideDisplay;
+	//private JScrollPane scrollGuideDisplay;
 	
 	private JTextField selectedTerritory;
 	private JTextField startPositionAttack;
 	private JTextField attackedPosition;
 	private JTextField startPositionMovement;
 	private JTextField movedToPosition;
+	
+	private JButton help;
+	private JDialog helpPopUp;
+	private JTextArea helpDisplay;
+	private JPanel helpPanelText;
+	private JPanel helpPanelButton;
+	private JScrollPane scrollHelpDisplay;
+	private JButton closeHelp;
 	
 	//GebietsAnzeige
 	private JScrollPane territoriesDisplay;
@@ -91,17 +103,23 @@ public class RiskGUI extends JFrame implements ActionListener{
 	private JButton endPhaseAttack;
 	private JButton unitMovement;
 	private JButton endPhaseMovement;
-	private JButton hilfe;
+	
 	
 	private Color buttonColor;
 	private Integer phase = 0;
+	private controlerTry cntrl;
+	private Dimension screenSize;
+	private Integer playerNumber = 1;
 	
+	
+	int a = 3;
 	
 	public RiskGUI() {
 		
+		cntrl = new controlerTry();
 		
 		//Bild einlesen
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		ImageIcon mapIcon = new ImageIcon("assets\\risk-map.jpg");
 		Image map = mapIcon.getImage();
 		Image modmap = map.getScaledInstance(screenSize.width*8/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
@@ -114,7 +132,7 @@ public class RiskGUI extends JFrame implements ActionListener{
 		
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
-		greenIcon = new ImageIcon("assets\\coa4.png");
+		greenIcon = new ImageIcon(cntrl.getPlayerCoat().get(playerNumber));
 		Image greenImage = greenIcon.getImage();
 		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
 		greenIcon = new ImageIcon(modGreenImage);
@@ -138,6 +156,7 @@ public class RiskGUI extends JFrame implements ActionListener{
 		buttonColor = new Color(239, 228, 176);
 		dtcr = new DefaultTableCellRenderer(); 
 		
+		
 		menuBar = new JMenuBar();
 		menu = new JMenu();
 		speichern = new JMenuItem("Speichern");
@@ -147,6 +166,7 @@ public class RiskGUI extends JFrame implements ActionListener{
 		beenden.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
 		speichern.setBackground(buttonColor);
 		beenden.setBackground(buttonColor);
+		beenden.addActionListener(this);
 		menuBar.setBounds(-10, -3, 70, 45);
 		menu.setIcon(menuIcon);
 		menu.add(speichern);
@@ -183,33 +203,90 @@ public class RiskGUI extends JFrame implements ActionListener{
 		scrollGuideDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);
 		panelCf.add(scrollGuideDisplay);*/
 	
-		hilfe = new JButton("?", buttonIcon);
-		hilfe.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
-		hilfe.setHorizontalTextPosition(SwingConstants.CENTER);
-		hilfe.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
+		help = new JButton("?", buttonIcon);
+		help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
+		help.setHorizontalTextPosition(SwingConstants.CENTER);
+		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
 	
-		hilfe.addActionListener(new ActionListener() {
+		help.addActionListener(this); /*{
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				selectedTerritory.setText("Northern Sun");
-				JFrame jFrame = new JFrame();
+				
+				helpPopUp = new JDialog();
+				helpPopUp.setBounds(300,50,250,200);
+				helpPopUp.setLayout(new BorderLayout());
+				helpPanelText = new JPanel();
+				helpPanelButton = new JPanel();
+				
+				helpPanelText.setBounds(1, 1, 248, 160);
+				helpPanelText.setBackground(buttonColor);
+				helpPanelText.setBorder(BorderFactory.createLineBorder(Color.black));
+				helpPanelButton.setBounds(0,160,200,40);
+				helpPanelButton.setBackground(buttonColor);
+				helpPanelButton.setBorder(BorderFactory.createLineBorder(Color.black));
+				
+				helpDisplay = new JTextArea();
+				helpDisplay.setBounds(1,1,248,160);
+				helpDisplay.setBackground(buttonColor);
+				helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+				helpDisplay.setEditable(false);
+				
+				helpDisplay.setText("Klicken Sie auf das Gebiet, auf dass "
+						+ "Sie ihre Einheit setzen möchten. Drücken Sie danach den Knopf 'Einheit setzen'."
+						+ "Sie Angreifen möchten und danach auf das Gebiet von dem aus Sie angreifen möchten."
+						+ "Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
+						+ "mit denen Sie angreifen möchten und drücken Sie danach den Knopf 'Angreifen'."
+						+ "Wenn Sie nicht angreifen möchten, drücken Sie 'Phase beenden'.");
+						
+				helpDisplay.setLineWrap(true);
+				helpDisplay.setWrapStyleWord(true);
+				scrollHelpDisplay = new JScrollPane(helpDisplay);
+				
+				scrollHelpDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+				scrollHelpDisplay.setBounds(1,1,248,160);
+				scrollHelpDisplay.getViewport().setBackground(buttonColor);
+				scrollHelpDisplay.getVerticalScrollBar().setBackground(buttonColor);
+				scrollHelpDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
+				scrollHelpDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);
+				helpPopUp.add(scrollHelpDisplay);
+				
+				closeHelp = new JButton("Ok", buttonIcon);
+				closeHelp.setPreferredSize(new Dimension(60,30));
+				closeHelp.setHorizontalTextPosition(SwingConstants.CENTER);
+				closeHelp.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+				closeHelp.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						helpPopUp.dispose();
+					}	
+					});
+				helpPanelButton.add(closeHelp);
+				
+				helpPopUp.add(helpPanelText);
+				helpPopUp.add(helpPanelButton);
+				helpPopUp.add(helpPanelText, BorderLayout.CENTER);
+				helpPopUp.add(helpPanelButton, BorderLayout.SOUTH);
+				helpPopUp.setUndecorated(true);
+				helpPopUp.setVisible(true);*/
+				
+				/*JFrame jFrame = new JFrame();
 				jFrame.setBounds(300,200,200,100);
 				JPanel helpPanel = new JPanel();
 				helpPanel.setBackground(buttonColor);
 				jFrame.add(helpPanel);
 				//jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 				//jFrame.setUndecorated(true);
-				jFrame.setVisible(true);
+				jFrame.setVisible(true);*/
 				
 			
-			}
-		});
-		panelCf.add(hilfe);
+		/*	}
+		});*/
+		panelCf.add(help);
 		
 		
 		
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < a; i++) {
 		 
 			if(phase == 0) {
 		
@@ -225,18 +302,11 @@ public class RiskGUI extends JFrame implements ActionListener{
 				putUnit.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*325)/768, 240, 35);
 				putUnit.setHorizontalTextPosition(SwingConstants.CENTER);
 				putUnit.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-					/*putUnit.addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							selectedTerritory.setText("Eastern Sun");
-						}	
-						});*/
+
 				panelCf.add(putUnit);
 			
 				guideDisplay.setText("Verteilen Sie ihre Armeen" );
-			
-					//Klicken Sie auf das Gebiet, auf dass "
-					//		+ "Sie ihre Einheit setzen möchten. Drücken Sie danach den Knopf 'Einheit setzen'."
+				
 				unitsList = new String[1][1];
 				unitsTable = new JTable(unitsList, unitsTitel);
 				unitsTable.getTableHeader().setBackground(buttonColor);
@@ -279,9 +349,6 @@ public class RiskGUI extends JFrame implements ActionListener{
 				panelCf.add(putUnit);
 		
 				guideDisplay.setText("Verteilen Sie Ihre Armeen");
-						/*+ " Klicken Sie auf das Gebiet, auf dass "
-						+ "Sie ihre Einheit setzen möchten. Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
-						+ "Sie auf das Gebiet setzen möchten und drücken Sie danach den Knopf 'Einheit setzen'.");*/
 			
 				unitCounterManeuverModel = new SpinnerNumberModel(0, 0, 99, 1);
 				unitCounterManeuver = new JSpinner(unitCounterManeuverModel);
@@ -331,11 +398,6 @@ public class RiskGUI extends JFrame implements ActionListener{
 				panelCf.add(startPositionAttack);
 				
 				guideDisplay.setText("Greifen Sie den Gegner an");
-						/*. Klicken Sie auf das Gebiet, dass "
-						+ "Sie Angreifen möchten und danach auf das Gebiet von dem aus Sie angreifen möchten."
-						+ "Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
-						+ "mit denen Sie angreifen möchten und drücken Sie danach den Knopf 'Angreifen'."
-						+ "Wenn Sie nicht angreifen möchten, drücken Sie 'Phase beenden'.");*/
 				
 				unitCounterAttackModel = new SpinnerNumberModel(0, 0, 3, 1);
 				unitCounterAttack = new JSpinner(unitCounterAttackModel);
@@ -348,7 +410,7 @@ public class RiskGUI extends JFrame implements ActionListener{
 				panelCf.add(unitCounterAttack);
 				
 				attackedPosition = new JTextField("South Valoran");
-				attackedPosition.setHorizontalAlignment(selectedTerritory.CENTER);
+				attackedPosition.setHorizontalAlignment(SwingConstants.CENTER);
 				attackedPosition.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*255)/768, 190, 35);
 				attackedPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 				attackedPosition.setBackground(buttonColor);
@@ -365,11 +427,12 @@ public class RiskGUI extends JFrame implements ActionListener{
 				endPhaseAttack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*445)/768, 240, 35);
 				endPhaseAttack.setHorizontalTextPosition(SwingConstants.CENTER);
 				endPhaseAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+				endPhaseAttack.addActionListener(this);
 				panelCf.add(endPhaseAttack);
 				
 			}
 		
-			if(phase == 3) {
+			/*if(phase == 3) {
 				
 				panelCf.remove(startPositionAttack);
 				panelCf.remove(unitCounterAttack);
@@ -386,11 +449,6 @@ public class RiskGUI extends JFrame implements ActionListener{
 				panelCf.add(startPositionMovement);
 				
 				guideDisplay.setText("Bewegen Sie Ihre Armeen");
-						/*+ " Klicken Sie auf das Gebiet, dass "
-						+ "Sie Angreifen möchten und danach auf das Gebiet von dem aus Sie angreifen möchten."
-						+ "Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
-						+ "mit denen Sie angreifen möchten und drücken Sie danach den Knopf 'Angreifen'."
-						+ "Wenn Sie nicht angreifen möchten, drücken Sie 'Phase beenden'.");*/
 				
 				unitCounterMovementModel = new SpinnerNumberModel(0, 0, 99, 1);
 				unitCounterMovement = new JSpinner(unitCounterMovementModel);
@@ -403,7 +461,7 @@ public class RiskGUI extends JFrame implements ActionListener{
 				panelCf.add(unitCounterMovement);
 				
 				movedToPosition = new JTextField("South Valoran");
-				movedToPosition.setHorizontalAlignment(selectedTerritory.CENTER);
+				movedToPosition.setHorizontalAlignment(SwingConstants.CENTER);
 				movedToPosition.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*255)/768, 190, 35);
 				movedToPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 				movedToPosition.setBackground(buttonColor);
@@ -422,7 +480,7 @@ public class RiskGUI extends JFrame implements ActionListener{
 				endPhaseMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 				panelCf.add(endPhaseMovement);
 				
-			}
+			}*/
 			
 			phase = phase+1;
 		}
@@ -478,11 +536,168 @@ public class RiskGUI extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+	
+		if(e.getSource() == this.help) {
+		
+			helpPopUp = new JDialog();
+			helpPopUp.setBounds(300,50,250,200);
+			helpPopUp.setLayout(new BorderLayout());
+			helpPanelText = new JPanel();
+			helpPanelButton = new JPanel();
+			
+			helpPanelText.setBounds(1, 1, 248, 160);
+			helpPanelText.setBackground(buttonColor);
+			helpPanelText.setBorder(BorderFactory.createLineBorder(Color.black));
+			helpPanelButton.setBounds(0,160,200,40);
+			helpPanelButton.setBackground(buttonColor);
+			helpPanelButton.setBorder(BorderFactory.createLineBorder(Color.black));
+			
+			helpDisplay = new JTextArea();
+			helpDisplay.setBounds(1,1,248,160);
+			helpDisplay.setBackground(buttonColor);
+			helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+			helpDisplay.setEditable(false);
+					
+			//cntrl.createHelpText();
+			helpDisplay.setText(cntrl.getHelpText().get(phase-1)); //wegen for-Schleife
+			helpDisplay.setCaretPosition(0);
+			
+			/*helpDisplay.setText("Klicken Sie auf das Gebiet, auf dass "
+						+ "Sie ihre Einheit setzen möchten. Drücken Sie danach den Knopf 'Einheit setzen'."
+						+ "Sie Angreifen möchten und danach auf das Gebiet von dem aus Sie angreifen möchten."
+						+ "Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
+						+ "mit denen Sie angreifen möchten und drücken Sie danach den Knopf 'Angreifen'."
+						+ "Wenn Sie nicht angreifen möchten, drücken Sie 'Phase beenden'.");*/
+					
+			helpDisplay.setLineWrap(true);
+			helpDisplay.setWrapStyleWord(true);
+			scrollHelpDisplay = new JScrollPane(helpDisplay);
+			
+			scrollHelpDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollHelpDisplay.setBounds(1,1,248,160);
+			scrollHelpDisplay.getViewport().setBackground(buttonColor);
+			scrollHelpDisplay.getVerticalScrollBar().setBackground(buttonColor);
+			scrollHelpDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
+			scrollHelpDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);
+			helpPopUp.add(scrollHelpDisplay);
+			
+			closeHelp = new JButton("Ok", buttonIcon);
+			closeHelp.setPreferredSize(new Dimension(60,30));
+			closeHelp.setHorizontalTextPosition(SwingConstants.CENTER);
+			closeHelp.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+			closeHelp.addActionListener(this);
+			helpPanelButton.add(closeHelp);
+			
+			helpPopUp.add(helpPanelText);
+			helpPopUp.add(helpPanelButton);
+			helpPopUp.add(helpPanelText, BorderLayout.CENTER);
+			helpPopUp.add(helpPanelButton, BorderLayout.SOUTH);
+			helpPopUp.setUndecorated(true);
+			helpPopUp.setVisible(true);
+		
+		}
+		else if(e.getSource() == this.closeHelp){
+			
+			helpPopUp.dispose();
+		
+		}
+		else if(e.getSource() == this.beenden) {
+			
+			System.exit(0);
+		}
+		
+		else if(e.getSource() == this.putUnit) {
+			
+			if(phase == 0) {
+				
+				
+			}
+			else if(phase == 1) {
+				
+				unitCounterManeuver.getValue();
+			
+			}
+		}
+		else if(e.getSource() == this.attack) {
+			
+			unitCounterAttack.getValue();
+		}
+		else if(e.getSource() == this.endPhaseAttack) {
+			
+			phaseMovementGUI();
+		
+		}
+		else if(e.getSource() == this.unitMovement) {
+			
+			unitCounterMovement.getValue();
+		}
+		
+		else if(e.getSource() == this.endPhaseMovement) {
+			
+			phase = phase + 1;
+		}
 		
 	}
 
 
+	public void phaseMovementGUI() {
+		
+		phase = phase + 1;
+		
+		panelCf.remove(startPositionAttack);
+		panelCf.remove(unitCounterAttack);
+		panelCf.remove(attackedPosition);
+		//attack.setVisible(false);
+		panelCf.remove(attack);
+		//panelCf.revalidate();
+		//panelCf.repaint();
+		panelCf.remove(endPhaseAttack);
+		
+		startPositionMovement = new JTextField("The Kingdom of Song");
+		startPositionMovement.setHorizontalAlignment(SwingConstants.CENTER);
+		startPositionMovement.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*305)/768, 190, 35);
+		startPositionMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		startPositionMovement.setBackground(buttonColor);
+		startPositionMovement.setEditable(false);
+		panelCf.add(startPositionMovement);
+		
+		guideDisplay.setText("Bewegen Sie Ihre Armeen");
+		
+		unitCounterMovementModel = new SpinnerNumberModel(0, 0, 99, 1);
+		unitCounterMovement = new JSpinner(unitCounterMovementModel);
+		unitCounterMovement.setBounds((screenSize.width*2/10 + 160)/2,(screenSize.height*305)/768, 40, 35);
+		unitCounterMovement.setBackground(Color.blue);
+		unitCounterMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		unitCounterMovement.getComponent(0).setBackground(buttonColor);
+		unitCounterMovement.getComponent(1).setBackground(buttonColor);
+		unitCounterMovement.getEditor().getComponent(0).setBackground(buttonColor);
+		panelCf.add(unitCounterMovement);
+		
+		movedToPosition = new JTextField("South Valoran");
+		movedToPosition.setHorizontalAlignment(SwingConstants.CENTER);
+		movedToPosition.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*255)/768, 190, 35);
+		movedToPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		movedToPosition.setBackground(buttonColor);
+		movedToPosition.setEditable(false);
+		panelCf.add(movedToPosition);
+		
+		attack.setText("Armeen bewegen");
+		
+		unitMovement = new JButton("Armeen bewegen", buttonIcon);
+		unitMovement.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*355)/768, 240, 35);
+		unitMovement.setHorizontalTextPosition(SwingConstants.CENTER);
+		unitMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		panelCf.add(unitMovement);
 	
+		endPhaseMovement = new JButton("Phase beenden", buttonIcon);
+		endPhaseMovement.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*445)/768, 240, 35);
+		endPhaseMovement.setHorizontalTextPosition(SwingConstants.CENTER);
+		endPhaseMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		//panelCf.revalidate();
+		//panelCf.repaint();
+		panelCf.add(endPhaseMovement);
+		
+	}
 
 	
 	

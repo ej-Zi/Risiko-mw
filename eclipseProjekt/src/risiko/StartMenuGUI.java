@@ -65,7 +65,7 @@ public class StartMenuGUI extends JFrame{
 			playerFour.setHorizontalTextPosition(SwingConstants.CENTER);
 			playerFour.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 30));
 			panelStartMenu.add(playerFour);
-			System.out.print(panelStartMenu.getHeight());
+			
 			playerFive = new JButton("5 Spieler", buttonIcon);
 			playerFive.setBounds((panelStartMenu.getWidth()-320)/2 - 150,(panelStartMenu.getHeight()*300)/768, 320, 40);
 			playerFive.setHorizontalTextPosition(SwingConstants.CENTER);
