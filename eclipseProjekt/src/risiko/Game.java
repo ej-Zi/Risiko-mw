@@ -42,8 +42,8 @@ public class Game extends GameInitializer {
 	public static void resetCardSetCount() {
 		cardSetCount = 0;
 	}
-	
-	//Karten einsetzen: returns true if successful; irgendwo sicherstellen, dass Karten dem Spieler gehören
+  
+	//Karten einsetzen: returns true if successful; irgendwo sicherstellen, dass Karten dem Spieler gehÃ¶ren
 	public boolean tradeCards(Player player, Card c1, Card c2, Card c3) {
 		Card[] tmpCards = {c1, c2, c3};
 		if(validCards(c1, c2, c3)) {
@@ -237,11 +237,3 @@ public class Game extends GameInitializer {
 
 
 //TODO Funktionen ueberarbeiten basierend auf Abfragen Struktur im Controller
-
-
-
-
-
-
-
-

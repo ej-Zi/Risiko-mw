@@ -1,5 +1,3 @@
-//###########nur zum testen, später löschen###########
-
 package risiko;
 
 import java.awt.Dimension;
@@ -9,25 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class TestMain {
-//
-//	private RiskGUI view;
-//	
-//	
-//	
-//	public TestMain() {
-//		super();
-//		this.view = new RiskGUI();
-//	}
-	
+public class TestMain {	
 	public static void main(String[] args) {
-		
 		RiskGUI view = new RiskGUI();
 		view.setVisible(true);
+
 		//Karte als Bild anzeigen:
 		/*File image = new File("assets\\Risiko-Karte.jpg");
 		BufferedImage map = null;
