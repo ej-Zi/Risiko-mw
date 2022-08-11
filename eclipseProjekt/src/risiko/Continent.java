@@ -29,3 +29,4 @@ public class Continent {
 	public int getBonusArmies() {
 		return bonusArmies;
 	}
+}
