@@ -12,7 +12,7 @@ public class Game extends GameInitializer {
 	private static ArrayList<Territory> tmp; //benutzt fuer Wegsuche beim verschieben
 	private static boolean valid;
 	
-	Game(int anzahlSpieler, ArrayList<String> namen) {
+	private Game(int anzahlSpieler, ArrayList<String> namen) {
 		super(anzahlSpieler, namen);
 		cardSetCount = 0;
 		tmp = new ArrayList<>();
@@ -42,7 +42,7 @@ public class Game extends GameInitializer {
 	public static void resetCardSetCount() {
 		cardSetCount = 0;
 	}
-	
+  
 	//Karten einsetzen: returns true if successful; irgendwo sicherstellen, dass Karten dem Spieler gehören
 	public boolean tradeCards(Player player, Card c1, Card c2, Card c3) {
 		Card[] tmpCards = {c1, c2, c3};
@@ -237,5 +237,3 @@ public class Game extends GameInitializer {
 
 
 //TODO Funktionen ueberarbeiten basierend auf Abfragen Struktur im Controller
-
-
