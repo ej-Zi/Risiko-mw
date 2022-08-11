@@ -34,9 +34,10 @@ import javax.swing.table.TableColumn;
 
 public class Phase2 extends JPanel implements ActionListener{
 	
+		private RiskGUI gui;
+	
 	//private JFrame jframe = new JFrame();
 		private JPanel panelMap;
-		private JPanel panelCf;
 		private JLabel mapLabel;	
 		
 		private JLabel controlfieldLabel;
@@ -106,9 +107,11 @@ public class Phase2 extends JPanel implements ActionListener{
 		private controlerTry cntrl;
 		private Dimension screenSize;
 		private Integer playerNumber = 1;
-	
-	public Phase2() {
 		
+		private Controller controller;
+	
+	public Phase2(RiskGUI gui) {
+		this.gui = gui;
 cntrl = new controlerTry();
 		
 		//Bild einlesen
@@ -133,14 +136,13 @@ cntrl = new controlerTry();
 		menuIcon = new ImageIcon(modMenuImage);
 		
 		
-		panelCf = new JPanel();
 		
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 		
-		panelCf.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
-		panelCf.setLayout(new BorderLayout());
+		this.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
+		this.setLayout(new BorderLayout());
 		
 		buttonColor = new Color(239, 228, 176);
 		dtcr = new DefaultTableCellRenderer(); 
@@ -160,8 +162,8 @@ cntrl = new controlerTry();
 		menu.add(speichern);
 		menu.add(beenden);
 		menuBar.add(menu);	
-		panelCf.add(menuBar, BorderLayout.NORTH);
-		panelCf.setLayout(null);
+		this.add(menuBar, BorderLayout.NORTH);
+		this.setLayout(null);
 		
 		playerInformationBackground = new JLabel("Player Three", greenIcon, SwingConstants.CENTER);
 		playerInformationBackground.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
@@ -169,7 +171,7 @@ cntrl = new controlerTry();
 		playerInformationBackground.setBackground(buttonColor);
 		playerInformationBackground.setOpaque(true);
 		playerInformationBackground.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-		panelCf.add(playerInformationBackground);
+		this.add(playerInformationBackground);
 		
 		guideDisplay = new JTextField();
 		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
@@ -178,7 +180,7 @@ cntrl = new controlerTry();
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		guideDisplay.setEditable(false);
 		
-		panelCf.add(guideDisplay);
+		this.add(guideDisplay);
 	
 		help = new JButton("?", buttonIcon);
 		help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
@@ -186,12 +188,12 @@ cntrl = new controlerTry();
 		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
 	
 		help.addActionListener(this); 
-		panelCf.add(help);
+		this.add(help);
 		
-		panelCf.remove(selectedTerritory);
-		panelCf.remove(putUnit);
-		panelCf.remove(unitCounterManeuver);
-		panelCf.remove(unitsDisplay);
+//		this.remove(selectedTerritory);
+//		this.remove(putUnit);
+//		this.remove(unitCounterManeuver);
+//		this.remove(unitsDisplay);
 		
 		startPositionAttack = new JTextField("The Kingdom of Sun");
 		startPositionAttack.setHorizontalAlignment(SwingConstants.CENTER);
@@ -199,7 +201,7 @@ cntrl = new controlerTry();
 		startPositionAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		startPositionAttack.setBackground(buttonColor);
 		startPositionAttack.setEditable(false);
-		panelCf.add(startPositionAttack);
+		this.add(startPositionAttack);
 		
 		guideDisplay.setText("Greifen Sie den Gegner an");
 		
@@ -211,7 +213,7 @@ cntrl = new controlerTry();
 		unitCounterAttack.getComponent(0).setBackground(buttonColor);
 		unitCounterAttack.getComponent(1).setBackground(buttonColor);
 		unitCounterAttack.getEditor().getComponent(0).setBackground(buttonColor);
-		panelCf.add(unitCounterAttack);
+		this.add(unitCounterAttack);
 		
 		attackedPosition = new JTextField("South Valoran");
 		attackedPosition.setHorizontalAlignment(SwingConstants.CENTER);
@@ -219,20 +221,20 @@ cntrl = new controlerTry();
 		attackedPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		attackedPosition.setBackground(buttonColor);
 		attackedPosition.setEditable(false);
-		panelCf.add(attackedPosition);
+		this.add(attackedPosition);
 		
 		attack = new JButton("Gegner angreifen", buttonIcon);
 		attack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*355)/768, 240, 35);
 		attack.setHorizontalTextPosition(SwingConstants.CENTER);
 		attack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-		panelCf.add(attack);
+		this.add(attack);
 	
 		endPhaseAttack = new JButton("Phase beenden", buttonIcon);
 		endPhaseAttack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*445)/768, 240, 35);
 		endPhaseAttack.setHorizontalTextPosition(SwingConstants.CENTER);
 		endPhaseAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		endPhaseAttack.addActionListener(this);
-		panelCf.add(endPhaseAttack);
+		this.add(endPhaseAttack);
 		
 		territoriesList = new String[7][2];
 		territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
@@ -267,10 +269,10 @@ cntrl = new controlerTry();
 		territoriesDisplay.getVerticalScrollBar().setBackground(buttonColor);
 		territoriesDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
 		territoriesDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);	
-		panelCf.add (territoriesDisplay);
+		this.add (territoriesDisplay);
 		
 		//Bild auf Panel
-		panelCf.add(controlfieldLabel);
+		this.add(controlfieldLabel);
 		
 
 	}
@@ -344,7 +346,7 @@ cntrl = new controlerTry();
 			unitCounterAttack.getValue();
 		}
 		else if(e.getSource() == this.endPhaseAttack) {
-			
+			gui.changePhase(3);
 			//phaseMovementGUI();
 		
 		}

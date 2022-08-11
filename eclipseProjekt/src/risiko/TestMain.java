@@ -14,6 +14,14 @@ public class TestMain {
 	public static void main(String[] args) {
 		RiskGUI view = new RiskGUI();
 		view.setVisible(true);
+//		int tmp = -1;
+//		
+//		while(true) {
+//			if( Controller.getPhase() != tmp) {
+//				tmp = Controller.getPhase();
+//				view.changePhase(Controller.getPhase());
+//			}
+//		}
 
 		
 		//IntroGUI view2 = new IntroGUI();

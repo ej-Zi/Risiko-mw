@@ -34,6 +34,7 @@ import javax.swing.table.TableColumn;
 
 public class Phase0 extends JPanel implements ActionListener{
 
+private RiskGUI gui;	
 //private JFrame jframe = new JFrame();
 private JPanel panelMap;
 private JPanel panelCf;
@@ -111,7 +112,8 @@ private Integer playerNumber = 1;
 
 	
 	
-	public Phase0 (){
+	public Phase0 (RiskGUI gui){
+		this.gui = gui;
 		
 cntrl = new controlerTry();
 		
@@ -136,15 +138,14 @@ cntrl = new controlerTry();
 		menuIcon = new ImageIcon(modMenuImage);
 		
 		
-		panelCf = new JPanel();
 		
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 		
 
-		panelCf.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
-		panelCf.setLayout(new BorderLayout());
+		this.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
+		this.setLayout(new BorderLayout());
 		
 		buttonColor = new Color(239, 228, 176);
 		dtcr = new DefaultTableCellRenderer(); 
@@ -164,8 +165,8 @@ cntrl = new controlerTry();
 		menu.add(speichern);
 		menu.add(beenden);
 		menuBar.add(menu);	
-		panelCf.add(menuBar, BorderLayout.NORTH);
-		panelCf.setLayout(null);
+		this.add(menuBar, BorderLayout.NORTH);
+		this.setLayout(null);
 		
 		playerInformationBackground = new JLabel("Player Three", greenIcon, SwingConstants.CENTER);
 		playerInformationBackground.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
@@ -173,7 +174,7 @@ cntrl = new controlerTry();
 		playerInformationBackground.setBackground(buttonColor);
 		playerInformationBackground.setOpaque(true);
 		playerInformationBackground.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-		panelCf.add(playerInformationBackground);
+		this.add(playerInformationBackground);
 		
 		guideDisplay = new JTextField();
 		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
@@ -182,7 +183,7 @@ cntrl = new controlerTry();
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		guideDisplay.setEditable(false);
 		
-		panelCf.add(guideDisplay);
+		this.add(guideDisplay);
 	
 		help = new JButton("?", buttonIcon);
 		help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
@@ -190,7 +191,7 @@ cntrl = new controlerTry();
 		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
 	
 		help.addActionListener(this); 
-		panelCf.add(help);
+		this.add(help);
 		
 		selectedTerritory = new JTextField("Northern Schataria");
 		selectedTerritory.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*275)/768, 240, 35);
@@ -198,14 +199,14 @@ cntrl = new controlerTry();
 		selectedTerritory.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		selectedTerritory.setBackground(buttonColor);
 		selectedTerritory.setEditable(false);
-		panelCf.add(selectedTerritory);
+		this.add(selectedTerritory);
 
 		putUnit = new JButton("Armee setzen", buttonIcon);
 		putUnit.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*325)/768, 240, 35);
 		putUnit.setHorizontalTextPosition(SwingConstants.CENTER);
 		putUnit.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 
-		panelCf.add(putUnit);
+		this.add(putUnit);
 	
 		guideDisplay.setText("Verteilen Sie ihre Armeen" );
 		
@@ -227,7 +228,7 @@ cntrl = new controlerTry();
 		unitsDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		unitsDisplay.setBounds((screenSize.width*2/10 - 240)/2, (screenSize.height*390)/768, 240, 58 );
 		unitsDisplay.getViewport().setBackground(buttonColor);
-		panelCf.add (unitsDisplay);
+		this.add (unitsDisplay);
 		
 
 		territoriesList = new String[7][2];
@@ -263,10 +264,10 @@ cntrl = new controlerTry();
 		territoriesDisplay.getVerticalScrollBar().setBackground(buttonColor);
 		territoriesDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
 		territoriesDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);	
-		panelCf.add (territoriesDisplay);
+		this.add (territoriesDisplay);
 		
 		//Bild auf Panel
-		panelCf.add(controlfieldLabel);
+		this.add(controlfieldLabel);
 		
 		
 	}

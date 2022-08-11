@@ -36,7 +36,6 @@ public class Phase3 extends JPanel implements ActionListener{
 
 	//private JFrame jframe = new JFrame();
 		private JPanel panelMap;
-		private JPanel panelCf;
 		private JLabel mapLabel;	
 		
 		
@@ -135,13 +134,12 @@ public class Phase3 extends JPanel implements ActionListener{
 			menuIcon = new ImageIcon(modMenuImage);
 			
 
-			panelCf = new JPanel();
 			
 			controlfieldLabel = new JLabel (controlfieldIcon);
 			controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 			
-			panelCf.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
-			panelCf.setLayout(new BorderLayout());
+			this.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
+			this.setLayout(new BorderLayout());
 			
 			buttonColor = new Color(239, 228, 176);
 			dtcr = new DefaultTableCellRenderer(); 
@@ -161,8 +159,8 @@ public class Phase3 extends JPanel implements ActionListener{
 			menu.add(speichern);
 			menu.add(beenden);
 			menuBar.add(menu);	
-			panelCf.add(menuBar, BorderLayout.NORTH);
-			panelCf.setLayout(null);
+			this.add(menuBar, BorderLayout.NORTH);
+			this.setLayout(null);
 			
 			playerInformationBackground = new JLabel("Player Three", greenIcon, SwingConstants.CENTER);
 			playerInformationBackground.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
@@ -170,7 +168,7 @@ public class Phase3 extends JPanel implements ActionListener{
 			playerInformationBackground.setBackground(buttonColor);
 			playerInformationBackground.setOpaque(true);
 			playerInformationBackground.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-			panelCf.add(playerInformationBackground);
+			this.add(playerInformationBackground);
 			
 			guideDisplay = new JTextField();
 			guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
@@ -179,7 +177,7 @@ public class Phase3 extends JPanel implements ActionListener{
 			guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 			guideDisplay.setEditable(false);
 			
-			panelCf.add(guideDisplay);
+			this.add(guideDisplay);
 		
 			help = new JButton("?", buttonIcon);
 			help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
@@ -187,13 +185,13 @@ public class Phase3 extends JPanel implements ActionListener{
 			help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
 		
 			help.addActionListener(this); 
-			panelCf.add(help);
+			this.add(help);
 			
-			panelCf.remove(startPositionAttack);
-			panelCf.remove(unitCounterAttack);
-			panelCf.remove(attackedPosition);
-			panelCf.remove(attack);
-			panelCf.remove(endPhaseAttack);
+//			this.remove(startPositionAttack);
+//			this.remove(unitCounterAttack);
+//			this.remove(attackedPosition);
+//			this.remove(attack);
+//			this.remove(endPhaseAttack);
 			
 			startPositionMovement = new JTextField("The Kingdom of Song");
 			startPositionMovement.setHorizontalAlignment(SwingConstants.CENTER);
@@ -201,7 +199,7 @@ public class Phase3 extends JPanel implements ActionListener{
 			startPositionMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 			startPositionMovement.setBackground(buttonColor);
 			startPositionMovement.setEditable(false);
-			panelCf.add(startPositionMovement);
+			this.add(startPositionMovement);
 			
 			guideDisplay.setText("Bewegen Sie Ihre Armeen");
 			
@@ -213,7 +211,7 @@ public class Phase3 extends JPanel implements ActionListener{
 			unitCounterMovement.getComponent(0).setBackground(buttonColor);
 			unitCounterMovement.getComponent(1).setBackground(buttonColor);
 			unitCounterMovement.getEditor().getComponent(0).setBackground(buttonColor);
-			panelCf.add(unitCounterMovement);
+			this.add(unitCounterMovement);
 			
 			movedToPosition = new JTextField("South Valoran");
 			movedToPosition.setHorizontalAlignment(SwingConstants.CENTER);
@@ -221,21 +219,21 @@ public class Phase3 extends JPanel implements ActionListener{
 			movedToPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 			movedToPosition.setBackground(buttonColor);
 			movedToPosition.setEditable(false);
-			panelCf.add(movedToPosition);
+			this.add(movedToPosition);
 			
-			attack.setText("Armeen bewegen");
+			//attack.setText("Armeen bewegen");
 			
 			unitMovement = new JButton("Armeen bewegen", buttonIcon);
 			unitMovement.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*355)/768, 240, 35);
 			unitMovement.setHorizontalTextPosition(SwingConstants.CENTER);
 			unitMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-			panelCf.add(unitMovement);
+			this.add(unitMovement);
 		
 			endPhaseMovement = new JButton("Phase beenden", buttonIcon);
 			endPhaseMovement.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*445)/768, 240, 35);
 			endPhaseMovement.setHorizontalTextPosition(SwingConstants.CENTER);
 			endPhaseMovement.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-			panelCf.add(endPhaseMovement);
+			this.add(endPhaseMovement);
 			
 			territoriesList = new String[7][2];
 			territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
@@ -270,10 +268,10 @@ public class Phase3 extends JPanel implements ActionListener{
 			territoriesDisplay.getVerticalScrollBar().setBackground(buttonColor);
 			territoriesDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
 			territoriesDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);	
-			panelCf.add (territoriesDisplay);
+			this.add (territoriesDisplay);
 			
 			//Bild auf Panel
-			panelCf.add(controlfieldLabel);
+			this.add(controlfieldLabel);
 			
 		
 			
