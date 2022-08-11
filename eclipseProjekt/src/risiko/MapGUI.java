@@ -32,7 +32,7 @@ public class MapGUI extends JFrame{
 		panel2.setBackground(Color.darkGray);
 		
 		frame.setLayout(new BorderLayout());
-		frame.add(panel1, BorderLayout.CENTER);
+		frame.add(panel1, BorderLayout.NORTH);
 		frame.add(panel2,BorderLayout.WEST);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);

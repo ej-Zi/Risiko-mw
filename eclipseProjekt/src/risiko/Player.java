@@ -5,11 +5,15 @@ import java.util.ArrayList;
 public class Player {
 
 	private String name;
-	private int armies;
-	public ArrayList<Territory> occupiedTerritories;
-	public ArrayList<Card> cardsInHand;
+	private int armies; //nicht auf Karte verteilte Armeen
+	private ArrayList<Territory> occupiedTerritories;
+	private ArrayList<Card> cardsInHand;
 	
-	//TODO Konstruktor
+	Player(String name, int armies){
+		this.name = name;
+		this.armies = armies;
+		this.cardsInHand = new ArrayList<>();
+	}
 	
 	public int getArmies() {
 		return armies;
@@ -20,8 +24,29 @@ public class Player {
 	public String getName() {
 		return name;
 	}
+
+	public ArrayList<Territory> getOccupiedTerritories() {
+		return occupiedTerritories;
+	}
+
+	public void setOccupiedTerritories(ArrayList<Territory> occupiedTerritories) {
+		this.occupiedTerritories = occupiedTerritories;
+		for(Territory t : occupiedTerritories) {
+			t.setOccupier(this);
+		}
+	}
 	
+	public ArrayList<Card> getCardsInHand(){
+		return cardsInHand;
+	}
+	
+
 	
 	
 	
 }
+	
+	
+	
+	
+
