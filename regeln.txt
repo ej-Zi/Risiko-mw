@@ -1,6 +1,7 @@
 --Regelbuch Risiko--
 
 ## Spielstart ##
+Phase 0
 - Starteinheiten: (eventuell anpassen an Anzahl der Gebiete)
 	2 Spieler: 40
 	3 Spieler: 35
@@ -11,9 +12,9 @@
 - Eine Einheit auf jedes Gebiet, dann nacheinander Einheiten verteilen bis alle Starteinheiten aufgebraucht sind.
 
 
-## Die 3(4) Phasen ##
+## Die 4 Phasen ##
 
-~~~Nachschubphase/Verstärkungsphase~~~
+~~~Nachschubphase/Verstärkungsphase~~~ Phase 1
 -> neue Einheiten bekommen
 
 - Spieler erhält Anzahl der besetzten Gebiete/3 Einheiten; mind. 3
@@ -22,7 +23,7 @@
 - Gebietskarten eintauschen:
 	
 
-~~~Eroberungsphase/Angriffsphase~~~
+~~~Eroberungsphase/Angriffsphase~~~ Phase 2
 - beliebiges angrenzendes Gebiet kann angegriffen werden, höchstens 3 Einheiten, mind. eine Einheit muss im Angriffsgebiet verbleiben
 - Angreifer würfelt mit sovielen Würfeln wie Einheiten eingesetzt wurden; Verteidiger abhängig von Einheiten auf Gebiet, höchstens 2
 - Würfel werden absteigend sortiert ausgewertet, Verlierer verliert eine Einheit, bei Gleichstand gewinnt Verteidiger
@@ -33,7 +34,10 @@
 - Phasenende:
 	bei mind. einer gewonnen Schlacht: Spieler zieht eine Gebietskarte; wenn Kartentausch möglich, muss sofort getauscht werden
 
-~~~Kartentausch~~~
+~~~Ziehen/Verschieben~~~ Phase 3
+-> Einheiten können in andere Gebiete verschoben werden, es darf nur über eigene Grenzen gegangen werden
+
+~~~Kartentausch~~~ Phase 4
 	- Tausch möglich bei 3 gleichen Symbolen oder 3 verschiedenen Symbolen (bei möglichem Tausch wird Tausch erzwungen)
 	- Zu erhaltende Einheiten:
 		Nummer Kartensatz		Einheiten
@@ -44,10 +48,6 @@
 			5.				12
 			6.				15
 	- wenn ein Gebiet der eingetauschten Karten in Besitz: 2 Bonuseinheiten
-
-~~~Ziehen/Verschieben~~~
--> Einheiten können in andere Gebiete verschoben werden, es darf nur über eigene Grenzen gegangen werden
-
 
 ## Ziel/Spielende ##
 
