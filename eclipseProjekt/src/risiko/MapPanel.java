@@ -86,7 +86,10 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 		}
 		this.setPreferredSize(new Dimension(screenSize.width*8/10,screenSize.height));
 		this.setLayout(new BorderLayout());
-		this.add(mapLabel);		
+		this.add(mapLabel);	
+		
+		drawMap();
+		
 		
 	}
 	
@@ -237,6 +240,17 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 			// TODO Auto-generated method stub
 			
 		}
+		
+		public void drawMap() {
+			for(int i = 0; i < controller.game.getPlayers().size(); i++) {
+				for(Territory t : controller.game.getPlayers().get(i).getOccupiedTerritories()) {
+					placeCoa(t.getName(), i + 1);
+					placeArmy(t.getName(), t.getArmiesOnTerritory());
+				}
+			}
+			
+		}
+		
 	}
 
 	

@@ -13,23 +13,13 @@ import javax.swing.*;
 public class TestMain {	
 	public static void main(String[] args) {
 		
-		StartMenuGUI start = new StartMenuGUI();
-		start.setVisible(true);
+//		StartMenuGUI start = new StartMenuGUI();
+//		start.setVisible(true);
 		
 		Controller controller = new Controller();
 		
 		controller.getGui().setVisible(true);
 	
-		
-		
-//		int tmp = -1;
-//		
-//		while(true) {
-//			if( Controller.getPhase() != tmp) {
-//				tmp = Controller.getPhase();
-//				view.changePhase(Controller.getPhase());
-//			}
-//		}
 
 		
 		//IntroGUI view2 = new IntroGUI();
