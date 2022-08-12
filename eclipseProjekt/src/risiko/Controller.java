@@ -33,25 +33,34 @@ public class Controller {
 	public void nextPlayer() {
 		playerAtTurn = (playerAtTurn + 1) % game.players.size();
 	}
+	public Player getLastPlayer() {
+		return this.game.getPlayers().get(this.game.getPlayers().size() - 1);
+	}
 	
 	public boolean validTerritory() {
 		return this.getPlayerObject().getOccupiedTerritories().contains(activeTerritory);
 	}
 
+	//TODO
 	public void updateActiveTerritory() {
 		switch(phase) {
 		case 0:
 			gui.phase0.updateSelectedTerritory();
-			break;			
+			break;		
+		
 		}
 	}
 	
-	public boolean placeArmyInitial(Territory territory) {
-		if(game.placeArmies(game.getPlayers().get(playerAtTurn), territory, 1)){
+	public boolean placeArmyInitial() {
+		if(game.placeArmies(game.getPlayers().get(playerAtTurn), activeTerritory, 1)){
 			return true;
 		}else {
 			return false;
 		}
+	}
+	
+	public void updateMap() {
+		gui.mapPanel.drawMap();
 	}
 
 	public RiskGUI getGui() {
