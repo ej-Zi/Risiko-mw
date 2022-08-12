@@ -94,7 +94,7 @@ public class Game extends GameInitializer {
 	
 	//Armee setzen
 	public boolean placeArmies(Player player, Territory territory, int amount) {
-		if((player.getArmies() - amount) > 0 && territory.getOccupier() == player) {
+		if((player.getArmies() - amount) >= 0 && territory.getOccupier() == player) {
 			territory.setArmiesOnTerritory(territory.getArmiesOnTerritory() + amount);
 			player.setArmies(player.getArmies() - amount);
 			return true;

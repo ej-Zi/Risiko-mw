@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -50,7 +51,6 @@ private ImageIcon menuIcon;
 
 private JMenuBar menuBar;
 private JMenu menu;
-private JMenuItem speichern;
 private JMenuItem beenden;
 
 private JLabel playerInformationBackground;
@@ -151,17 +151,12 @@ cntrl = new controlerTry();
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu();
-		speichern = new JMenuItem("Speichern");
 		beenden = new JMenuItem("Beenden");
-		speichern.setHorizontalTextPosition(SwingConstants.CENTER);
-		speichern.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
 		beenden.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
-		speichern.setBackground(buttonColor);
 		beenden.setBackground(buttonColor);
 		beenden.addActionListener(this);
 		menuBar.setBounds(-10, -3, 70, 45);
 		menu.setIcon(menuIcon);
-		menu.add(speichern);
 		menu.add(beenden);
 		menuBar.add(menu);	
 		this.add(menuBar, BorderLayout.NORTH);
@@ -176,7 +171,7 @@ cntrl = new controlerTry();
 		this.add(playerInformationBackground);
 		
 		guideDisplay = new JTextField();
-		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
+		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2, (screenSize.height*85)/768 + 50, 240, 35);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
@@ -185,7 +180,7 @@ cntrl = new controlerTry();
 		this.add(guideDisplay);
 	
 		help = new JButton("?", buttonIcon);
-		help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
+		help.setBounds(60,(screenSize.height*0)/768, 45, 43);
 		help.setHorizontalTextPosition(SwingConstants.CENTER);
 		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
 	
@@ -201,10 +196,10 @@ cntrl = new controlerTry();
 		this.add(selectedTerritory);
 
 		putUnit = new JButton("Armee setzen", buttonIcon);
-		putUnit.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*325)/768, 240, 35);
+		putUnit.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*275)/768 + 50, 240, 35);
 		putUnit.setHorizontalTextPosition(SwingConstants.CENTER);
 		putUnit.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-
+		putUnit.addActionListener(this);
 		this.add(putUnit);
 	
 		guideDisplay.setText("Verteilen Sie ihre Armeen" );
@@ -219,18 +214,23 @@ cntrl = new controlerTry();
 		unitsTableColumn.setCellRenderer(dtcr);
         unitsTable.setSelectionBackground(buttonColor);
 		unitsTable.setRowHeight(29);
-		unitsTable.setValueAt("13",0,0);	
+		unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);	
 		unitsTable.setShowGrid(true);
 		unitsTable.setOpaque(false);
 		unitsTable.setBackground(buttonColor);
 		unitsDisplay = new JScrollPane(unitsTable);
 		unitsDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		unitsDisplay.setBounds((screenSize.width*2/10 - 240)/2, (screenSize.height*390)/768, 240, 58 );
+		unitsDisplay.setBounds((screenSize.width*2/10 - 240)/2, (screenSize.height*275)/768 + 115, 240, 58 );
 		unitsDisplay.getViewport().setBackground(buttonColor);
 		this.add (unitsDisplay);
 		
+		
+		Vector<String> vector = new Vector<String>();
+		for(Territory t : controller.getPlayerObject().getOccupiedTerritories()) {
+			vector.add(t.getName());
+		}
 
-		territoriesList = new String[7][2];
+		territoriesList = new String[42][2];
 		territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
 		territoriesTable = new JTable();
 		territoriesTable.setModel(territoriesTableModel);
@@ -241,8 +241,17 @@ cntrl = new controlerTry();
 		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
 		territoriesTable.setSelectionBackground(buttonColor);
-		territoriesTable.setValueAt("Northern Schataria",0,0);
-		territoriesTable.setValueAt("2", 0, 1);
+		
+//		territoriesTable.setValueAt("Northern Schataria",0,0);
+//		territoriesTable.setValueAt("2", 0, 1);
+		
+		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
+			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
+			for(int j = 0; j < controller.getPlayerObject().getOccupiedTerritories().size(); j++) {
+				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
+			}
+		}		
+		
 		territoriesColumn1 = territoriesTable.getColumnModel().getColumn(0);
 		territoriesColumn2 = territoriesTable.getColumnModel().getColumn(1);
 		dtcr = new DefaultTableCellRenderer();  
@@ -335,11 +344,20 @@ cntrl = new controlerTry();
 			System.exit(0);
 		}
 		else if(e.getSource() == this.putUnit) {
-			setArmies();
-			//TODO
+			if(controller.placeArmyInitial()) {
+				unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
+				updateTable();
+				controller.updateMap();
+				if(controller.getLastPlayer() == controller.getPlayerObject() && controller.getLastPlayer().getArmies() == 0) {
+					controller.getGui().changePhase(1);	
+					controller.nextPlayer();
+				}else {
+					controller.nextPlayer();
+					updatePlayerInfo();
+					this.selectedTerritory.setText("");
+				}
+			}
 		}
-	
-	
 	}
 	
 	public void updateSelectedTerritory() {
@@ -352,9 +370,26 @@ cntrl = new controlerTry();
 		}
 	}
 	
-	private void setArmies() {
-		controller.placeArmyInitial(controller.activeTerritory);
+	private void updatePlayerInfo() {
+		greenIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
+		Image greenImage = greenIcon.getImage();
+		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
+		greenIcon = new ImageIcon(modGreenImage);
 		
+		playerInformationBackground.setText(controller.getPlayerObject().getName());
+		playerInformationBackground.setIcon(greenIcon);
+		updateTable();
+		
+		unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
+	}
+	
+	private void updateTable() {
+		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
+			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
+			for(int j = 0; j < controller.getPlayerObject().getOccupiedTerritories().size(); j++) {
+				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
+			}
+		}	
 	}
 	
 }
