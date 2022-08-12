@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
+//import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -31,59 +32,54 @@ import javax.swing.table.TableColumn;
 
 public class Phase0 extends JPanel implements ActionListener{
 
-<<<<<<< HEAD
-private Controller controller;	
-//private JFrame jframe = new JFrame();
-private JPanel panelMap;
-=======
->>>>>>> 896a375 (Lost)
-private JPanel panelCf;
-private JLabel controlfieldLabel;
-private ImageIcon controlfieldIcon;
-private Icon buttonIcon;
-private ImageIcon coatIcon;
-private ImageIcon menuIcon;
 
-private JMenuBar menuBar;
-private JMenu menu;
-private JMenuItem speichern;
-private JMenuItem beenden;
-
-private JLabel playerInformationLabel;
-private JTextField guideDisplay;
-private JTextField selectedTerritory;
-private JButton putUnit;
-
-//Hilfs-PopUp
-private JButton help;
-private JDialog helpPopUp;
-private JTextArea helpDisplay;
-private JPanel helpPanelText;
-private JPanel helpPanelButton;
-private JScrollPane scrollHelpDisplay;
-private JButton closeHelp;
-
-//GebietsAnzeige
-private JScrollPane territoriesDisplay;
-private String [][]territoriesList;
-private JTable territoriesTable;
-private String [] territoriesTitel = {"Besetzte Gebiete", "Armeen"};
-private DefaultTableModel territoriesTableModel;
-private TableColumn territoriesColumn1;
-private TableColumn territoriesColumn2;
-private DefaultTableCellRenderer dtcr;
-
-//EinheitenAnzeige
-private JScrollPane unitsDisplay;
-private String[][]unitsList;
-private JTable unitsTable;
-private TableColumn unitsTableColumn;
-private String[]unitsTitel = {"Einsetzbare Armeen"};
-
-private Color buttonColor;
-private Integer phase = 0;
-private controlerTry cntrl;
-private Dimension screenSize;
+	private static final Frame Phase0Frame = null;
+	private Controller controller;	
+	private JLabel controlfieldLabel;
+	private ImageIcon controlfieldIcon;
+	private Icon buttonIcon;
+	private ImageIcon coatIcon;
+	private ImageIcon menuIcon;
+	
+	private JMenuBar menuBar;
+	private JMenu menu;
+	private JMenuItem speichern;
+	private JMenuItem beenden;
+	
+	private JLabel playerInformationLabel;
+	private JTextField guideDisplay;
+	private JTextField selectedTerritory;
+	private JButton putUnit;
+	
+	//Hilfs-PopUp
+	private JButton help;
+	private JDialog helpPopUp;
+	//private JTextArea helpDisplay;
+	//private JPanel helpPanelText;
+	//private JPanel helpPanelButton;
+	private JScrollPane scrollHelpDisplay;
+	private JButton closeHelp;
+	
+	//GebietsAnzeige
+	private JScrollPane territoriesDisplay;
+	private String [][]territoriesList;
+	private JTable territoriesTable;
+	private String [] territoriesTitel = {"Besetzte Gebiete", "Armeen"};
+	private DefaultTableModel territoriesTableModel;
+	private TableColumn territoriesColumn1;
+	private TableColumn territoriesColumn2;
+	private DefaultTableCellRenderer dtcr;
+	
+	//EinheitenAnzeige
+	private JScrollPane unitsDisplay;
+	private String[][]unitsList;
+	private JTable unitsTable;
+	private TableColumn unitsTableColumn;
+	private String[]unitsTitel = {"Einsetzbare Armeen"};
+	
+	private Color buttonColor;
+	private controlerTry cntrl;
+	private Dimension screenSize;
 
 	
 	
@@ -102,14 +98,10 @@ private Dimension screenSize;
 		
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
-<<<<<<< HEAD
-		greenIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
-		Image greenImage = greenIcon.getImage();
-=======
-		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(playerNumber));
-		Image greenImage = coatIcon.getImage();
->>>>>>> 896a375 (Lost)
-		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
+
+		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
+		Image coatImage = coatIcon.getImage();
+		Image modGreenImage = coatImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
 		coatIcon = new ImageIcon(modGreenImage);
 		
 		menuIcon = new ImageIcon("assets\\Floris_Claesz._van_Dyck_001.jpg");
@@ -117,25 +109,14 @@ private Dimension screenSize;
 		Image modMenuImage = menuImage.getScaledInstance(2048*1/30, 1255*1/30, java.awt.Image.SCALE_SMOOTH);
 		menuIcon = new ImageIcon(modMenuImage);
 		
-<<<<<<< HEAD
-		
-		
-=======
-		panelCf = new JPanel();
-		panelCf.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
-		panelCf.setLayout(new BorderLayout());
->>>>>>> 896a375 (Lost)
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
 		
-<<<<<<< HEAD
 
 		this.setPreferredSize(new Dimension(screenSize.width*2/10,screenSize.height));
 		this.setLayout(new BorderLayout());
 		
-=======
->>>>>>> 896a375 (Lost)
 		buttonColor = new Color(239, 228, 176);
 		dtcr = new DefaultTableCellRenderer(); 
 		
@@ -157,23 +138,14 @@ private Dimension screenSize;
 		this.add(menuBar, BorderLayout.NORTH);
 		this.setLayout(null);
 		
-<<<<<<< HEAD
-		playerInformationBackground = new JLabel(controller.getPlayerObject().getName(), greenIcon, SwingConstants.CENTER);
-		playerInformationBackground.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
-		playerInformationBackground.setIconTextGap(12);	
-		playerInformationBackground.setBackground(buttonColor);
-		playerInformationBackground.setOpaque(true);
-		playerInformationBackground.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-		this.add(playerInformationBackground);
-=======
-		playerInformationLabel = new JLabel("Player Three", coatIcon, SwingConstants.CENTER);
+		playerInformationLabel = new JLabel(controller.getPlayerObject().getName(), coatIcon, SwingConstants.CENTER);
 		playerInformationLabel.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
 		playerInformationLabel.setIconTextGap(12);	
 		playerInformationLabel.setBackground(buttonColor);
 		playerInformationLabel.setOpaque(true);
 		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-		panelCf.add(playerInformationLabel);
->>>>>>> 896a375 (Lost)
+		this.add(playerInformationLabel);
+
 		
 		guideDisplay = new JTextField();
 		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
@@ -274,7 +246,10 @@ private Dimension screenSize;
 	
 		if(e.getSource() == this.help) {
 		
-			helpPopUp = new JDialog();
+			HelpPopUp helpTry = new HelpPopUp(Phase0Frame);
+			
+			
+			/*helpPopUp = new JDialog(Phase0Frame, true);
 			helpPopUp.setBounds(300,50,250,200);
 			helpPopUp.setLayout(new BorderLayout());
 			helpPanelText = new JPanel();
@@ -292,12 +267,9 @@ private Dimension screenSize;
 			helpDisplay.setBackground(buttonColor);
 			helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 			helpDisplay.setEditable(false);
-<<<<<<< HEAD
 					
 			helpDisplay.setText(cntrl.getHelpText().get(0)); //wegen for-Schleife
-=======
-			helpDisplay.setText(cntrl.getHelpText().get(phase-1)); //wegen for-Schleife
->>>>>>> 896a375 (Lost)
+
 			helpDisplay.setCaretPosition(0);
 			helpDisplay.setLineWrap(true);
 			helpDisplay.setWrapStyleWord(true);
@@ -323,7 +295,7 @@ private Dimension screenSize;
 			helpPopUp.add(helpPanelText, BorderLayout.CENTER);
 			helpPopUp.add(helpPanelButton, BorderLayout.SOUTH);
 			helpPopUp.setUndecorated(true);
-			helpPopUp.setVisible(true);
+			helpPopUp.setVisible(true);*/
 		
 		}
 		else if(e.getSource() == this.closeHelp){
