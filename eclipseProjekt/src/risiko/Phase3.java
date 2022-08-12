@@ -34,6 +34,8 @@ import javax.swing.table.TableColumn;
 
 public class Phase3 extends JPanel implements ActionListener{
 
+		private RiskGUI gui;
+	
 	//private JFrame jframe = new JFrame();
 		private JPanel panelMap;
 		private JLabel mapLabel;	
@@ -108,7 +110,9 @@ public class Phase3 extends JPanel implements ActionListener{
 		private Dimension screenSize;
 		private Integer playerNumber = 1;
 		
-		public Phase3() {
+		public Phase3(RiskGUI gui) {
+			
+			this.gui = gui;
 			
 			cntrl = new controlerTry();
 			

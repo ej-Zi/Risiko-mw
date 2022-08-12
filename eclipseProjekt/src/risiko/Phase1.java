@@ -34,6 +34,8 @@ import javax.swing.table.TableColumn;
 
 public class Phase1 extends JPanel implements ActionListener {
 
+		RiskGUI gui;
+	
 	//private JFrame jframe = new JFrame();
 		private JPanel panelMap;
 		private JPanel panelCf;
@@ -108,7 +110,8 @@ public class Phase1 extends JPanel implements ActionListener {
 		private Integer playerNumber = 1;
 	
 	
-	public Phase1() {
+	public Phase1(RiskGUI gui) {
+		this.gui = gui;
 		
 cntrl = new controlerTry();
 		
@@ -187,9 +190,6 @@ cntrl = new controlerTry();
 		help.addActionListener(this); 
 		panelCf.add(help);
 		
-		panelCf.remove(selectedTerritory);
-		panelCf.remove(putUnit);
-		panelCf.remove(unitsDisplay);
 	
 		selectedTerritory = new JTextField("The Kingdom of Sun");
 		selectedTerritory.setHorizontalAlignment(SwingConstants.CENTER);

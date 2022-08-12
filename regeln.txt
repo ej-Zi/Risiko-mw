@@ -19,8 +19,6 @@ Phase 0
 
 - Spieler erhält Anzahl der besetzten Gebiete/3 Einheiten; mind. 3
 - Spieler erhält bei gesamten besetztem Kontinent Bonus Einheiten des Kontinents (Bonus ist festgelegt)
-
-- Gebietskarten eintauschen:
 	
 
 ~~~Eroberungsphase/Angriffsphase~~~ Phase 2

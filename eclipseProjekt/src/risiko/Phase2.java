@@ -190,10 +190,6 @@ cntrl = new controlerTry();
 		help.addActionListener(this); 
 		this.add(help);
 		
-//		this.remove(selectedTerritory);
-//		this.remove(putUnit);
-//		this.remove(unitCounterManeuver);
-//		this.remove(unitsDisplay);
 		
 		startPositionAttack = new JTextField("The Kingdom of Sun");
 		startPositionAttack.setHorizontalAlignment(SwingConstants.CENTER);
