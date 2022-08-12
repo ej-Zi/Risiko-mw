@@ -12,9 +12,16 @@ import javax.swing.*;
 
 public class TestMain {	
 	public static void main(String[] args) {
+		
+		StartMenuGUI start = new StartMenuGUI();
+		start.setVisible(true);
+		
 		Controller controller = new Controller();
 		
 		controller.getGui().setVisible(true);
+	
+		
+		
 //		int tmp = -1;
 //		
 //		while(true) {
