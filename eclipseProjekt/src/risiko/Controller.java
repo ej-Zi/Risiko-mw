@@ -8,6 +8,9 @@ public class Controller {
 	private ArrayList<String> names;
 	public Game game;
 	private static int playerAtTurn; 
+	public Territory activeTerritory;
+	public static int phase;
+	private RiskGUI gui;
 	
 	public Controller() {
 		names = new ArrayList<>();
@@ -16,14 +19,43 @@ public class Controller {
 		names.add("Player3");
 		names.add("Player4");
 		names.add("Player5");
-		game = Game.getInstance(5, names);
+		this.game = Game.getInstance(5, names);
+		this.gui = new RiskGUI(this);		
+		playerAtTurn = 0;
 	}
 	
-	public Player getPlayerAtTurn() {
-		return game.players.get(playerAtTurn);
+	public int getPlayerAtTurn() {
+		return playerAtTurn;
+	}
+	public Player getPlayerObject() {
+		return this.game.getPlayers().get(playerAtTurn);
 	}
 	public void nextPlayer() {
 		playerAtTurn = (playerAtTurn + 1) % game.players.size();
 	}
+	
+	public boolean validTerritory() {
+		return this.getPlayerObject().getOccupiedTerritories().contains(activeTerritory);
+	}
 
+	public void updateActiveTerritory() {
+		switch(phase) {
+		case 0:
+			gui.phase0.updateSelectedTerritory();
+			break;			
+		}
+	}
+	
+	public boolean placeArmyInitial(Territory territory) {
+		if(game.placeArmies(game.getPlayers().get(playerAtTurn), territory, 1)){
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	public RiskGUI getGui() {
+		return gui;
+	}
+	
 }

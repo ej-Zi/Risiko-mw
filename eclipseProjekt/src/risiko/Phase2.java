@@ -34,7 +34,7 @@ import javax.swing.table.TableColumn;
 
 public class Phase2 extends JPanel implements ActionListener{
 	
-		private RiskGUI gui;
+		private Controller controller;
 	
 	//private JFrame jframe = new JFrame();
 		private JPanel panelMap;
@@ -108,10 +108,9 @@ public class Phase2 extends JPanel implements ActionListener{
 		private Dimension screenSize;
 		private Integer playerNumber = 1;
 		
-		private Controller controller;
 	
-	public Phase2(RiskGUI gui) {
-		this.gui = gui;
+	public Phase2(Controller controller) {
+		this.controller = controller;
 cntrl = new controlerTry();
 		
 		//Bild einlesen
@@ -342,7 +341,7 @@ cntrl = new controlerTry();
 			unitCounterAttack.getValue();
 		}
 		else if(e.getSource() == this.endPhaseAttack) {
-			gui.changePhase(3);
+			controller.getGui().changePhase(3);
 			//phaseMovementGUI();
 		
 		}

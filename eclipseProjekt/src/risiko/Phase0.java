@@ -34,7 +34,7 @@ import javax.swing.table.TableColumn;
 
 public class Phase0 extends JPanel implements ActionListener{
 
-private RiskGUI gui;	
+private Controller controller;	
 //private JFrame jframe = new JFrame();
 private JPanel panelMap;
 private JPanel panelCf;
@@ -108,12 +108,11 @@ private Color buttonColor;
 private Integer phase = 0;
 private controlerTry cntrl;
 private Dimension screenSize;
-private Integer playerNumber = 1;
 
 	
 	
-	public Phase0 (RiskGUI gui){
-		this.gui = gui;
+	public Phase0 (Controller controller){
+		this.controller = controller;
 		
 cntrl = new controlerTry();
 		
@@ -127,7 +126,7 @@ cntrl = new controlerTry();
 		
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
-		greenIcon = new ImageIcon(cntrl.getPlayerCoat().get(playerNumber));
+		greenIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
 		Image greenImage = greenIcon.getImage();
 		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
 		greenIcon = new ImageIcon(modGreenImage);
@@ -168,7 +167,7 @@ cntrl = new controlerTry();
 		this.add(menuBar, BorderLayout.NORTH);
 		this.setLayout(null);
 		
-		playerInformationBackground = new JLabel("Player Three", greenIcon, SwingConstants.CENTER);
+		playerInformationBackground = new JLabel(controller.getPlayerObject().getName(), greenIcon, SwingConstants.CENTER);
 		playerInformationBackground.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
 		playerInformationBackground.setIconTextGap(12);	
 		playerInformationBackground.setBackground(buttonColor);
@@ -193,7 +192,7 @@ cntrl = new controlerTry();
 		help.addActionListener(this); 
 		this.add(help);
 		
-		selectedTerritory = new JTextField("Northern Schataria");
+		selectedTerritory = new JTextField();
 		selectedTerritory.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*275)/768, 240, 35);
 		selectedTerritory.setHorizontalAlignment(SwingConstants.CENTER);
 		selectedTerritory.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
@@ -296,7 +295,7 @@ cntrl = new controlerTry();
 			helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 			helpDisplay.setEditable(false);
 					
-			helpDisplay.setText(cntrl.getHelpText().get(phase-1)); //wegen for-Schleife
+			helpDisplay.setText(cntrl.getHelpText().get(0)); //wegen for-Schleife
 			helpDisplay.setCaretPosition(0);
 					
 			helpDisplay.setLineWrap(true);
@@ -336,10 +335,26 @@ cntrl = new controlerTry();
 			System.exit(0);
 		}
 		else if(e.getSource() == this.putUnit) {
-			
-			
+			setArmies();
+			//TODO
 		}
 	
+	
+	}
+	
+	public void updateSelectedTerritory() {
+		if(controller.validTerritory()) {
+			this.selectedTerritory.setText(controller.activeTerritory.getName());
+			this.guideDisplay.setText("Verteilen Sie ihre Armeen");
+		}else {
+			this.guideDisplay.setText("Ungültige Auswahl");
+			this.selectedTerritory.setText("");
+		}
+	}
+	
+	private void setArmies() {
+		controller.placeArmyInitial(controller.activeTerritory);
+		
 	}
 	
 }

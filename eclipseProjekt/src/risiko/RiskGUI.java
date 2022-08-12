@@ -44,19 +44,19 @@ public class RiskGUI extends JFrame{
 	private JPanel panelMap;
 	private JPanel panelCf;	
 	
-	private Phase0 phase0;
-	private Phase1 phase1;
-	private Phase2 phase2;
-	private Phase3 phase3;
-	private MapPanel mapPanel;
+	public Phase0 phase0;
+	public Phase1 phase1;
+	public Phase2 phase2;
+	public Phase3 phase3;
+	public MapPanel mapPanel;
+	public drawCards drawCards;
 	
 	
+	public Controller controller;
 	
-	private Controller controller;
-	
-	public RiskGUI() {
+	public RiskGUI(Controller controller) {
 		
-		controller = new Controller();
+		this.controller = controller;
 		
 		//editing panels
 		panelMap = new JPanel();
@@ -64,10 +64,10 @@ public class RiskGUI extends JFrame{
 		panelMap.setLayout(new BorderLayout());
 		panelCf.setLayout(new BorderLayout());
 		
-		this.phase0 = new Phase0(this);
-		this.phase1 = new Phase1(this);
-		this.phase2 = new Phase2(this);
-		this.phase3 = new Phase3(this);
+		this.phase0 = new Phase0(controller);
+		this.phase1 = new Phase1(controller);
+		this.phase2 = new Phase2(controller);
+		this.phase3 = new Phase3(controller);
 		this.mapPanel = new MapPanel(controller);
 		
 		panelMap.add(mapPanel);
@@ -89,25 +89,29 @@ public class RiskGUI extends JFrame{
 		case 0:
 			//panelCf.remove();
 			panelCf.add(phase0);
+			controller.phase = 0;
 			break;
 		case 1:
 			panelCf.remove(phase0);
 			panelCf.revalidate();
 			panelCf.add(phase1);
+			controller.phase = 1;
 			break;
 		case 2:
 			panelCf.remove(phase0);
 			panelCf.revalidate();
 			panelCf.add(phase2);
+			controller.phase = 2;
 			break;
 		case 3:
 			panelCf.remove(phase2);
 			panelCf.revalidate();
 			panelCf.add(phase3);
+			controller.phase = 3;
 			break;
 		case 4:
 			panelMap.remove(mapPanel);
-			
+			controller.phase = 4;
 		}
 	}
 	

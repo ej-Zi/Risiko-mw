@@ -34,7 +34,7 @@ import javax.swing.table.TableColumn;
 
 public class Phase3 extends JPanel implements ActionListener{
 
-		private RiskGUI gui;
+		private Controller controller;
 	
 	//private JFrame jframe = new JFrame();
 		private JPanel panelMap;
@@ -110,9 +110,9 @@ public class Phase3 extends JPanel implements ActionListener{
 		private Dimension screenSize;
 		private Integer playerNumber = 1;
 		
-		public Phase3(RiskGUI gui) {
+		public Phase3(Controller controller) {
 			
-			this.gui = gui;
+			this.controller = controller;
 			
 			cntrl = new controlerTry();
 			
@@ -191,11 +191,6 @@ public class Phase3 extends JPanel implements ActionListener{
 			help.addActionListener(this); 
 			this.add(help);
 			
-//			this.remove(startPositionAttack);
-//			this.remove(unitCounterAttack);
-//			this.remove(attackedPosition);
-//			this.remove(attack);
-//			this.remove(endPhaseAttack);
 			
 			startPositionMovement = new JTextField("The Kingdom of Song");
 			startPositionMovement.setHorizontalAlignment(SwingConstants.CENTER);

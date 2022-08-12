@@ -59,11 +59,11 @@ public class controlerTry {
 	
 	public void addPlayerCoat() {
 	
-		playerCoat.put(1, "assets\\coa1.png");
-		playerCoat.put(2, "assets\\coa2.png");
-		playerCoat.put(3, "assets\\coa3.png");
-		playerCoat.put(4, "assets\\coa4.png");
-		playerCoat.put(5, "assets\\coa5.png");
+		playerCoat.put(0, "assets\\coa1.png");
+		playerCoat.put(1, "assets\\coa2.png");
+		playerCoat.put(2, "assets\\coa3.png");
+		playerCoat.put(3, "assets\\coa4.png");
+		playerCoat.put(4, "assets\\coa5.png");
 	
 	}
 }

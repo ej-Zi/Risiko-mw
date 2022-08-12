@@ -12,8 +12,9 @@ import javax.swing.*;
 
 public class TestMain {	
 	public static void main(String[] args) {
-		RiskGUI view = new RiskGUI();
-		view.setVisible(true);
+		Controller controller = new Controller();
+		
+		controller.getGui().setVisible(true);
 //		int tmp = -1;
 //		
 //		while(true) {

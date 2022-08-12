@@ -33,7 +33,6 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 	private Controller controller;
 	private BufferedImage posBuffImage;
 	private JLabel mapLabel;	
-	private boolean chooseTerritory;
 	private Territory activeTerritory;
 	private ArrayList<Territory> territories;
 	private ArrayList<ImageIcon> coa; 
@@ -44,6 +43,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 
 	public MapPanel(Controller controller) {
 		
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);	
 		
 		this.controller = controller;
 		territories = controller.game.getTerritories();
@@ -71,6 +72,11 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 		
 		//Track armies on map
 		armiesOnMap = new HashMap<>();
+		
+		colorToTerritory= new HashMap<>();
+        for(int i = 0; i< 41; ++i) {
+            colorToTerritory.put(i, territories.get(i));
+        }
 		
 		//List of all coas
 		coa = new ArrayList<>();
@@ -179,24 +185,15 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 			}
 		}
 		
-		// when enabled, mouseclick changes attribute active territory
-		public void enableChooseTerritory() {
-			chooseTerritory = true;
-			this.addMouseListener(this);
-			this.addMouseMotionListener(this);	
-		}
-		
 		public void mouseClicked(MouseEvent e) {
-			if(chooseTerritory) { 
-				if(currentRGB != 0){
-					rgb = currentRGB;
-					this.removeMouseListener(this);
-					this.removeMouseMotionListener(this);
-					this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-					int colorCode = new Color(rgb).getRed();
-					activeTerritory = colorToTerritory.get(colorCode);
-					System.out.println(activeTerritory.getName());
-					}
+			if(currentRGB != 0){
+				rgb = currentRGB;
+				this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				int colorCode = new Color(rgb).getRed();
+				activeTerritory = colorToTerritory.get(colorCode);
+				controller.activeTerritory = this.activeTerritory;
+				controller.updateActiveTerritory();
+				System.out.println(activeTerritory.getName());
 			}
 		}
 		

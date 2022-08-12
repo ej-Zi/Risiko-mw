@@ -34,7 +34,7 @@ import javax.swing.table.TableColumn;
 
 public class Phase1 extends JPanel implements ActionListener {
 
-		RiskGUI gui;
+		Controller controller;
 	
 	//private JFrame jframe = new JFrame();
 		private JPanel panelMap;
@@ -110,8 +110,8 @@ public class Phase1 extends JPanel implements ActionListener {
 		private Integer playerNumber = 1;
 	
 	
-	public Phase1(RiskGUI gui) {
-		this.gui = gui;
+	public Phase1(Controller controller) {
+		this.controller = controller;
 		
 cntrl = new controlerTry();
 		
