@@ -293,4 +293,8 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 			this.players.get(i).setOccupiedTerritories(assignedTerritories.get(i));
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 896a375 (Lost)
 }
