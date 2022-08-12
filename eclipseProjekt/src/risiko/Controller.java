@@ -47,12 +47,21 @@ public class Controller {
 		case 0:
 			gui.phase0.updateSelectedTerritory();
 			break;		
-		
+		case 1:
+			gui.phase1.updateSelectedTerritory();
+			break;
 		}
 	}
 	
 	public boolean placeArmyInitial() {
-		if(game.placeArmies(game.getPlayers().get(playerAtTurn), activeTerritory, 1)){
+		if(game.placeArmies(getPlayerObject(), activeTerritory, 1)){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public boolean placeArmies(int armies) {
+		if(game.placeArmies(getPlayerObject(), activeTerritory, armies)) {
 			return true;
 		}else {
 			return false;

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,8 @@ import javax.swing.table.TableColumn;
 
 public class Phase2 extends JPanel implements ActionListener{
 	
+		private static final Frame helpFrame = null;
+
 		private Controller controller;
 	
 	//private JFrame jframe = new JFrame();
@@ -278,53 +281,7 @@ cntrl = new controlerTry();
 	
 		if(e.getSource() == this.help) {
 		
-			helpPopUp = new JDialog();
-			helpPopUp.setBounds(300,50,250,200);
-			helpPopUp.setLayout(new BorderLayout());
-			helpPanelText = new JPanel();
-			helpPanelButton = new JPanel();
-			
-			helpPanelText.setBounds(1, 1, 248, 160);
-			helpPanelText.setBackground(buttonColor);
-			helpPanelText.setBorder(BorderFactory.createLineBorder(Color.black));
-			helpPanelButton.setBounds(0,160,200,40);
-			helpPanelButton.setBackground(buttonColor);
-			helpPanelButton.setBorder(BorderFactory.createLineBorder(Color.black));
-			
-			helpDisplay = new JTextArea();
-			helpDisplay.setBounds(1,1,248,160);
-			helpDisplay.setBackground(buttonColor);
-			helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-			helpDisplay.setEditable(false);
-					
-			helpDisplay.setText(cntrl.getHelpText().get(phase-1)); //wegen for-Schleife
-			helpDisplay.setCaretPosition(0);
-					
-			helpDisplay.setLineWrap(true);
-			helpDisplay.setWrapStyleWord(true);
-			scrollHelpDisplay = new JScrollPane(helpDisplay);
-			
-			scrollHelpDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-			scrollHelpDisplay.setBounds(1,1,248,160);
-			scrollHelpDisplay.getViewport().setBackground(buttonColor);
-			scrollHelpDisplay.getVerticalScrollBar().setBackground(buttonColor);
-			scrollHelpDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
-			scrollHelpDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);
-			helpPopUp.add(scrollHelpDisplay);
-			
-			closeHelp = new JButton("Ok", buttonIcon);
-			closeHelp.setPreferredSize(new Dimension(60,30));
-			closeHelp.setHorizontalTextPosition(SwingConstants.CENTER);
-			closeHelp.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-			closeHelp.addActionListener(this);
-			helpPanelButton.add(closeHelp);
-			
-			helpPopUp.add(helpPanelText);
-			helpPopUp.add(helpPanelButton);
-			helpPopUp.add(helpPanelText, BorderLayout.CENTER);
-			helpPopUp.add(helpPanelButton, BorderLayout.SOUTH);
-			helpPopUp.setUndecorated(true);
-			helpPopUp.setVisible(true);
+			new HelpPopUp(helpFrame, 2);
 		
 		}
 		else if(e.getSource() == this.closeHelp){

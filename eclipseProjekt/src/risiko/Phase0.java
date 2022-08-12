@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 //import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -33,7 +32,7 @@ import javax.swing.table.TableColumn;
 
 public class Phase0 extends JPanel implements ActionListener{
 
-	private static final Frame Phase0Frame = null;
+	private static final Frame helpFrame = null;
 	private Controller controller;	
 	private JLabel controlfieldLabel;
 	private ImageIcon controlfieldIcon;
@@ -43,7 +42,6 @@ public class Phase0 extends JPanel implements ActionListener{
 	
 	private JMenuBar menuBar;
 	private JMenu menu;
-	private JMenuItem speichern;
 	private JMenuItem beenden;
 	
 	private JLabel playerInformationLabel;
@@ -54,10 +52,6 @@ public class Phase0 extends JPanel implements ActionListener{
 	//Hilfs-PopUp
 	private JButton help;
 	private JDialog helpPopUp;
-	//private JTextArea helpDisplay;
-	//private JPanel helpPanelText;
-	//private JPanel helpPanelButton;
-	private JScrollPane scrollHelpDisplay;
 	private JButton closeHelp;
 	
 	//GebietsAnzeige
@@ -200,9 +194,10 @@ public class Phase0 extends JPanel implements ActionListener{
 		territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
 		territoriesTable = new JTable();
 		territoriesTable.setModel(territoriesTableModel);
-		/*Dynamische Tabellenanpassung
-		territoriesTableModel.addRow(new Object[]{""}); */
-		territoriesTable.setRowHeight(15);
+		territoriesTable.setRowHeight(20);
+		territoriesTable.setShowGrid(true);
+		territoriesTable.setOpaque(false);
+		territoriesTable.setBackground(buttonColor);
 		territoriesTable.getTableHeader().setBackground(buttonColor);
 		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
@@ -223,10 +218,6 @@ public class Phase0 extends JPanel implements ActionListener{
 		territoriesColumn2.setCellRenderer(dtcr);
         territoriesColumn2.setPreferredWidth(65);
         territoriesColumn1.setPreferredWidth(165);
-        territoriesTable.setRowHeight(20);
-		territoriesTable.setShowGrid(true);
-		territoriesTable.setOpaque(false);
-		territoriesTable.setBackground(buttonColor);
 		territoriesDisplay = new JScrollPane(territoriesTable);
 		territoriesDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		territoriesDisplay.setBounds((screenSize.width*2/10 - 240)/2, (screenSize.height*570)/768, 240, 160);
@@ -247,58 +238,7 @@ public class Phase0 extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 	
 		if(e.getSource() == this.help) {
-		
-			HelpPopUp helpTry = new HelpPopUp(Phase0Frame);
-			
-			
-			/*helpPopUp = new JDialog(Phase0Frame, true);
-			helpPopUp.setBounds(300,50,250,200);
-			helpPopUp.setLayout(new BorderLayout());
-			helpPanelText = new JPanel();
-			helpPanelButton = new JPanel();
-			
-			helpPanelText.setBounds(1, 1, 248, 160);
-			helpPanelText.setBackground(buttonColor);
-			helpPanelText.setBorder(BorderFactory.createLineBorder(Color.black));
-			helpPanelButton.setBounds(0,160,200,40);
-			helpPanelButton.setBackground(buttonColor);
-			helpPanelButton.setBorder(BorderFactory.createLineBorder(Color.black));
-			
-			helpDisplay = new JTextArea();
-			helpDisplay.setBounds(1,1,248,160);
-			helpDisplay.setBackground(buttonColor);
-			helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-			helpDisplay.setEditable(false);
-					
-			helpDisplay.setText(cntrl.getHelpText().get(0)); //wegen for-Schleife
-
-			helpDisplay.setCaretPosition(0);
-			helpDisplay.setLineWrap(true);
-			helpDisplay.setWrapStyleWord(true);
-			scrollHelpDisplay = new JScrollPane(helpDisplay);
-			
-			scrollHelpDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-			scrollHelpDisplay.setBounds(1,1,248,160);
-			scrollHelpDisplay.getViewport().setBackground(buttonColor);
-			scrollHelpDisplay.getVerticalScrollBar().setBackground(buttonColor);
-			scrollHelpDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
-			scrollHelpDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);
-			helpPopUp.add(scrollHelpDisplay);
-			
-			closeHelp = new JButton("Ok", buttonIcon);
-			closeHelp.setPreferredSize(new Dimension(60,30));
-			closeHelp.setHorizontalTextPosition(SwingConstants.CENTER);
-			closeHelp.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-			closeHelp.addActionListener(this);
-			helpPanelButton.add(closeHelp);
-			
-			helpPopUp.add(helpPanelText);
-			helpPopUp.add(helpPanelButton);
-			helpPopUp.add(helpPanelText, BorderLayout.CENTER);
-			helpPopUp.add(helpPanelButton, BorderLayout.SOUTH);
-			helpPopUp.setUndecorated(true);
-			helpPopUp.setVisible(true);*/
-		
+			new HelpPopUp(helpFrame, 0);
 		}
 		else if(e.getSource() == this.closeHelp){
 			
@@ -331,19 +271,19 @@ public class Phase0 extends JPanel implements ActionListener{
 			this.selectedTerritory.setText(controller.activeTerritory.getName());
 			this.guideDisplay.setText("Verteilen Sie ihre Armeen");
 		}else {
-			this.guideDisplay.setText("UngÃ¼ltige Auswahl");
+			this.guideDisplay.setText("Ungültige Auswahl");
 			this.selectedTerritory.setText("");
 		}
 	}
 	
 	private void updatePlayerInfo() {
-		greenIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
-		Image greenImage = greenIcon.getImage();
+		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
+		Image greenImage = coatIcon.getImage();
 		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
-		greenIcon = new ImageIcon(modGreenImage);
+		coatIcon = new ImageIcon(modGreenImage);
 		
-		playerInformationBackground.setText(controller.getPlayerObject().getName());
-		playerInformationBackground.setIcon(greenIcon);
+		playerInformationLabel.setText(controller.getPlayerObject().getName());
+		playerInformationLabel.setIcon(coatIcon);
 		updateTable();
 		
 		unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);

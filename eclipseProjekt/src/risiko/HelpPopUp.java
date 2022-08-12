@@ -30,9 +30,10 @@ public class HelpPopUp {
 	private JButton closeHelp;
 	private Color buttonColor;
 	private controlerTry cntrl;
+	private Controller controller;
 	
 	
-	public HelpPopUp (Frame phase0) {
+	public HelpPopUp (Frame phase0, int phase) {
 		
 		buttonColor = new Color(239, 228, 176);
 		cntrl = new controlerTry();
@@ -56,7 +57,7 @@ public class HelpPopUp {
 		helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		helpDisplay.setEditable(false);
 				
-		helpDisplay.setText(cntrl.getHelpText().get(0)); //wegen for-Schleife
+		helpDisplay.setText(cntrl.getHelpText().get(phase)); //wegen for-Schleife
 
 		helpDisplay.setCaretPosition(0);
 		helpDisplay.setLineWrap(true);

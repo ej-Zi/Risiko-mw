@@ -248,7 +248,6 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 					placeArmy(t.getName(), t.getArmiesOnTerritory());
 				}
 			}
-			
 		}
 		
 	}
