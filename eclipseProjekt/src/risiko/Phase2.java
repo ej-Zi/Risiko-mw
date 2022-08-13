@@ -132,12 +132,12 @@ public class Phase2 extends JPanel implements ActionListener{
 		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
-		guideDisplay.setText("Greifen Sie den Gegner an");
+		guideDisplay.setText("Wählen Sie das Startgebiet");
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		guideDisplay.setEditable(false);
 		this.add(guideDisplay);		
 		
-		startPositionAttack = new JTextField("The Kingdom of Sun");
+		startPositionAttack = new JTextField();
 		startPositionAttack.setHorizontalAlignment(SwingConstants.CENTER);
 		startPositionAttack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*305)/768, 190, 35);
 		startPositionAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
@@ -155,7 +155,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		unitCounterAttack.getEditor().getComponent(0).setBackground(buttonColor);
 		this.add(unitCounterAttack);
 		
-		attackedPosition = new JTextField("South Valoran");
+		attackedPosition = new JTextField();
 		attackedPosition.setHorizontalAlignment(SwingConstants.CENTER);
 		attackedPosition.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*255)/768, 190, 35);
 		attackedPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
@@ -189,8 +189,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
 		territoriesTable.setSelectionBackground(buttonColor);
-		territoriesTable.setValueAt("Northern Schataria",0,0);
-		territoriesTable.setValueAt("2", 0, 1);
+		updateTable();
 		territoriesColumn1 = territoriesTable.getColumnModel().getColumn(0);
 		territoriesColumn2 = territoriesTable.getColumnModel().getColumn(1);
 		dtcr = new DefaultTableCellRenderer();  
@@ -226,13 +225,49 @@ public class Phase2 extends JPanel implements ActionListener{
 			System.exit(0);
 		}
 		else if(e.getSource() == this.attack) {
+	
+			controller.attack((int) unitCounterAttack.getValue());
+			updateTable();
+			controller.updateMap();
 			
-			unitCounterAttack.getValue();
 		}
 		else if(e.getSource() == this.endPhaseAttack) {
 			controller.getGui().changePhase(3);
 		
 		}
 	}	
+	
+	public void updateSelectedTerritory() {
+		if(controller.activeTerritory != null) {
+			startPositionAttack.setText(controller.activeTerritory.getName());
+			guideDisplay.setText("Wählen Sie das Zielgebiet");
+		}else {
+			startPositionAttack.setText("");
+			attackedPosition.setText("");
+			this.guideDisplay.setText("Wählen Sie das Startgebiet");
+		}
+		
+		if(controller.activeTerritory2 != null && controller.activeTerritory != null) {
+			if(controller.validTerritory2()) {
+				attackedPosition.setText(controller.activeTerritory2.getName());
+				guideDisplay.setText("Greifen Sie an");
+			}else {
+				attackedPosition.setText("");
+				this.guideDisplay.setText("Wählen Sie das Zielgebiet");
+			}
+		}else {
+			attackedPosition.setText("");
+		}
+		
+	}
+	
+	private void updateTable() {
+		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
+			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
+			for(int j = 0; j < controller.getPlayerObject().getOccupiedTerritories().size(); j++) {
+				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
+			}
+		}	
+	}
 		
 }

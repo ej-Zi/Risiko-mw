@@ -46,6 +46,7 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 				this.players.add(new Player(this.namen.get(i), startingArmies));
 			}
 			break;
+		//TODO Testcase
 		}
 		
 		//-----Kontinente erstellen-----

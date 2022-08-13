@@ -39,10 +39,12 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 	private HashMap<Integer, Territory> colorToTerritory;
 	private HashMap <String, Entry<Integer, JLabel>> coaOnMap;
 	private HashMap <String, Entry<Integer, JLabel>> armiesOnMap;
+	private boolean territoryFlag;
 
 
 	public MapPanel(Controller controller) {
 		
+		this.territoryFlag = true;
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);	
 		
@@ -194,9 +196,22 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 				this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				int colorCode = new Color(rgb).getRed();
 				activeTerritory = colorToTerritory.get(colorCode);
-				controller.activeTerritory = this.activeTerritory;
+				if(territoryFlag || controller.phase < 2 ) {				
+					controller.activeTerritory = this.activeTerritory;
+					if(!controller.validTerritory()){
+						controller.activeTerritory = null;
+					}else {
+						territoryFlag = false;
+					}
+				}else {
+					controller.activeTerritory2 = this.activeTerritory;
+					if(!controller.validTerritory2()) {
+						controller.activeTerritory2 = null;
+					}else {
+						territoryFlag = true;
+					}
+				}		
 				controller.updateActiveTerritory();
-				System.out.println(activeTerritory.getName());
 			}
 		}
 		

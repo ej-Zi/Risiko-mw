@@ -74,6 +74,9 @@ public class Phase1 extends JPanel implements ActionListener {
 	public Phase1(Controller controller) {
 		
 		this.controller = controller;
+		
+		controller.recruitArmies(); //TODO
+		
 		cntrl = new controlerTry();
 		dtcr = new DefaultTableCellRenderer(); 
 		
@@ -198,15 +201,8 @@ public class Phase1 extends JPanel implements ActionListener {
 		territoriesTable.getTableHeader().setBackground(buttonColor);
 		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
-		territoriesTable.setSelectionBackground(buttonColor);
-		
-		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
-			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
-			for(int j = 0; j < controller.getPlayerObject().getOccupiedTerritories().size(); j++) {
-				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
-			}
-		}		
-		
+		territoriesTable.setSelectionBackground(buttonColor);		
+		updateTable();
 		territoriesColumn1 = territoriesTable.getColumnModel().getColumn(0);
 		territoriesColumn2 = territoriesTable.getColumnModel().getColumn(1);
 		dtcr = new DefaultTableCellRenderer();  
@@ -226,6 +222,8 @@ public class Phase1 extends JPanel implements ActionListener {
 		this.add (territoriesDisplay);
 	
 		this.add(controlfieldLabel);
+		
+		
 		
 	}
 	
@@ -263,19 +261,6 @@ public class Phase1 extends JPanel implements ActionListener {
 		}
 	}
 	
-	/*private void updatePlayerInfo() {
-		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
-		Image greenImage = coatIcon.getImage();
-		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
-		coatIcon = new ImageIcon(modGreenImage);
-		
-		playerInformationLabel.setText(controller.getPlayerObject().getName());
-		playerInformationLabel.setIcon(coatIcon);
-		updateTable();
-		
-		unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
-	}*/
-	
 	private void updateTable() {
 		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
 			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
@@ -284,4 +269,6 @@ public class Phase1 extends JPanel implements ActionListener {
 			}
 		}	
 	}
+	
+	
 }

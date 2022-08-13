@@ -9,6 +9,7 @@ public class Controller {
 	public Game game;
 	private static int playerAtTurn; 
 	public Territory activeTerritory;
+	public Territory activeTerritory2;
 	public static int phase;
 	private RiskGUI gui;
 	
@@ -38,7 +39,28 @@ public class Controller {
 	}
 	
 	public boolean validTerritory() {
-		return this.getPlayerObject().getOccupiedTerritories().contains(activeTerritory);
+		if(phase < 2) {
+			return this.getPlayerObject().getOccupiedTerritories().contains(activeTerritory);
+		}
+		switch(phase) {
+		case 2 : 
+			if(!this.getPlayerObject().getOccupiedTerritories().contains(activeTerritory)) {
+				return false;
+			}
+			for(Territory t : activeTerritory.getBorderingTerritories()) {
+				if(t.getOccupier() != getPlayerObject()) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		return false;
+		
+		
+	}
+	public boolean validTerritory2() {
+		return activeTerritory.getBorderingTerritories().contains(activeTerritory2) && activeTerritory2.getOccupier() != getPlayerObject();
 	}
 
 	//TODO
@@ -50,7 +72,14 @@ public class Controller {
 		case 1:
 			gui.phase1.updateSelectedTerritory();
 			break;
+		case 2:
+			gui.phase2.updateSelectedTerritory();
+			break;
 		}
+	}
+	
+	public ArrayList<Integer[]> attack(int armies) {
+		return game.attack(getPlayerObject(), armies, activeTerritory, activeTerritory);
 	}
 	
 	public boolean placeArmyInitial() {
@@ -67,6 +96,11 @@ public class Controller {
 			return false;
 		}
 	}
+	
+	public int recruitArmies() {
+		return game.recruiting(getPlayerObject());
+	}
+	
 	
 	public void updateMap() {
 		gui.mapPanel.drawMap();

@@ -14,17 +14,26 @@ public class TestModel {
 		ArrayList<String> namen = new ArrayList<>(Arrays.asList("a", "b", "c", "d", "e", "f"));
 		Game game = Game.getInstance(2, namen);
 		
-		for(int i = 0; i < game.getPlayers().size(); i++) {
-			for(Territory t : game.getPlayers().get(i).getOccupiedTerritories()){
-			System.out.println(t.getName());
-			}
-			System.out.println();
-		}
-		int indexStart = input.nextInt();
-		int indexZiel = input.nextInt();
+	
 		
-		System.out.println(game.movePossible(game.getPlayers().get(0), game.getTerritories().get(indexStart)
-				,game.getTerritories().get(indexZiel)));
+		for(int i = 0; i < 20; i++) {
+			game.drawCard(game.getPlayers().get(0));
+		}
+		
+		for(Card c : game.getPlayers().get(0).getCardsInHand()) {
+			System.out.println(c.getSymbol());
+		}
+		
+		while(input.nextInt() == 1) {
+			int idex1 = input.nextInt();
+			int idex2 = input.nextInt();
+			int idex3 = input.nextInt();
+		
+			System.out.println(game.validCards(game.getPlayers().get(0).getCardsInHand().get(idex1),
+				game.getPlayers().get(0).getCardsInHand().get(idex2), game.getPlayers().get(0).getCardsInHand().get(idex3)));
+		}
+		
+		
 		
 		input.close();
 		

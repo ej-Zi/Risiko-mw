@@ -44,7 +44,7 @@ public class controlerTry {
 						+ "die Sie auf das Gebiet setzen möchten und drücken Sie danach 'Armeen setzen'.");
 		
 		helpText.put(2, "Klicken Sie auf das Gebiet, dass "
-						+ "Sie Angreifen möchten und danach auf das Gebiet von dem aus Sie angreifen möchten."
+						+ "Von dem aus Sie angreifen möchten und danach auf das Gebiet, das Sie angreifen möchten  ."
 						+ "Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
 						+ "mit denen Sie angreifen möchten und drücken Sie danach 'Gegner angreifen'. "
 						+ "Wenn Sie nicht angreifen möchten, drücken Sie 'Phase beenden'.");

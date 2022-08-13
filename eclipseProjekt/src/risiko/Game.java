@@ -63,9 +63,9 @@ public class Game extends GameInitializer {
 		}	
 	}
 	
-	private boolean validCards(Card c1, Card c2, Card c3) {
+	public boolean validCards(Card c1, Card c2, Card c3) {
 		String[] cardSymbols = {c1.getSymbol(), c2.getSymbol(), c3.getSymbol()};
-		for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < 3; i++) {
 			if(cardSymbols[i].equals("Joker")) {
 				return true;
 			}
@@ -134,7 +134,7 @@ public class Game extends GameInitializer {
 	}
 	
 	//Armeen erhalten in Nachschubphase/Verstaerkungsphase:
-	public void recruiting(Player player) {
+	public int recruiting(Player player) {
 		int numberOfArmies;
 		numberOfArmies = player.getOccupiedTerritories().size()/3;
 		if(numberOfArmies < 3) {
@@ -146,6 +146,7 @@ public class Game extends GameInitializer {
 			}
 		}
 		player.setArmies(player.getArmies() + numberOfArmies);
+		return numberOfArmies;
 	}
 	//besetzt gesamten Kontinent
 	private boolean occupiesContinent(Player player, Continent continent) {
