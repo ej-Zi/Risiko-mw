@@ -83,7 +83,6 @@ public class HelpPopUp {
 			}
 		});
 		helpPanelButton.add(closeHelp);
-		
 		helpPopUp.add(helpPanelText);
 		helpPopUp.add(helpPanelButton);
 		helpPopUp.add(helpPanelText, BorderLayout.CENTER);

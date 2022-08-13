@@ -10,12 +10,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
@@ -36,45 +32,27 @@ import javax.swing.table.TableColumn;
 public class Phase2 extends JPanel implements ActionListener{
 	
 		private static final Frame helpFrame = null;
-
 		private Controller controller;
-	
-	//private JFrame jframe = new JFrame();
-		private JPanel panelMap;
-		private JLabel mapLabel;	
-		
 		private JLabel controlfieldLabel;
 		private ImageIcon controlfieldIcon;
 		private Icon buttonIcon;
-		private ImageIcon greenIcon;
+		private ImageIcon coatIcon;
 		private ImageIcon menuIcon;
 		
 		private JMenuBar menuBar;
 		private JMenu menu;
-		private JMenuItem speichern;
 		private JMenuItem beenden;
+		private JButton help;
 		
-		private JLabel playerInformationBackground;
-		
-		//Spieleranweisung
+		private JLabel playerInformationLabel;
 		private JTextField guideDisplay;
-		//private JScrollPane scrollGuideDisplay;
-		
-		private JTextField selectedTerritory;
 		private JTextField startPositionAttack;
 		private JTextField attackedPosition;
-		private JTextField startPositionMovement;
-		private JTextField movedToPosition;
+		private JSpinner unitCounterAttack;
+		private SpinnerNumberModel unitCounterAttackModel;
+		private JButton attack;
+		private JButton endPhaseAttack;
 		
-		private JButton help;
-		private JDialog helpPopUp;
-		private JTextArea helpDisplay;
-		private JPanel helpPanelText;
-		private JPanel helpPanelButton;
-		private JScrollPane scrollHelpDisplay;
-		private JButton closeHelp;
-		
-		//GebietsAnzeige
 		private JScrollPane territoriesDisplay;
 		private String [][]territoriesList;
 		private JTable territoriesTable;
@@ -84,41 +62,18 @@ public class Phase2 extends JPanel implements ActionListener{
 		private TableColumn territoriesColumn2;
 		private DefaultTableCellRenderer dtcr;
 		
-		//EinheitenAnzeige
-		private JScrollPane unitsDisplay;
-		private String[][]unitsList;
-		private JTable unitsTable;
-		private TableColumn unitsTableColumn;
-		private String[]unitsTitel = {"Einsetzbare Armeen"};
-		
-		private JSpinner unitCounterManeuver;
-		private SpinnerNumberModel unitCounterManeuverModel;
-		private JSpinner unitCounterAttack;
-		private SpinnerNumberModel unitCounterAttackModel;
-		private JSpinner unitCounterMovement;
-		private SpinnerNumberModel unitCounterMovementModel;
-		
-		private JButton putUnit;
-		private JButton attack;
-		private JButton endPhaseAttack;
-		private JButton unitMovement;
-		private JButton endPhaseMovement;
-		
-		
 		private Color buttonColor;
-		private Integer phase = 0;
 		private controlerTry cntrl;
 		private Dimension screenSize;
-		private Integer playerNumber = 1;
 		
 	
 	public Phase2(Controller controller) {
+		
 		this.controller = controller;
-cntrl = new controlerTry();
+		cntrl = new controlerTry();
+		dtcr = new DefaultTableCellRenderer();
 		
-		//Bild einlesen
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
-		
 		
 		controlfieldIcon = new ImageIcon("assets\\Velazquez-The_Surrender_of_Breda.jpg");
 		Image controlfieldImage = controlfieldIcon.getImage();
@@ -127,18 +82,15 @@ cntrl = new controlerTry();
 		
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
-		greenIcon = new ImageIcon(cntrl.getPlayerCoat().get(playerNumber));
-		Image greenImage = greenIcon.getImage();
-		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
-		greenIcon = new ImageIcon(modGreenImage);
+		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
+		Image coatImage = coatIcon.getImage();
+		Image modCoatImage = coatImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
+		coatIcon = new ImageIcon(modCoatImage);
 		
 		menuIcon = new ImageIcon("assets\\Floris_Claesz._van_Dyck_001.jpg");
 		Image menuImage = menuIcon.getImage();
 		Image modMenuImage = menuImage.getScaledInstance(2048*1/30, 1255*1/30, java.awt.Image.SCALE_SMOOTH);
 		menuIcon = new ImageIcon(modMenuImage);
-		
-		
-		
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
@@ -147,51 +99,43 @@ cntrl = new controlerTry();
 		this.setLayout(new BorderLayout());
 		
 		buttonColor = new Color(239, 228, 176);
-		dtcr = new DefaultTableCellRenderer(); 
-		
+		 
 		menuBar = new JMenuBar();
 		menu = new JMenu();
-		speichern = new JMenuItem("Speichern");
 		beenden = new JMenuItem("Beenden");
-		speichern.setHorizontalTextPosition(SwingConstants.CENTER);
-		speichern.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
 		beenden.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
-		speichern.setBackground(buttonColor);
 		beenden.setBackground(buttonColor);
 		beenden.addActionListener(this);
 		menuBar.setBounds(-10, -3, 70, 45);
 		menu.setIcon(menuIcon);
-		menu.add(speichern);
 		menu.add(beenden);
 		menuBar.add(menu);	
 		this.add(menuBar, BorderLayout.NORTH);
 		this.setLayout(null);
 		
-		playerInformationBackground = new JLabel("Player Three", greenIcon, SwingConstants.CENTER);
-		playerInformationBackground.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
-		playerInformationBackground.setIconTextGap(12);	
-		playerInformationBackground.setBackground(buttonColor);
-		playerInformationBackground.setOpaque(true);
-		playerInformationBackground.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
-		this.add(playerInformationBackground);
+		help = new JButton("?", buttonIcon);
+		help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
+		help.setHorizontalTextPosition(SwingConstants.CENTER);
+		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
+		help.addActionListener(this); 
+		this.add(help);
+		
+		playerInformationLabel = new JLabel(controller.getPlayerObject().getName(), coatIcon, SwingConstants.CENTER);
+		playerInformationLabel.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
+		playerInformationLabel.setIconTextGap(12);	
+		playerInformationLabel.setBackground(buttonColor);
+		playerInformationLabel.setOpaque(true);
+		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		this.add(playerInformationLabel);
 		
 		guideDisplay = new JTextField();
 		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
+		guideDisplay.setText("Greifen Sie den Gegner an");
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		guideDisplay.setEditable(false);
-		
-		this.add(guideDisplay);
-	
-		help = new JButton("?", buttonIcon);
-		help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
-		help.setHorizontalTextPosition(SwingConstants.CENTER);
-		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
-	
-		help.addActionListener(this); 
-		this.add(help);
-		
+		this.add(guideDisplay);		
 		
 		startPositionAttack = new JTextField("The Kingdom of Sun");
 		startPositionAttack.setHorizontalAlignment(SwingConstants.CENTER);
@@ -200,8 +144,6 @@ cntrl = new controlerTry();
 		startPositionAttack.setBackground(buttonColor);
 		startPositionAttack.setEditable(false);
 		this.add(startPositionAttack);
-		
-		guideDisplay.setText("Greifen Sie den Gegner an");
 		
 		unitCounterAttackModel = new SpinnerNumberModel(0, 0, 3, 1);
 		unitCounterAttack = new JSpinner(unitCounterAttackModel);
@@ -225,6 +167,7 @@ cntrl = new controlerTry();
 		attack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*355)/768, 240, 35);
 		attack.setHorizontalTextPosition(SwingConstants.CENTER);
 		attack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		attack.addActionListener(this);
 		this.add(attack);
 	
 		endPhaseAttack = new JButton("Phase beenden", buttonIcon);
@@ -234,13 +177,14 @@ cntrl = new controlerTry();
 		endPhaseAttack.addActionListener(this);
 		this.add(endPhaseAttack);
 		
-		territoriesList = new String[7][2];
+		territoriesList = new String[42][2];
 		territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
 		territoriesTable = new JTable();
 		territoriesTable.setModel(territoriesTableModel);
-		/*Dynamische Tabellenanpassung
-		territoriesTableModel.addRow(new Object[]{""}); */
-		territoriesTable.setRowHeight(15);
+		territoriesTable.setRowHeight(20);
+		territoriesTable.setShowGrid(true);
+		territoriesTable.setOpaque(false);
+		territoriesTable.setBackground(buttonColor);
 		territoriesTable.getTableHeader().setBackground(buttonColor);
 		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
@@ -255,10 +199,6 @@ cntrl = new controlerTry();
 		territoriesColumn2.setCellRenderer(dtcr);
         territoriesColumn2.setPreferredWidth(65);
         territoriesColumn1.setPreferredWidth(165);
-        territoriesTable.setRowHeight(20);
-		territoriesTable.setShowGrid(true);
-		territoriesTable.setOpaque(false);
-		territoriesTable.setBackground(buttonColor);
 		territoriesDisplay = new JScrollPane(territoriesTable);
 		territoriesDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		territoriesDisplay.setBounds((screenSize.width*2/10 - 240)/2, (screenSize.height*570)/768, 240, 160);
@@ -269,24 +209,16 @@ cntrl = new controlerTry();
 		territoriesDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);	
 		this.add (territoriesDisplay);
 		
-		//Bild auf Panel
 		this.add(controlfieldLabel);
 		
-
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 	
 		if(e.getSource() == this.help) {
 		
 			new HelpPopUp(helpFrame, 2);
-		
-		}
-		else if(e.getSource() == this.closeHelp){
-			
-			helpPopUp.dispose();
 		
 		}
 		else if(e.getSource() == this.beenden) {
@@ -299,7 +231,6 @@ cntrl = new controlerTry();
 		}
 		else if(e.getSource() == this.endPhaseAttack) {
 			controller.getGui().changePhase(3);
-			//phaseMovementGUI();
 		
 		}
 	}	

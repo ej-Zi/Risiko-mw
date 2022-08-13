@@ -10,12 +10,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
@@ -36,14 +32,7 @@ import javax.swing.table.TableColumn;
 public class Phase1 extends JPanel implements ActionListener {
 
 		private static final Frame helpFrame = null;
-
-		Controller controller;
-	
-	//private JFrame jframe = new JFrame();
-		private JPanel panelMap;
-		private JPanel panelCf;
-		private JLabel mapLabel;	
-		
+		private Controller controller;	
 		private JLabel controlfieldLabel;
 		private ImageIcon controlfieldIcon;
 		private Icon buttonIcon;
@@ -52,30 +41,22 @@ public class Phase1 extends JPanel implements ActionListener {
 		
 		private JMenuBar menuBar;
 		private JMenu menu;
-		private JMenuItem speichern;
 		private JMenuItem beenden;
-		
-		private JLabel playerInformationLabel;
-		
-		//Spieleranweisung
-		private JTextField guideDisplay;
-		//private JScrollPane scrollGuideDisplay;
-		
-		private JTextField selectedTerritory;
-		private JTextField startPositionAttack;
-		private JTextField attackedPosition;
-		private JTextField startPositionMovement;
-		private JTextField movedToPosition;
-		
 		private JButton help;
-		private JDialog helpPopUp;
-		private JTextArea helpDisplay;
-		private JPanel helpPanelText;
-		private JPanel helpPanelButton;
-		private JScrollPane scrollHelpDisplay;
-		private JButton closeHelp;
+
+		private JLabel playerInformationLabel;
+		private JTextField guideDisplay;
+		private JTextField selectedTerritory;
+		private JButton putUnit;
+		private JSpinner unitCounterManeuver;
+		private SpinnerNumberModel unitCounterManeuverModel;
 		
-		//GebietsAnzeige
+		private JScrollPane unitsDisplay;
+		private String[][]unitsList;
+		private JTable unitsTable;
+		private TableColumn unitsTableColumn;
+		private String[]unitsTitel = {"Einsetzbare Armeen"};
+		
 		private JScrollPane territoriesDisplay;
 		private String [][]territoriesList;
 		private JTable territoriesTable;
@@ -85,40 +66,17 @@ public class Phase1 extends JPanel implements ActionListener {
 		private TableColumn territoriesColumn2;
 		private DefaultTableCellRenderer dtcr;
 		
-		//EinheitenAnzeige
-		private JScrollPane unitsDisplay;
-		private String[][]unitsList;
-		private JTable unitsTable;
-		private TableColumn unitsTableColumn;
-		private String[]unitsTitel = {"Einsetzbare Armeen"};
-		
-		private JSpinner unitCounterManeuver;
-		private SpinnerNumberModel unitCounterManeuverModel;
-		private JSpinner unitCounterAttack;
-		private SpinnerNumberModel unitCounterAttackModel;
-		private JSpinner unitCounterMovement;
-		private SpinnerNumberModel unitCounterMovementModel;
-		
-		private JButton putUnit;
-		private JButton attack;
-		private JButton endPhaseAttack;
-		private JButton unitMovement;
-		private JButton endPhaseMovement;
-		
-		
 		private Color buttonColor;
-		private Integer phase = 0;
 		private controlerTry cntrl;
 		private Dimension screenSize;
-		private Integer playerNumber = 1;
 	
 	
 	public Phase1(Controller controller) {
+		
 		this.controller = controller;
+		cntrl = new controlerTry();
+		dtcr = new DefaultTableCellRenderer(); 
 		
-cntrl = new controlerTry();
-		
-		//Bild einlesen
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = new ImageIcon("assets\\Velazquez-The_Surrender_of_Breda.jpg");
@@ -130,15 +88,13 @@ cntrl = new controlerTry();
 		
 		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
 		Image coatImage = coatIcon.getImage();
-		Image modGreenImage = coatImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
-		coatIcon = new ImageIcon(modGreenImage);
+		Image modCoatImage = coatImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
+		coatIcon = new ImageIcon(modCoatImage);
 		
 		menuIcon = new ImageIcon("assets\\Floris_Claesz._van_Dyck_001.jpg");
 		Image menuImage = menuIcon.getImage();
 		Image modMenuImage = menuImage.getScaledInstance(2048*1/30, 1255*1/30, java.awt.Image.SCALE_SMOOTH);
 		menuIcon = new ImageIcon(modMenuImage);
-		
-	
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
@@ -147,25 +103,26 @@ cntrl = new controlerTry();
 		this.setLayout(new BorderLayout());
 		
 		buttonColor = new Color(239, 228, 176);
-		dtcr = new DefaultTableCellRenderer(); 
 		
 		menuBar = new JMenuBar();
 		menu = new JMenu();
-		speichern = new JMenuItem("Speichern");
 		beenden = new JMenuItem("Beenden");
-		speichern.setHorizontalTextPosition(SwingConstants.CENTER);
-		speichern.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
 		beenden.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
-		speichern.setBackground(buttonColor);
 		beenden.setBackground(buttonColor);
 		beenden.addActionListener(this);
 		menuBar.setBounds(-10, -3, 70, 45);
 		menu.setIcon(menuIcon);
-		menu.add(speichern);
 		menu.add(beenden);
 		menuBar.add(menu);	
 		this.add(menuBar, BorderLayout.NORTH);
 		this.setLayout(null);
+		
+		help = new JButton("?", buttonIcon);
+		help.setBounds(60,(screenSize.height*0)/768, 45, 43);
+		help.setHorizontalTextPosition(SwingConstants.CENTER);
+		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
+		help.addActionListener(this); 
+		this.add(help);
 		
 		playerInformationLabel = new JLabel(controller.getPlayerObject().getName(), coatIcon, SwingConstants.CENTER);
 		playerInformationLabel.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
@@ -179,20 +136,11 @@ cntrl = new controlerTry();
 		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
+		guideDisplay.setText("Verteilen Sie Ihre Armeen");
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		guideDisplay.setEditable(false);
-		
 		this.add(guideDisplay);
-	
-		help = new JButton("?", buttonIcon);
-		help.setBounds(60,(screenSize.height*0)/768, 45, 43);
-		help.setHorizontalTextPosition(SwingConstants.CENTER);
-		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
-	
-		help.addActionListener(this); 
-		this.add(help);
 		
-	
 		selectedTerritory = new JTextField();
 		selectedTerritory.setHorizontalAlignment(SwingConstants.CENTER);
 		selectedTerritory.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*275)/768, 190, 35);
@@ -208,9 +156,6 @@ cntrl = new controlerTry();
 		putUnit.addActionListener(this);
 		this.add(putUnit);
 		
-
-		guideDisplay.setText("Verteilen Sie Ihre Armeen");
-	
 		unitCounterManeuverModel = new SpinnerNumberModel(0, 0, 99, 1);
 		unitCounterManeuver = new JSpinner(unitCounterManeuverModel);
 		unitCounterManeuver.setBounds((screenSize.width*2/10 + 160)/2,(screenSize.height*275)/768, 40, 35);
@@ -279,8 +224,6 @@ cntrl = new controlerTry();
 		territoriesDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
 		territoriesDisplay.getVerticalScrollBar().getComponent(1).setBackground(buttonColor);	
 		this.add (territoriesDisplay);
-		
-		//Bild auf Panel
 	
 		this.add(controlfieldLabel);
 		
@@ -288,19 +231,12 @@ cntrl = new controlerTry();
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 	
 		if(e.getSource() == this.help) {
 		
 			new HelpPopUp(helpFrame, 1);
 		
 		}
-		else if(e.getSource() == this.closeHelp){
-			
-			helpPopUp.dispose();
-		
-		}
-
 		else if(e.getSource() == this.beenden) {
 			
 			System.exit(0);
@@ -327,7 +263,7 @@ cntrl = new controlerTry();
 		}
 	}
 	
-	private void updatePlayerInfo() {
+	/*private void updatePlayerInfo() {
 		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
 		Image greenImage = coatIcon.getImage();
 		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
@@ -338,7 +274,7 @@ cntrl = new controlerTry();
 		updateTable();
 		
 		unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
-	}
+	}*/
 	
 	private void updateTable() {
 		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
