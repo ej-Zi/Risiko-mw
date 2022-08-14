@@ -160,7 +160,7 @@ public class Game extends GameInitializer {
 	
 	//Angriff: returns Liste mit gewuerfelten Zahlen wenn erfolgreich (attacker index 0, defender index 1), sonst returns null
 	public ArrayList<Integer[]> attack(Player attacker, int armies, Territory start, Territory target){
-		if(start.getOccupier() == attacker && target.getOccupier() != attacker && start.getBorderingTerritories().contains(target)) {
+		if(start.getOccupier() == attacker && target.getOccupier() != attacker && start.getBorderingTerritories().contains(target) && armies > 0) {
 			Random random = new Random();
 			ArrayList<Integer[]> dice = new ArrayList<>(2);
 			start.setArmiesOnTerritory(start.getArmiesOnTerritory() - armies);
@@ -191,7 +191,14 @@ public class Game extends GameInitializer {
 					target.setArmiesOnTerritory(target.getArmiesOnTerritory() -1 );
 				}
 			}
-			start.setArmiesOnTerritory(start.getArmiesOnTerritory() + armies);
+			if(territoryConquered(attacker, target, armies)) {
+				target.setOccupier(attacker);
+				target.getOccupier().getOccupiedTerritories().remove(target);
+				attacker.getOccupiedTerritories().add(target);
+				target.setArmiesOnTerritory(armies);
+			}else {
+				start.setArmiesOnTerritory(start.getArmiesOnTerritory() + armies);
+			}
 			return dice;
 		}else {
 			return null;
@@ -199,9 +206,8 @@ public class Game extends GameInitializer {
 	}
 	
 	//Land erobert: (nach jedem Angriff aufrufen)
-	public boolean territoryConquered(Player attacker, Territory target) {
-		if(target.getArmiesOnTerritory() == 0) {
-			target.setOccupier(attacker);
+	private boolean territoryConquered(Player attacker, Territory target, int armies) {
+		if(target.getArmiesOnTerritory() <= 0) {
 			return true;
 		}else {
 			return false;
