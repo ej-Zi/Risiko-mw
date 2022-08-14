@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -63,7 +64,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		
 	
 	public Phase2(Controller controller) {
-		
+		System.out.println("Phase 2 erstellt");
 		this.controller = controller;
 		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer();
@@ -103,7 +104,7 @@ public class Phase2 extends JPanel implements ActionListener{
 				((screenSize.width*2/10) * 240)/273, (screenSize.height*35)/768);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
-		guideDisplay.setText("Wählen Sie das Startgebiet");
+		guideDisplay.setText("WÃ¤hlen Sie das Startgebiet");
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		guideDisplay.setEditable(false);
 		this.add(guideDisplay);		
@@ -117,7 +118,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		startPositionAttack.setEditable(false);
 		this.add(startPositionAttack);
 		
-		unitCounterAttackModel = new SpinnerNumberModel(0, 0, 3, 1);
+		unitCounterAttackModel = new SpinnerNumberModel(1, 1, 3, 1);
 		unitCounterAttack = new JSpinner(unitCounterAttackModel);
 		unitCounterAttack.setBounds((screenSize.width*2/10 + ((screenSize.width*2/10) * 160)/273)/2,(screenSize.height*305)/768, 
 				 ((screenSize.width*2/10) *40)/273, (screenSize.height*35)/768);
@@ -193,11 +194,31 @@ public class Phase2 extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 	
 		if(e.getSource() == this.attack) {
-	
-			//controller.attack((int) unitCounterAttack.getValue());
-			//updateTable();
-			//controller.updateMap();
+    
 			AttackPopUp  attackPopUp = new AttackPopUp();
+
+			Player tmp = controller.activeTerritory2.getOccupier();
+			int armies = (int) unitCounterAttack.getValue();
+			ArrayList<Integer[]> dice;
+			dice = controller.attack(armies);
+			
+			//zum Testen:
+			if(dice != null) {
+				for(int i = 0; i < dice.size(); i++) {
+					for(int j = 0; j < dice.get(i).length; j++) {
+						System.out.print(dice.get(i)[j] + " ");
+					}
+					System.out.println();
+				}
+			}
+	
+			//TODO gewuerfeltes anzeigen
+			updateTable();
+			controller.updateMap();
+			
+			if(controller.activeTerritory2.getOccupier() != tmp) {
+				//TODO Eroberung (irgendwo anzeigen?)
+			}
 			
 		}
 		else if(e.getSource() == this.endPhaseAttack) {
@@ -209,11 +230,11 @@ public class Phase2 extends JPanel implements ActionListener{
 	public void updateSelectedTerritory() {
 		if(controller.activeTerritory != null) {
 			startPositionAttack.setText(controller.activeTerritory.getName());
-			guideDisplay.setText("Wählen Sie das Zielgebiet");
+			guideDisplay.setText("WÃ¤hlen Sie das Zielgebiet");
 		}else {
 			startPositionAttack.setText("");
 			attackedPosition.setText("");
-			this.guideDisplay.setText("Wählen Sie das Startgebiet");
+			this.guideDisplay.setText("WÃ¤hlen Sie das Startgebiet");
 		}
 		
 		if(controller.activeTerritory2 != null && controller.activeTerritory != null) {
@@ -222,7 +243,7 @@ public class Phase2 extends JPanel implements ActionListener{
 				guideDisplay.setText("Greifen Sie an");
 			}else {
 				attackedPosition.setText("");
-				this.guideDisplay.setText("Wählen Sie das Zielgebiet");
+				this.guideDisplay.setText("WÃ¤hlen Sie das Zielgebiet");
 			}
 		}else {
 			attackedPosition.setText("");

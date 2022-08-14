@@ -17,9 +17,9 @@ public class TestMain {
 //		start.setVisible(true);
 		
 		Controller controller = new Controller();
-//		
 		controller.getGui().setVisible(true);
-//	
+
+
 
 		
 		//IntroGUI view3 = new IntroGUI();

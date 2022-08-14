@@ -64,10 +64,10 @@ public class Phase1 extends JPanel implements ActionListener {
 	
 	
 	public Phase1(Controller controller) {
-		
+		System.out.println("Phase 1 erstellt");
 		this.controller = controller;
 		
-		controller.recruitArmies(); //TODO
+
 		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer(); 
 		
@@ -217,7 +217,7 @@ public class Phase1 extends JPanel implements ActionListener {
 			this.selectedTerritory.setText(controller.activeTerritory.getName());
 			this.guideDisplay.setText("Verteilen Sie ihre Armeen");
 		}else {
-			this.guideDisplay.setText("Ungültige Auswahl");
+			this.guideDisplay.setText("UngÃ¼ltige Auswahl");
 			this.selectedTerritory.setText("");
 		}
 	}

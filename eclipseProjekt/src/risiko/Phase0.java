@@ -63,6 +63,7 @@ public class Phase0 extends JPanel implements ActionListener{
 	
 	
 	public Phase0 (Controller controller){
+		System.out.println("Phase 0 erstellt");
 		
 		this.controller = controller;
 		resource = new ResourcesGUI();
@@ -198,11 +199,20 @@ public class Phase0 extends JPanel implements ActionListener{
 				unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
 				updateTable();
 				controller.updateMap();
-				if(controller.getLastPlayer() == controller.getPlayerObject() && controller.getLastPlayer().getArmies() == 0) {
+				boolean tmp = true;
+				for(Player p : controller.game.getPlayers()) {
+					if(p.getArmies() != 0) {
+						tmp = false;
+					}
+				}
+				if(tmp) {
 					controller.getGui().changePhase(1);	
 					controller.nextPlayer();
 				}else {
 					controller.nextPlayer();
+					while(controller.getPlayerObject().getArmies() == 0) {
+						controller.nextPlayer();
+					}
 					updatePlayerInfo();
 					this.selectedTerritory.setText("");
 				}
