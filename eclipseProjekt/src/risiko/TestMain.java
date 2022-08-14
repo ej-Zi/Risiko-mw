@@ -16,10 +16,10 @@ public class TestMain {
 //		StartMenuGUI start = new StartMenuGUI();
 //		start.setVisible(true);
 		
-//		Controller controller = new Controller();
-//		
-//		controller.getGui().setVisible(true);
-//	
+		Controller controller = new Controller();
+		
+		controller.getGui().setVisible(true);
+	
 
 		
 		//IntroGUI view2 = new IntroGUI();

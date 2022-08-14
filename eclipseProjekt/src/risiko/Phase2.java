@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -68,7 +69,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		
 	
 	public Phase2(Controller controller) {
-		
+		System.out.println("Phase 2 erstellt");
 		this.controller = controller;
 		cntrl = new controlerTry();
 		dtcr = new DefaultTableCellRenderer();
@@ -145,7 +146,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		startPositionAttack.setEditable(false);
 		this.add(startPositionAttack);
 		
-		unitCounterAttackModel = new SpinnerNumberModel(0, 0, 3, 1);
+		unitCounterAttackModel = new SpinnerNumberModel(1, 1, 3, 1);
 		unitCounterAttack = new JSpinner(unitCounterAttackModel);
 		unitCounterAttack.setBounds((screenSize.width*2/10 + 160)/2,(screenSize.height*305)/768, 40, 35);
 		unitCounterAttack.setBackground(Color.blue);
@@ -226,9 +227,28 @@ public class Phase2 extends JPanel implements ActionListener{
 		}
 		else if(e.getSource() == this.attack) {
 	
-			controller.attack((int) unitCounterAttack.getValue());
+			Player tmp = controller.activeTerritory2.getOccupier();
+			int armies = (int) unitCounterAttack.getValue();
+			ArrayList<Integer[]> dice;
+			dice = controller.attack(armies);
+			
+			//zum Testen:
+			if(dice != null) {
+				for(int i = 0; i < dice.size(); i++) {
+					for(int j = 0; j < dice.get(i).length; j++) {
+						System.out.print(dice.get(i)[j] + " ");
+					}
+					System.out.println();
+				}
+			}
+	
+			//TODO gewuerfeltes anzeigen
 			updateTable();
 			controller.updateMap();
+			
+			if(controller.activeTerritory2.getOccupier() != tmp) {
+				//TODO Eroberung (irgendwo anzeigen?)
+			}
 			
 		}
 		else if(e.getSource() == this.endPhaseAttack) {

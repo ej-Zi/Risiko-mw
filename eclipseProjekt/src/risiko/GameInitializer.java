@@ -46,7 +46,13 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 				this.players.add(new Player(this.namen.get(i), startingArmies));
 			}
 			break;
-		//TODO Testcase
+		case -1:
+			this.players = new ArrayList<>(2);
+			startingArmies = 23;
+			for(int i = 0; i < 2; i++) {
+				this.players.add(new Player(this.namen.get(i), startingArmies));
+			}
+			break;
 		}
 		
 		//-----Kontinente erstellen-----
@@ -174,6 +180,17 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 		
 		//Spielern Territorien zuordnen:
 		this.setStartingTerritories();
+		for(int i = 0; i < this.players.size(); i++) {
+			for(Territory t : this.players.get(i).getOccupiedTerritories()) {
+				t.setArmiesOnTerritory(1);
+				this.players.get(i).setArmies(this.players.get(i).getArmies() - 1);
+			}
+		}
+		if(anzahlSpieler == -1) {
+			for(Territory t : this.territories) {
+				t.setArmiesOnTerritory(10);
+			}
+		}
 
 		
 		
