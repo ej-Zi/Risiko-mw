@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,10 +13,9 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -32,17 +30,14 @@ import javax.swing.table.TableColumn;
 
 public class Phase2 extends JPanel implements ActionListener{
 	
-		private static final Frame helpFrame = null;
+		private static final Frame attackFrame = null;
 		private Controller controller;
 		private JLabel controlfieldLabel;
 		private ImageIcon controlfieldIcon;
 		private Icon buttonIcon;
 		private ImageIcon coatIcon;
-		private ImageIcon menuIcon;
 		
 		private JMenuBar menuBar;
-		private JMenu menu;
-		private JMenuItem beenden;
 		private JButton help;
 		
 		private JLabel playerInformationLabel;
@@ -64,34 +59,21 @@ public class Phase2 extends JPanel implements ActionListener{
 		private DefaultTableCellRenderer dtcr;
 		
 		private Color buttonColor;
-		private controlerTry cntrl;
+		private ResourcesGUI resource;
 		private Dimension screenSize;
 		
 	
 	public Phase2(Controller controller) {
 		System.out.println("Phase 2 erstellt");
 		this.controller = controller;
-		cntrl = new controlerTry();
+		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer();
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
-		controlfieldIcon = new ImageIcon("assets\\Velazquez-The_Surrender_of_Breda.jpg");
-		Image controlfieldImage = controlfieldIcon.getImage();
-		Image modControlfieldImage = controlfieldImage.getScaledInstance(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
-		controlfieldIcon = new ImageIcon(modControlfieldImage);	
-		
+		controlfieldIcon = resource.getControlfieldIcon();
+		coatIcon = resource.getCoatIcon(controller);
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
-		
-		coatIcon = new ImageIcon(cntrl.getPlayerCoat().get(controller.getPlayerAtTurn()));
-		Image coatImage = coatIcon.getImage();
-		Image modCoatImage = coatImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
-		coatIcon = new ImageIcon(modCoatImage);
-		
-		menuIcon = new ImageIcon("assets\\Floris_Claesz._van_Dyck_001.jpg");
-		Image menuImage = menuIcon.getImage();
-		Image modMenuImage = menuImage.getScaledInstance(2048*1/30, 1255*1/30, java.awt.Image.SCALE_SMOOTH);
-		menuIcon = new ImageIcon(modMenuImage);
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
@@ -101,56 +83,47 @@ public class Phase2 extends JPanel implements ActionListener{
 		
 		buttonColor = new Color(239, 228, 176);
 		 
-		menuBar = new JMenuBar();
-		menu = new JMenu();
-		beenden = new JMenuItem("Beenden");
-		beenden.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 14));
-		beenden.setBackground(buttonColor);
-		beenden.addActionListener(this);
-		menuBar.setBounds(-10, -3, 70, 45);
-		menu.setIcon(menuIcon);
-		menu.add(beenden);
-		menuBar.add(menu);	
+		menuBar = resource.getMenu();
 		this.add(menuBar, BorderLayout.NORTH);
 		this.setLayout(null);
 		
-		help = new JButton("?", buttonIcon);
-		help.setBounds((screenSize.width*2/10 - 152)/2,(screenSize.height*0)/768, 45, 43);
-		help.setHorizontalTextPosition(SwingConstants.CENTER);
-		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 24));
-		help.addActionListener(this); 
+		help = resource.getHelpButton(2);
 		this.add(help);
 		
 		playerInformationLabel = new JLabel(controller.getPlayerObject().getName(), coatIcon, SwingConstants.CENTER);
-		playerInformationLabel.setBounds((screenSize.width*2/10 - 170)/2,(screenSize.height*85)/768, 170, 40);
-		playerInformationLabel.setIconTextGap(12);	
+		playerInformationLabel.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 170)/273)/2,
+				(screenSize.height*85)/768, ((screenSize.width*2/10) * 170)/273, (screenSize.height*40)/768);;
+		playerInformationLabel.setIconTextGap(((screenSize.width* 2/10) * 12)/273);	
 		playerInformationLabel.setBackground(buttonColor);
 		playerInformationLabel.setOpaque(true);
-		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		this.add(playerInformationLabel);
 		
 		guideDisplay = new JTextField();
-		guideDisplay.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*140)/768, 240, 35);
+		guideDisplay.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2,(screenSize.height*140)/768,  
+				((screenSize.width*2/10) * 240)/273, (screenSize.height*35)/768);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
-		guideDisplay.setText("Wählen Sie das Startgebiet");
-		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		guideDisplay.setText("WÃ¤hlen Sie das Startgebiet");
+		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		guideDisplay.setEditable(false);
 		this.add(guideDisplay);		
 		
 		startPositionAttack = new JTextField();
 		startPositionAttack.setHorizontalAlignment(SwingConstants.CENTER);
-		startPositionAttack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*305)/768, 190, 35);
-		startPositionAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		startPositionAttack.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2,(screenSize.height*305)/768, 
+				 ((screenSize.width* 2/10) * 190)/273, (screenSize.height*35)/768);
+		startPositionAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		startPositionAttack.setBackground(buttonColor);
 		startPositionAttack.setEditable(false);
 		this.add(startPositionAttack);
 		
 		unitCounterAttackModel = new SpinnerNumberModel(1, 1, 3, 1);
 		unitCounterAttack = new JSpinner(unitCounterAttackModel);
-		unitCounterAttack.setBounds((screenSize.width*2/10 + 160)/2,(screenSize.height*305)/768, 40, 35);
+		unitCounterAttack.setBounds((screenSize.width*2/10 + ((screenSize.width*2/10) * 160)/273)/2,(screenSize.height*305)/768, 
+				 ((screenSize.width*2/10) *40)/273, (screenSize.height*35)/768);
 		unitCounterAttack.setBackground(Color.blue);
-		unitCounterAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		unitCounterAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		unitCounterAttack.getComponent(0).setBackground(buttonColor);
 		unitCounterAttack.getComponent(1).setBackground(buttonColor);
 		unitCounterAttack.getEditor().getComponent(0).setBackground(buttonColor);
@@ -158,23 +131,26 @@ public class Phase2 extends JPanel implements ActionListener{
 		
 		attackedPosition = new JTextField();
 		attackedPosition.setHorizontalAlignment(SwingConstants.CENTER);
-		attackedPosition.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*255)/768, 190, 35);
-		attackedPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		attackedPosition.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2,(screenSize.height*255)/768, 
+				 ((screenSize.width*2/10) *190)/273, (screenSize.height*35)/768);
+		attackedPosition.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		attackedPosition.setBackground(buttonColor);
 		attackedPosition.setEditable(false);
 		this.add(attackedPosition);
 		
 		attack = new JButton("Gegner angreifen", buttonIcon);
-		attack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*355)/768, 240, 35);
+		attack.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2,(screenSize.height*355)/768, 
+				 ((screenSize.width*2/10) *240)/273, (screenSize.height*35)/768);
 		attack.setHorizontalTextPosition(SwingConstants.CENTER);
-		attack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		attack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		attack.addActionListener(this);
 		this.add(attack);
 	
 		endPhaseAttack = new JButton("Phase beenden", buttonIcon);
-		endPhaseAttack.setBounds((screenSize.width*2/10 - 240)/2,(screenSize.height*445)/768, 240, 35);
+		endPhaseAttack.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2,(screenSize.height*445)/768, 
+				 ((screenSize.width*2/10) *240)/273, (screenSize.height*35)/768);
 		endPhaseAttack.setHorizontalTextPosition(SwingConstants.CENTER);
-		endPhaseAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
+		endPhaseAttack.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
 		endPhaseAttack.addActionListener(this);
 		this.add(endPhaseAttack);
 		
@@ -182,13 +158,13 @@ public class Phase2 extends JPanel implements ActionListener{
 		territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
 		territoriesTable = new JTable();
 		territoriesTable.setModel(territoriesTableModel);
-		territoriesTable.setRowHeight(20);
+		territoriesTable.setRowHeight((screenSize.height*20)/768);
 		territoriesTable.setShowGrid(true);
 		territoriesTable.setOpaque(false);
 		territoriesTable.setBackground(buttonColor);
 		territoriesTable.getTableHeader().setBackground(buttonColor);
-		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
-		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 13));
+		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 13 / 768));
+		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 13 / 768));
 		territoriesTable.setSelectionBackground(buttonColor);
 		updateTable();
 		territoriesColumn1 = territoriesTable.getColumnModel().getColumn(0);
@@ -197,11 +173,12 @@ public class Phase2 extends JPanel implements ActionListener{
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
         territoriesColumn1.setCellRenderer(dtcr);		
 		territoriesColumn2.setCellRenderer(dtcr);
-        territoriesColumn2.setPreferredWidth(65);
-        territoriesColumn1.setPreferredWidth(165);
+        territoriesColumn2.setPreferredWidth(((screenSize.width* 2/10) * 65)/273);
+        territoriesColumn1.setPreferredWidth(((screenSize.width* 2/10) * 165)/273);
 		territoriesDisplay = new JScrollPane(territoriesTable);
 		territoriesDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		territoriesDisplay.setBounds((screenSize.width*2/10 - 240)/2, (screenSize.height*570)/768, 240, 160);
+		territoriesDisplay.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2, (screenSize.height*570)/768, 
+				 ((screenSize.width*2/10) *240)/273, (screenSize.height*160)/768);;
 		territoriesDisplay.getViewport().setBackground(buttonColor);
 		territoriesDisplay.setBackground(buttonColor);
 		territoriesDisplay.getVerticalScrollBar().setBackground(buttonColor);
@@ -216,17 +193,10 @@ public class Phase2 extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	
-		if(e.getSource() == this.help) {
-		
-			new HelpPopUp(helpFrame, 2);
-		
-		}
-		else if(e.getSource() == this.beenden) {
-			
-			System.exit(0);
-		}
-		else if(e.getSource() == this.attack) {
-	
+		if(e.getSource() == this.attack) {
+    
+			AttackPopUp  attackPopUp = new AttackPopUp();
+
 			Player tmp = controller.activeTerritory2.getOccupier();
 			int armies = (int) unitCounterAttack.getValue();
 			ArrayList<Integer[]> dice;
@@ -260,11 +230,11 @@ public class Phase2 extends JPanel implements ActionListener{
 	public void updateSelectedTerritory() {
 		if(controller.activeTerritory != null) {
 			startPositionAttack.setText(controller.activeTerritory.getName());
-			guideDisplay.setText("Wählen Sie das Zielgebiet");
+			guideDisplay.setText("WÃ¤hlen Sie das Zielgebiet");
 		}else {
 			startPositionAttack.setText("");
 			attackedPosition.setText("");
-			this.guideDisplay.setText("Wählen Sie das Startgebiet");
+			this.guideDisplay.setText("WÃ¤hlen Sie das Startgebiet");
 		}
 		
 		if(controller.activeTerritory2 != null && controller.activeTerritory != null) {
@@ -273,7 +243,7 @@ public class Phase2 extends JPanel implements ActionListener{
 				guideDisplay.setText("Greifen Sie an");
 			}else {
 				attackedPosition.setText("");
-				this.guideDisplay.setText("Wählen Sie das Zielgebiet");
+				this.guideDisplay.setText("WÃ¤hlen Sie das Zielgebiet");
 			}
 		}else {
 			attackedPosition.setText("");

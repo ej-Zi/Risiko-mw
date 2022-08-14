@@ -29,14 +29,14 @@ public class HelpPopUp {
 	private JScrollPane scrollHelpDisplay;
 	private JButton closeHelp;
 	private Color buttonColor;
-	private controlerTry cntrl;
+	private ResourcesGUI resource;
 	private Controller controller;
 	
 	
 	public HelpPopUp (Frame phase0, int phase) {
 		
 		buttonColor = new Color(239, 228, 176);
-		cntrl = new controlerTry();
+		resource = new ResourcesGUI();
 				
 		helpPopUp = new JDialog(phase0, true);
 		helpPopUp.setBounds(300,50,250,200);
@@ -56,9 +56,7 @@ public class HelpPopUp {
 		helpDisplay.setBackground(buttonColor);
 		helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		helpDisplay.setEditable(false);
-				
-		helpDisplay.setText(cntrl.getHelpText().get(phase)); //wegen for-Schleife
-
+		helpDisplay.setText(resource.getHelpText().get(phase)); //wegen for-Schleife
 		helpDisplay.setCaretPosition(0);
 		helpDisplay.setLineWrap(true);
 		helpDisplay.setWrapStyleWord(true);

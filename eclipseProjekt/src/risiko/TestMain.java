@@ -17,13 +17,13 @@ public class TestMain {
 //		start.setVisible(true);
 		
 		Controller controller = new Controller();
-		
 		controller.getGui().setVisible(true);
-	
+
+
 
 		
-		//IntroGUI view2 = new IntroGUI();
-		//view2.setVisible(true);
+		//IntroGUI view3 = new IntroGUI();
+	
 		
 		//StartMenuGUI view3 = new StartMenuGUI();
 		//view3.setVisible(true);

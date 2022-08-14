@@ -48,9 +48,9 @@ public class RiskGUI extends JFrame{
 	public Phase1 phase1;
 	public Phase2 phase2;
 	public Phase3 phase3;
+	public Phase4 phase4;
 	public MapPanel mapPanel;
 	public drawCards drawCards;
-	
 	
 	public Controller controller;
 	
@@ -68,6 +68,7 @@ public class RiskGUI extends JFrame{
 		this.phase1 = new Phase1(controller);
 		this.phase2 = new Phase2(controller);
 		this.phase3 = new Phase3(controller);
+		this.phase4 = new Phase4(controller);
 		this.mapPanel = new MapPanel(controller);
 		this.drawCards = new drawCards();
 		
@@ -116,8 +117,14 @@ public class RiskGUI extends JFrame{
 		case 4:
 			//TODO
 			panelMap.remove(mapPanel);
+			panelCf.remove(phase3);
+			panelMap.revalidate();
+			panelCf.revalidate();
+
 			//controller.updatePhase();
+
 			panelMap.add(drawCards);
+			panelCf.add(phase4);
 			controller.phase = phase;
 			break;
 		}
