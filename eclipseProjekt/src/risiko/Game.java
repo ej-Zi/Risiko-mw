@@ -192,10 +192,13 @@ public class Game extends GameInitializer {
 				}
 			}
 			if(territoryConquered(attacker, target, armies)) {
+				System.out.println("Eroberung");
 				target.setOccupier(attacker);
 				target.getOccupier().getOccupiedTerritories().remove(target);
 				attacker.getOccupiedTerritories().add(target);
 				target.setArmiesOnTerritory(armies);
+				System.out.println(target.getOccupier().getName());
+				
 			}else {
 				start.setArmiesOnTerritory(start.getArmiesOnTerritory() + armies);
 			}

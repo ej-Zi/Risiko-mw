@@ -50,7 +50,7 @@ public class RiskGUI extends JFrame{
 	public Phase3 phase3;
 	public Phase4 phase4;
 	public MapPanel mapPanel;
-	public drawCards drawCards;
+	public DrawCards drawCards;
 	
 	public Controller controller;
 	
@@ -70,11 +70,11 @@ public class RiskGUI extends JFrame{
 		this.phase3 = new Phase3(controller);
 		this.phase4 = new Phase4(controller);
 		this.mapPanel = new MapPanel(controller);
-		this.drawCards = new drawCards();
+		this.drawCards = new DrawCards(controller);
 		
 		panelMap.add(mapPanel);
 		
-		changePhase(2);
+		changePhase(0);
 	
 		//place Panel on JFrame
 		this.setLayout(new BorderLayout());
