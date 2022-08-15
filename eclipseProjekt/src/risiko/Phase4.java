@@ -56,7 +56,7 @@ public class Phase4 extends JPanel{
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
-		coatIcon = resource.getCoatIcon(controller, 1);
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 		
 		controlfieldIcon = new ImageIcon("assets\\GambleTable2.jpg");
 		controlfieldImage = controlfieldIcon.getImage();

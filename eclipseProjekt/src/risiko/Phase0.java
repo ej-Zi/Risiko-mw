@@ -72,7 +72,7 @@ public class Phase0 extends JPanel implements ActionListener{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = resource.getControlfieldIcon();
-		coatIcon = resource.getCoatIcon(controller, 1);
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
@@ -195,26 +195,28 @@ public class Phase0 extends JPanel implements ActionListener{
 	
 		if(e.getSource() == this.putUnit) {
 			
-			if(controller.placeArmyInitial()) {
-				unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
-				updateTable();
-				controller.updateMap();
-				boolean tmp = true;
-				for(Player p : controller.game.getPlayers()) {
-					if(p.getArmies() != 0) {
-						tmp = false;
+			if(controller.activeTerritory != null) {
+				if(controller.placeArmyInitial()) {
+					unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
+					updateTable();
+					controller.updateMap();
+					boolean tmp = true;
+					for(Player p : controller.game.getPlayers()) {
+						if(p.getArmies() != 0) {
+							tmp = false;
+						}
 					}
-				}
-				if(tmp) {
-					controller.getGui().changePhase(1);	
-					controller.nextPlayer();
-				}else {
-					controller.nextPlayer();
-					while(controller.getPlayerObject().getArmies() == 0) {
+					if(tmp) {
+						controller.getGui().changePhase(1);	
 						controller.nextPlayer();
+					}else {
+						controller.nextPlayer();
+						while(controller.getPlayerObject().getArmies() == 0) {
+							controller.nextPlayer();
+						}
+						updatePlayerInfo();
+						this.selectedTerritory.setText("");
 					}
-					updatePlayerInfo();
-					this.selectedTerritory.setText("");
 				}
 			}
 		}
@@ -231,10 +233,7 @@ public class Phase0 extends JPanel implements ActionListener{
 	}
 	
 	private void updatePlayerInfo() {
-		coatIcon = new ImageIcon(resource.getPlayerCoat().get(controller.getPlayerAtTurn()));
-		Image greenImage = coatIcon.getImage();
-		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
-		coatIcon = new ImageIcon(modGreenImage);
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 		
 		playerInformationLabel.setText(controller.getPlayerObject().getName());
 		playerInformationLabel.setIcon(coatIcon);

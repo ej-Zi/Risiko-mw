@@ -14,17 +14,14 @@ public class Controller {
 	private RiskGUI gui;
 	
 	public Controller() {
-		System.out.println("Controller erstellt");
-		names = new ArrayList<>();
-		names.add("Player1");
-		names.add("Player2");
-		names.add("Player3");
-		names.add("Player4");
-		names.add("Player5");
-		this.game = Game.getInstance(-1, names);
-		this.gui = new RiskGUI(this);		
 		playerAtTurn = 0;
 	}
+	public void startGame(int numberOfPlayers, ArrayList<String> names) {
+		System.out.println("game start");
+		this.game = Game.getInstance(numberOfPlayers, names);
+		this.gui = new RiskGUI(this);
+	}
+	
 	
 	public int getPlayerAtTurn() {
 		return playerAtTurn;
@@ -54,6 +51,16 @@ public class Controller {
 				}
 			}
 			return false;
+		case 3:
+			if(!this.getPlayerObject().getOccupiedTerritories().contains(activeTerritory)) {
+				return false;
+			}
+			for(Territory t : activeTerritory.getBorderingTerritories()) {
+				if(t.getOccupier() == getPlayerObject()) {
+					return true;
+				}
+			}
+			return false;
 		}
 		
 		return false;
@@ -61,7 +68,19 @@ public class Controller {
 		
 	}
 	public boolean validTerritory2() {
-		return activeTerritory.getBorderingTerritories().contains(activeTerritory2) && activeTerritory2.getOccupier() != getPlayerObject();
+		switch(phase) {
+		case 2:
+			return activeTerritory.getBorderingTerritories().contains(activeTerritory2) && activeTerritory2.getOccupier() != getPlayerObject();
+		case 3: 
+			boolean possible = game.movePossible(getPlayerObject(), activeTerritory, activeTerritory2);
+			System.out.println(possible);
+			game.getTmp().clear();
+			game.valid = false;
+			return possible;
+		default:
+			return false;
+		}
+		
 	}
 
 	//TODO
@@ -75,6 +94,9 @@ public class Controller {
 			break;
 		case 2:
 			gui.phase2.updateSelectedTerritory();
+			break;
+		case 3: 
+			gui.phase3.updateSelectedTerritory();
 			break;
 		}
 	}
@@ -97,6 +119,10 @@ public class Controller {
 		}
 	}	
 	
+	public boolean moveArmies(int armies) {
+		return game.moveArmies(getPlayerObject(), activeTerritory, activeTerritory2, armies);
+	}
+	
 	public boolean placeArmyInitial() {
 		if(game.placeArmies(getPlayerObject(), activeTerritory, 1)){
 			return true;
@@ -116,11 +142,31 @@ public class Controller {
 		return game.recruiting(getPlayerObject());
 	}
 	
+	public void drawCard() {
+		for(int i = 0; i < 4; i++) {
+			game.drawCard(getPlayerObject());
+		}
+	}
+	
 	
 	public void updateMap() {
 		gui.mapPanel.drawMap();
 	}
+	public void updateCoa(int tmp, int terr) {
+		if(terr == 2) {
+			gui.mapPanel.placeCoa(activeTerritory2.getName(), playerAtTurn);
+			gui.mapPanel.placeArmy(activeTerritory2.getName(), tmp);
+		}else {
+			gui.mapPanel.placeCoa(activeTerritory.getName(), playerAtTurn);
+			gui.mapPanel.placeArmy(activeTerritory.getName(), tmp);
+		}
+		
+	}
+	public void resetTerritoryFlag() {
+		gui.mapPanel.resetTerritoryFlag();
+	}
 
+	
 	public RiskGUI getGui() {
 		return gui;
 	}

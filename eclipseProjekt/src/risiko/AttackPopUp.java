@@ -59,16 +59,21 @@ public class AttackPopUp {
 	private ImageIcon diceIcon2;
 	private ImageIcon coatIcon;
 	private ImageIcon diceIcon;
-
 	
-	public AttackPopUp (Frame attackFrame, Controller controller, Phase2 phase2) {
+	private ArrayList<JLabel> diceList1;
+	private ArrayList<JLabel> diceList2;
+	
+	public AttackPopUp (Frame attackFrame, Controller controller, ArrayList<Integer[]> dice) {
 		
 		buttonColor = new Color(239, 228, 176);
 		resource = new ResourcesGUI();
 		
+
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		coatIcon = resource.getCoatIcon(controller, 2);
+		this.diceList1 = new ArrayList<>();
+		this.diceList2 = new ArrayList<>();	
+
 		diceIcon2 = new ImageIcon("assets\\dice1.png");
 		
 		battleIcon = new ImageIcon("assets\\Richard_Caton_Woodville's_The_Battle_of_Towton.jpg");	
@@ -90,29 +95,32 @@ public class AttackPopUp {
 		attackPanelButton.setBackground(buttonColor);
 		attackPanelButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		attackerLabel = new JLabel(coatIcon);
+		attackerLabel = new JLabel(resource.getCoatIcon(controller, 2, controller.game.getPlayers().indexOf(controller.getPlayerObject())));
 		attackerLabel.setBounds(360, 95, 80, 80);	
 		attackerLabel.setBackground(buttonColor);
 		attackerLabel.setOpaque(false);
 		attackPanelImage.add(attackerLabel);
 		
-		attackerDice1 = new JLabel(diceIcon2);
+		attackerDice1 = new JLabel();
 		attackerDice1.setBounds(360, 220, 80, 80);	
 		attackerDice1.setBackground(buttonColor);
 		attackerDice1.setOpaque(false);
 		attackPanelImage.add(attackerDice1);
+		diceList1.add(attackerDice1);
 		
-		attackerDice2 = new JLabel(diceIcon2);
+		attackerDice2 = new JLabel();
 		attackerDice2.setBounds(360, 325, 80, 80);	
 		attackerDice2.setBackground(buttonColor);
-		attackerDice2.setOpaque(true);
+		attackerDice2.setOpaque(false);
 		attackPanelImage.add(attackerDice2);
+		diceList1.add(attackerDice2);
 		
-		attackerDice3 = new JLabel(diceIcon2);
+		attackerDice3 = new JLabel();
 		attackerDice3.setBounds(360, 430, 80, 80);	
 		attackerDice3.setBackground(buttonColor);
-		attackerDice3.setOpaque(true);
+		attackerDice3.setOpaque(false);
 		attackPanelImage.add(attackerDice3);
+		diceList1.add(attackerDice3);
 		
 		attackerCasualties = new JLabel("Angreifer Verluste", SwingConstants.CENTER);
 		attackerCasualties.setBounds(80, 220, 200, 30);	
@@ -121,30 +129,32 @@ public class AttackPopUp {
 		attackerCasualties.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		attackPanelImage.add(attackerCasualties);
 		
-		attackerCasualtiesCount = new JLabel("2", SwingConstants.CENTER);
+		attackerCasualtiesCount = new JLabel(Integer.toString(dice.get(2)[0]) , SwingConstants.CENTER);
 		attackerCasualtiesCount.setBounds(150, 280, 60, 50);	
 		attackerCasualtiesCount.setBackground(buttonColor);
 		attackerCasualtiesCount.setOpaque(true);
 		attackerCasualtiesCount.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 35));
 		attackPanelImage.add(attackerCasualtiesCount);
 		
-		defenderLabel = new JLabel(coatIcon);
+		defenderLabel = new JLabel(resource.getCoatIcon(controller, 2, controller.game.getPlayers().indexOf(controller.activeTerritory2.getOccupier())));
 		defenderLabel.setBounds(540, 95, 80, 80);	
 		defenderLabel.setBackground(buttonColor);
 		defenderLabel.setOpaque(false);
 		attackPanelImage.add(defenderLabel);
 		
-		defenderDice1 = new JLabel(diceIcon2);
+		defenderDice1 = new JLabel();
 		defenderDice1.setBounds(540, 220, 80, 80);	
 		defenderDice1.setBackground(buttonColor);
 		defenderDice1.setOpaque(true);
 		attackPanelImage.add(defenderDice1);
+		diceList2.add(defenderDice1);
 		
-		defenderDice2 = new JLabel(diceIcon2);
+		defenderDice2 = new JLabel();
 		defenderDice2.setBounds(540, 325, 80, 80);	
 		defenderDice2.setBackground(buttonColor);
-		defenderDice2.setOpaque(true);
+		defenderDice2.setOpaque(false);
 		attackPanelImage.add(defenderDice2);
+		diceList2.add(defenderDice2);
 		
 		defenderCasualties = new JLabel("Verteidiger Verluste", SwingConstants.CENTER);
 		defenderCasualties.setBounds(700, 220, 200, 30);	
@@ -153,7 +163,7 @@ public class AttackPopUp {
 		defenderCasualties.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		attackPanelImage.add(defenderCasualties);
 		
-		defenderCasualtiesCount = new JLabel("2", SwingConstants.CENTER);
+		defenderCasualtiesCount = new JLabel(Integer.toString(dice.get(2)[1]), SwingConstants.CENTER);
 		defenderCasualtiesCount.setBounds(770, 280, 60, 50);	
 		defenderCasualtiesCount.setBackground(buttonColor);
 		defenderCasualtiesCount.setOpaque(true);
@@ -172,7 +182,7 @@ public class AttackPopUp {
 		});
 		getMusic();
 		
-		//displayDice(phase2.getDice(), resource.getDiceImages());
+		displayDice(dice, resource.getDiceImages());
        
 		attackPanelImage.add(imageLabel);
 		attackPanelButton.add(closeAttack);
@@ -186,38 +196,14 @@ public class AttackPopUp {
 	
 	public void displayDice(ArrayList<Integer[]> dice, Map<Integer, ImageIcon> diceImages) {
 		
-		for(int i = 0; i < dice.size(); i++ ) {
-				
-		    Integer[] result = dice.get(i);
-			
-			for(int j = 0; j < result.length; i++)
-		    
-		    if(j == 0 && i == 0) {
-				
-				diceIcon = diceImages.get(result[j]);
-				attackerDice1.setIcon(diceIcon);
-			}
-			else if(j == 1 && i == 0) {
-				
-				diceIcon = diceImages.get(result[j]);
-				attackerDice2.setIcon(diceIcon);
-			}
-			else if(j == 2 && i == 0) {
-				
-				diceIcon = diceImages.get(result[j]);
-				attackerDice3.setIcon(diceIcon);
-			}
-			else if(j == 0 && i == 1) {
-				
-				diceIcon = diceImages.get(result[j]);
-				defenderDice1.setIcon(diceIcon);
-			}
-			else if(j == 1 && i == 1) {
-				
-				diceIcon = diceImages.get(result[j]);
-				defenderDice2.setIcon(diceIcon);
-			}
-		}
+		
+		    for(int j = 0; j < dice.get(0).length ; j++) {
+		    	diceList1.get(j).setIcon(diceImages.get(dice.get(0)[j]));
+		    }
+		    for(int j = 0; j < dice.get(1).length; j++) {
+		    	diceList2.get(j).setIcon(diceImages.get(dice.get(1)[j]));
+		    }
+		
 	}
 	
 	public void getMusic(){
