@@ -82,10 +82,16 @@ public class AttackPopUp {
 		
 		attackPopUp = new JDialog(attackFrame, true);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		attackPopUp.setBounds((screenSize.width* 194)/1366 + ((screenSize.width * 977)/1366 - 977)/2, (screenSize.height * 44)/768 + ((screenSize.height * 680)/768 - 680)/2, 977, 680);
 =======
 		attackPopUp.setBounds((screenSize.width * 194)/1366, (screenSize.height * 44)/768, 977, 680);
 >>>>>>> e9e7894 (HelpButton)
+=======
+
+		attackPopUp.setBounds((screenSize.width* 194)/1366 + ((screenSize.width * 977)/1366 - 977)/2, 
+				(screenSize.height * 44)/768 + ((screenSize.height * 680)/768 - 680)/2, 977, 680);
+>>>>>>> d3b2311 (Lost again)
 		attackPopUp.setLayout(new BorderLayout());
 		attackPanelImage = new JPanel();
 		attackPanelButton = new JPanel();
