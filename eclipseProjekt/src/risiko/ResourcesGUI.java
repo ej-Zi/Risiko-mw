@@ -22,11 +22,13 @@ public class ResourcesGUI implements ActionListener {
 	protected static final Frame helpFrame = null;
 	private Map<Integer,String> helpText = new HashMap<>();
 	private Map<Integer, String> playerCoat = new HashMap<>();
+	private Map<Integer, ImageIcon> diceImages =new HashMap<>();
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	private ImageIcon controlfieldIcon;
 	private ImageIcon coatIcon;
 	private ImageIcon menuIcon;
+	private ImageIcon certainDiceImage;
 	private Image controlfieldImage;
 	private Image modControlfieldImage;
 	private Image menuImage;
@@ -45,6 +47,7 @@ public class ResourcesGUI implements ActionListener {
 		
 		this.createHelpText();
 		this.addPlayerCoat();
+		this.putDiceImage();
 	}
 
 	public Map<Integer, String> getPlayerCoat() {
@@ -114,17 +117,25 @@ public class ResourcesGUI implements ActionListener {
 		
 		menuIcon = new ImageIcon("assets\\Floris_Claesz._van_Dyck_001.jpg");
 		menuImage = menuIcon.getImage();
-		modMenuImage = menuImage.getScaledInstance(2048*1/(screenSize.height/25), 1255*1/(screenSize.height/25), java.awt.Image.SCALE_SMOOTH);
+		modMenuImage = menuImage.getScaledInstance((2048*(screenSize.height/30))/768, (1255*(screenSize.height/30))/768, java.awt.Image.SCALE_SMOOTH);
 		menuIcon = new ImageIcon(modMenuImage);
 		
 		return menuIcon;
 	}
 	
-	public ImageIcon getCoatIcon(Controller controller) {
+	public ImageIcon getCoatIcon(Controller controller, int choice) {
 		
 		coatIcon = new ImageIcon(getPlayerCoat().get(controller.getPlayerAtTurn()));
 		coatImage = coatIcon.getImage();
-		modCoatImage = coatImage.getScaledInstance(303*1/(screenSize.height/59), 448*1/(screenSize.height/59), java.awt.Image.SCALE_SMOOTH);
+		
+		if(choice == 1) {
+			modCoatImage = coatImage.getScaledInstance((303*(screenSize.height/13))/768, 
+					(448*(screenSize.height/13))/768, java.awt.Image.SCALE_SMOOTH);
+		}
+		else if(choice == 2) {
+			modCoatImage = coatImage.getScaledInstance((303*1)/6, 
+					(448*1)/6, java.awt.Image.SCALE_SMOOTH);
+		}
 		coatIcon = new ImageIcon(modCoatImage);
 	
 		return coatIcon;
@@ -164,6 +175,19 @@ public class ResourcesGUI implements ActionListener {
 			}	
 		});
 		return help;
+	}
+	
+	public void putDiceImage() {
+		
+		for(int i = 1; i < 7; i++) {
+			
+			certainDiceImage = new ImageIcon("assets\\dice" + i + ".png");
+			diceImages.put(i, certainDiceImage);
+		}
+	}
+
+	public Map<Integer, ImageIcon> getDiceImages() {
+		return diceImages;
 	}
 
 	@Override

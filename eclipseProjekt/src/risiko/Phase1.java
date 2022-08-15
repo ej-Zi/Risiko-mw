@@ -74,7 +74,7 @@ public class Phase1 extends JPanel implements ActionListener {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = resource.getControlfieldIcon();
-		coatIcon = resource.getCoatIcon(controller);
+		coatIcon = resource.getCoatIcon(controller, 1);
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
@@ -98,7 +98,7 @@ public class Phase1 extends JPanel implements ActionListener {
 		playerInformationLabel.setIconTextGap(((screenSize.width* 2/10) * 12)/273);	
 		playerInformationLabel.setBackground(buttonColor);
 		playerInformationLabel.setOpaque(true);
-		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
+		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 18 / 768));
 		this.add(playerInformationLabel);
 		
 		guideDisplay = new JTextField();
@@ -107,7 +107,7 @@ public class Phase1 extends JPanel implements ActionListener {
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
 		guideDisplay.setText("Verteilen Sie Ihre Armeen");
-		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
+		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 14 / 768));
 		guideDisplay.setEditable(false);
 		this.add(guideDisplay);
 		

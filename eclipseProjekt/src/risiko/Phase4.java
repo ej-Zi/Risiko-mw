@@ -56,7 +56,7 @@ public class Phase4 extends JPanel{
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
-		coatIcon = resource.getCoatIcon(controller);
+		coatIcon = resource.getCoatIcon(controller, 1);
 		
 		controlfieldIcon = new ImageIcon("assets\\GambleTable.jpeg");
 		controlfieldImage = controlfieldIcon.getImage();
@@ -83,7 +83,7 @@ public class Phase4 extends JPanel{
 		playerInformationLabel.setIconTextGap(((screenSize.width* 2/10) * 12)/273);
 		playerInformationLabel.setBackground(buttonColor);
 		playerInformationLabel.setOpaque(true);
-		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
+		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 18 / 768));
 		this.add(playerInformationLabel);
 
 		guideDisplay = new JTextField();
@@ -92,7 +92,7 @@ public class Phase4 extends JPanel{
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
 		guideDisplay.setText("Verteilen Sie ihre Armeen" );
-		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
+		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 14 / 768));
 		guideDisplay.setEditable(false);	
 		this.add(guideDisplay);
 
