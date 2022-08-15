@@ -10,7 +10,7 @@ public class Game extends GameInitializer {
 	private static Game instance = null;
 	private static int cardSetCount;
 	private static ArrayList<Territory> tmp; //benutzt fuer Wegsuche beim verschieben
-	private static boolean valid;
+	public static boolean valid;
 	
 	private Game(int anzahlSpieler, ArrayList<String> namen) {
 		super(anzahlSpieler, namen);
@@ -106,7 +106,6 @@ public class Game extends GameInitializer {
 	//Armeen verschieben
 	public boolean moveArmies(Player player, Territory start, Territory destination, int amount) {
 		if(start.getArmiesOnTerritory() - amount > 0 && movePossible(player, start, destination)) {
-			valid = false;
 			start.setArmiesOnTerritory(start.getArmiesOnTerritory() - amount);
 			destination.setArmiesOnTerritory(destination.getArmiesOnTerritory() + amount);
 			return true;
@@ -182,14 +181,22 @@ public class Game extends GameInitializer {
 			dice.add(diceAttacker);
 			dice.add(diceDefender);
 			
+			int defenderCasualties = 0;
+			int attackerCasualties = 0;
+			
 			//Armeen abziehen:
 			for(int i = 0; i < Math.min(diceDefender.length, diceAttacker.length); i++) {
 				if(diceDefender[i] >= diceAttacker[i]) {
 					armies -= 1;
+					attackerCasualties += 1;
 				}else {
 					target.setArmiesOnTerritory(target.getArmiesOnTerritory() -1 );
+					defenderCasualties += 1;
 				}
 			}
+			Integer[] casualties = {attackerCasualties, defenderCasualties};
+			dice.add(casualties);			
+			
 			if(territoryConquered(attacker, target, armies)) {
 				System.out.println("Eroberung");
 				target.setOccupier(attacker);

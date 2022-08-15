@@ -94,7 +94,7 @@ public class RiskGUI extends JFrame{
 			break;
 		case 1:
 			panelCf.remove(phase0);
-			//panelCf.remove(phase4);
+			panelCf.remove(phase4);
 			panelCf.revalidate();
 			//controller.updatePhase();
 			panelCf.add(phase1);

@@ -79,7 +79,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = resource.getControlfieldIcon();
-		coatIcon = resource.getCoatIcon(controller, 1);
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
@@ -208,25 +208,21 @@ public class Phase2 extends JPanel implements ActionListener{
 			int armies = (int) unitCounterAttack.getValue();
 		
 			dice = controller.attack(armies);
-			
-			//zum Testen:
-			if(dice != null) {
-				for(int i = 0; i < dice.size(); i++) {
-					for(int j = 0; j < dice.get(i).length; j++) {
-						System.out.print(dice.get(i)[j] + " ");
-					}
-					System.out.println();
-				}
-			}
 	
-			//TODO gewuerfeltes anzeigen
 			updateTable();
 			controller.updateMap();
+			controller.updateCoa(controller.activeTerritory.getArmiesOnTerritory(), 1);
+			
+			if(dice != null) {
+				new AttackPopUp(attackFrame, controller, dice);	
+			}
 			
 			if(controller.activeTerritory2.getOccupier() != tmp) {
-				//TODO Eroberung (irgendwo anzeigen?)
+				controller.updateCoa(armies, 2);
+				controller.resetTerritoryFlag();
 			}
-			new AttackPopUp(attackFrame, controller, this);	
+			
+			
 		}
 		else if(e.getSource() == this.endPhaseAttack) {
 			controller.getGui().changePhase(3);

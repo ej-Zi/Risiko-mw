@@ -41,6 +41,9 @@ public class DrawCards extends JPanel{
 	
 	public DrawCards(Controller controller) {
 		this.controller = controller;
+		
+		controller.drawCard();
+		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Color backgroundColor = new Color(237,223,176);
 		int width = screenSize.width*8/10;

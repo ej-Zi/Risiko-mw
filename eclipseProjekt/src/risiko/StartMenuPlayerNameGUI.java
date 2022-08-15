@@ -128,11 +128,6 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 				playerNameInput.requestFocusInWindow();
 			}
 			if(playerCount < 0) {
-				
-				System.out.println(introGUI.getPlayerCount());
-				for(int i = 0; i < playerNames.size(); i++) {
-					System.out.println(playerNames.get(i));
-				}
 				introGUI.controller.startGame(introGUI.getPlayerCount(), playerNames);
 			}	
 	}

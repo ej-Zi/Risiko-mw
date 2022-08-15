@@ -72,7 +72,7 @@ public class Phase0 extends JPanel implements ActionListener{
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = resource.getControlfieldIcon();
-		coatIcon = resource.getCoatIcon(controller, 1);
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
@@ -233,10 +233,7 @@ public class Phase0 extends JPanel implements ActionListener{
 	}
 	
 	private void updatePlayerInfo() {
-		coatIcon = new ImageIcon(resource.getPlayerCoat().get(controller.getPlayerAtTurn()));
-		Image greenImage = coatIcon.getImage();
-		Image modGreenImage = greenImage.getScaledInstance(303*1/13, 448*1/13, java.awt.Image.SCALE_SMOOTH);
-		coatIcon = new ImageIcon(modGreenImage);
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 		
 		playerInformationLabel.setText(controller.getPlayerObject().getName());
 		playerInformationLabel.setIcon(coatIcon);

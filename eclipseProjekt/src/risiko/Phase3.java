@@ -68,7 +68,7 @@ public class Phase3 extends JPanel implements ActionListener{
 			screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 			
 			controlfieldIcon = resource.getControlfieldIcon();
-			coatIcon = resource.getCoatIcon(controller, 1);
+			coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 			buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 			
 			controlfieldLabel = new JLabel (controlfieldIcon);
@@ -191,8 +191,9 @@ public class Phase3 extends JPanel implements ActionListener{
 	
 		
 			if(e.getSource() == this.unitMovement) {
-				
-				unitCounterMovement.getValue();
+				controller.moveArmies((int) unitCounterMovement.getValue());
+				updateTable();
+				controller.updateMap();
 			}
 			else if(e.getSource() == this.endPhaseMovement) {
 				controller.getGui().changePhase(4);

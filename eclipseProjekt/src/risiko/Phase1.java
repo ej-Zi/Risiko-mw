@@ -74,7 +74,7 @@ public class Phase1 extends JPanel implements ActionListener {
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = resource.getControlfieldIcon();
-		coatIcon = resource.getCoatIcon(controller, 1);
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
