@@ -58,9 +58,9 @@ public class Phase4 extends JPanel{
 		
 		coatIcon = resource.getCoatIcon(controller, 1);
 		
-		controlfieldIcon = new ImageIcon("assets\\GambleTable.jpeg");
+		controlfieldIcon = new ImageIcon("assets\\GambleTable2.jpg");
 		controlfieldImage = controlfieldIcon.getImage();
-		modControlfieldImage = controlfieldImage.getScaledInstance(screenSize.width*9/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
+		modControlfieldImage = controlfieldImage.getScaledInstance(screenSize.width*8/10, screenSize.height, java.awt.Image.SCALE_SMOOTH);
 		controlfieldIcon = new ImageIcon(modControlfieldImage);	
 		controlfieldLabel = new JLabel (controlfieldIcon);
 		controlfieldLabel.setBounds(0,0,screenSize.width*2/10,screenSize.height);
