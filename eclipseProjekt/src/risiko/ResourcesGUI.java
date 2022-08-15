@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -167,8 +169,9 @@ public class ResourcesGUI implements ActionListener {
 	public JButton getHelpButton(int phase) {
 		
 		help = new JButton("?", new ImageIcon("assets\\OldPaper2.png"));
-		help.setBounds(((screenSize.width*2/10) * 60)/273, -1, ((screenSize.width*2/10) * 45)/273, (screenSize.height*45)/768);
+		help.setBounds(((screenSize.width*2/10) * 228)/273, -1, ((screenSize.width*2/10) * 45)/273, (screenSize.height*45)/768);
 		help.setHorizontalTextPosition(SwingConstants.CENTER);
+		help.setBorder(BorderFactory.createLineBorder(Color.black));
 		help.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 24 / 768));
 		help.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
