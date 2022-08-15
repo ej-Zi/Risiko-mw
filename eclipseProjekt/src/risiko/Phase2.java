@@ -30,49 +30,56 @@ import javax.swing.table.TableColumn;
 
 public class Phase2 extends JPanel implements ActionListener{
 	
-		private static final Frame attackFrame = null;
-		private Controller controller;
-		private JLabel controlfieldLabel;
-		private ImageIcon controlfieldIcon;
-		private Icon buttonIcon;
-		private ImageIcon coatIcon;
-		
-		private JMenuBar menuBar;
-		private JButton help;
-		
-		private JLabel playerInformationLabel;
-		private JTextField guideDisplay;
-		private JTextField startPositionAttack;
-		private JTextField attackedPosition;
-		private JSpinner unitCounterAttack;
-		private SpinnerNumberModel unitCounterAttackModel;
-		private JButton attack;
-		private JButton endPhaseAttack;
-		
-		private JScrollPane territoriesDisplay;
-		private String [][]territoriesList;
-		private JTable territoriesTable;
-		private String [] territoriesTitel = {"Besetzte Gebiete", "Armeen"};
-		private DefaultTableModel territoriesTableModel;
-		private TableColumn territoriesColumn1;
-		private TableColumn territoriesColumn2;
-		private DefaultTableCellRenderer dtcr;
-		
-		private Color buttonColor;
-		private ResourcesGUI resource;
-		private Dimension screenSize;
-		
+	private static final Frame attackFrame = null;
+	private Controller controller;
+	private JLabel controlfieldLabel;
+	private ImageIcon controlfieldIcon;
+	private Icon buttonIcon;
+	private ImageIcon coatIcon;
 	
+	private JMenuBar menuBar;
+	private JButton help;
+	
+	private JLabel playerInformationLabel;
+	private JTextField guideDisplay;
+	private JTextField startPositionAttack;
+	private JTextField attackedPosition;
+	private JSpinner unitCounterAttack;
+	private SpinnerNumberModel unitCounterAttackModel;
+	private JButton attack;
+	private JButton endPhaseAttack;
+	
+	private JScrollPane territoriesDisplay;
+	private String [][]territoriesList;
+	private JTable territoriesTable;
+	private String [] territoriesTitel = {"Besetzte Gebiete", "Armeen"};
+	private DefaultTableModel territoriesTableModel;
+	private TableColumn territoriesColumn1;
+	private TableColumn territoriesColumn2;
+	private DefaultTableCellRenderer dtcr;
+	
+	private Color buttonColor;
+	private ResourcesGUI resource;
+	private Dimension screenSize;
+	
+	private ArrayList<Integer[]> dice;
+		
+
+	
+	public ArrayList<Integer[]> getDice() {
+		return dice;
+	}
+
 	public Phase2(Controller controller) {
 		System.out.println("Phase 2 erstellt");
 		this.controller = controller;
 		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer();
-		
+	
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = resource.getControlfieldIcon();
-		coatIcon = resource.getCoatIcon(controller);
+		coatIcon = resource.getCoatIcon(controller, 1);
 		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
 		controlfieldLabel = new JLabel (controlfieldIcon);
@@ -96,7 +103,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		playerInformationLabel.setIconTextGap(((screenSize.width* 2/10) * 12)/273);	
 		playerInformationLabel.setBackground(buttonColor);
 		playerInformationLabel.setOpaque(true);
-		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
+		playerInformationLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 18 / 768));
 		this.add(playerInformationLabel);
 		
 		guideDisplay = new JTextField();
@@ -105,7 +112,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
 		guideDisplay.setText("Wählen Sie das Startgebiet");
-		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
+		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 14 / 768));
 		guideDisplay.setEditable(false);
 		this.add(guideDisplay);		
 		
@@ -195,11 +202,11 @@ public class Phase2 extends JPanel implements ActionListener{
 	
 		if(e.getSource() == this.attack) {
     
-			AttackPopUp  attackPopUp = new AttackPopUp();
+			
 
 			Player tmp = controller.activeTerritory2.getOccupier();
 			int armies = (int) unitCounterAttack.getValue();
-			ArrayList<Integer[]> dice;
+		
 			dice = controller.attack(armies);
 			
 			//zum Testen:
@@ -219,7 +226,7 @@ public class Phase2 extends JPanel implements ActionListener{
 			if(controller.activeTerritory2.getOccupier() != tmp) {
 				//TODO Eroberung (irgendwo anzeigen?)
 			}
-			
+			new AttackPopUp(attackFrame, controller, this);	
 		}
 		else if(e.getSource() == this.endPhaseAttack) {
 			controller.getGui().changePhase(3);
