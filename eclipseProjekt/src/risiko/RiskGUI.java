@@ -90,7 +90,7 @@ public class RiskGUI extends JFrame{
 		switch(phase) {
 		case 0:
 			panelCf.add(phase0);
-			controller.phase = phase;
+			Controller.phase = phase;
 			break;
 		case 1:
 			panelCf.remove(phase0);
@@ -98,21 +98,21 @@ public class RiskGUI extends JFrame{
 			panelCf.revalidate();
 			//controller.updatePhase();
 			panelCf.add(phase1);
-			controller.phase = phase;
+			Controller.phase = phase;
 			break;
 		case 2:
 			panelCf.remove(phase1);
 			panelCf.revalidate();
 			//controller.updatePhase();
 			panelCf.add(phase2);
-			controller.phase = phase;
+			Controller.phase = phase;
 			break;
 		case 3:
 			panelCf.remove(phase2);
 			panelCf.revalidate();
 			//controller.updatePhase();
 			panelCf.add(phase3);
-			controller.phase = phase;
+			Controller.phase = phase;
 			break;
 		case 4:
 			//TODO
@@ -125,7 +125,7 @@ public class RiskGUI extends JFrame{
 
 			panelMap.add(drawCards);
 			panelCf.add(phase4);
-			controller.phase = phase;
+			Controller.phase = phase;
 			break;
 		}
 	}

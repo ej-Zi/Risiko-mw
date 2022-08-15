@@ -195,26 +195,28 @@ public class Phase0 extends JPanel implements ActionListener{
 	
 		if(e.getSource() == this.putUnit) {
 			
-			if(controller.placeArmyInitial()) {
-				unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
-				updateTable();
-				controller.updateMap();
-				boolean tmp = true;
-				for(Player p : controller.game.getPlayers()) {
-					if(p.getArmies() != 0) {
-						tmp = false;
+			if(controller.activeTerritory != null) {
+				if(controller.placeArmyInitial()) {
+					unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
+					updateTable();
+					controller.updateMap();
+					boolean tmp = true;
+					for(Player p : controller.game.getPlayers()) {
+						if(p.getArmies() != 0) {
+							tmp = false;
+						}
 					}
-				}
-				if(tmp) {
-					controller.getGui().changePhase(1);	
-					controller.nextPlayer();
-				}else {
-					controller.nextPlayer();
-					while(controller.getPlayerObject().getArmies() == 0) {
+					if(tmp) {
+						controller.getGui().changePhase(1);	
 						controller.nextPlayer();
+					}else {
+						controller.nextPlayer();
+						while(controller.getPlayerObject().getArmies() == 0) {
+							controller.nextPlayer();
+						}
+						updatePlayerInfo();
+						this.selectedTerritory.setText("");
 					}
-					updatePlayerInfo();
-					this.selectedTerritory.setText("");
 				}
 			}
 		}

@@ -106,7 +106,7 @@ public class Game extends GameInitializer {
 	//Armeen verschieben
 	public boolean moveArmies(Player player, Territory start, Territory destination, int amount) {
 		if(start.getArmiesOnTerritory() - amount > 0 && movePossible(player, start, destination)) {
-			valid = false; tmp.clear();
+			valid = false;
 			start.setArmiesOnTerritory(start.getArmiesOnTerritory() - amount);
 			destination.setArmiesOnTerritory(destination.getArmiesOnTerritory() + amount);
 			return true;
@@ -114,10 +114,9 @@ public class Game extends GameInitializer {
 			return false;
 		}
 	}
-	//TODO private machen, wenn mit testen fertig
 	public boolean movePossible(Player player, Territory start, Territory destination) {
 		tmp.add(destination);
-		if(start.getOccupier() == player && destination.getOccupier() == player) {
+		if(start.getOccupier() == player && destination.getOccupier() == player && start != destination) {
 			for(Territory t : destination.getBorderingTerritories()) {
 				if(t.getOccupier() == player) {
 					if(t == start) {
@@ -241,6 +240,10 @@ public class Game extends GameInitializer {
 			}
 		}
 		return true;
+	}
+	
+	public ArrayList<Territory> getTmp(){
+		return tmp;
 	}
 	
 }

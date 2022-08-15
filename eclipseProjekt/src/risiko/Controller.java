@@ -14,17 +14,14 @@ public class Controller {
 	private RiskGUI gui;
 	
 	public Controller() {
-		System.out.println("Controller erstellt");
-		names = new ArrayList<>();
-		names.add("Player1");
-		names.add("Player2");
-		names.add("Player3");
-		names.add("Player4");
-		names.add("Player5");
-		this.game = Game.getInstance(-1, names);
-		this.gui = new RiskGUI(this);		
 		playerAtTurn = 0;
 	}
+	public void startGame(int numberOfPlayers, ArrayList<String> names) {
+		System.out.println("game start");
+		this.game = Game.getInstance(numberOfPlayers, names);
+		this.gui = new RiskGUI(this);
+	}
+	
 	
 	public int getPlayerAtTurn() {
 		return playerAtTurn;
@@ -54,6 +51,12 @@ public class Controller {
 				}
 			}
 			return false;
+		case 3:
+			if(getPlayerObject().getOccupiedTerritories().contains(activeTerritory)) {
+				return true;
+			}else {
+				return false;
+			}
 		}
 		
 		return false;
@@ -61,7 +64,18 @@ public class Controller {
 		
 	}
 	public boolean validTerritory2() {
-		return activeTerritory.getBorderingTerritories().contains(activeTerritory2) && activeTerritory2.getOccupier() != getPlayerObject();
+		switch(phase) {
+		case 2:
+			return activeTerritory.getBorderingTerritories().contains(activeTerritory2) && activeTerritory2.getOccupier() != getPlayerObject();
+		case 3: 
+			boolean possible = game.movePossible(getPlayerObject(), activeTerritory, activeTerritory2);
+			System.out.println(possible);
+			game.getTmp().clear();
+			return possible;
+		default:
+			return false;
+		}
+		
 	}
 
 	//TODO
@@ -75,6 +89,8 @@ public class Controller {
 			break;
 		case 2:
 			gui.phase2.updateSelectedTerritory();
+			break;
+		case 3: gui.phase3.updateSelectedTerritory();
 			break;
 		}
 	}

@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -33,13 +34,18 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 	private Color buttonColor;
 	private int playerCount;
 	private int playerNumber = 1;
+	
+	private ArrayList<String> playerNames;
+	private IntroGUI introGUI;
 
 	public void setPlayerCount(int playerCount) {
 		this.playerCount = playerCount - 1;
 	}
 	
-	public StartMenuPlayerNameGUI(){
-	
+	public StartMenuPlayerNameGUI(IntroGUI introGUI){
+		
+		this.introGUI = introGUI;
+		this.playerNames = new ArrayList<String>();
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();	
 		
 		origBackgroundImage = new ImageIcon("assets\\La_Rendición_de_Granada_-_Pradilla.jpg");
@@ -106,13 +112,13 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 			System.exit(0);
 		}
 		else if(e.getSource() == this.confirmPlayerName)
-			
-			if(playerCount != 0 && !playerNameInput.getText().isEmpty()) {
+			System.out.println(playerCount);
+			if(!playerNameInput.getText().isEmpty()) {
 				
 				playerNumber += 1;
 				playerCount -= 1; 
 				playerNameRequest.setText("Name: Spieler " + playerNumber);
-				//controlller....
+				this.playerNames.add(playerNameInput.getText());
 				playerNameInput.setText("");
 				playerNameInput.requestFocusInWindow();
 			}
@@ -121,9 +127,13 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 				playerNameRequest.setText("Name benötigt");
 				playerNameInput.requestFocusInWindow();
 			}
-			else if(playerCount == 0) {
+			if(playerCount < 0) {
 				
-				System.exit(0); //eigentlich nächste GUI
+				System.out.println(introGUI.getPlayerCount());
+				for(int i = 0; i < playerNames.size(); i++) {
+					System.out.println(playerNames.get(i));
+				}
+				introGUI.controller.startGame(introGUI.getPlayerCount(), playerNames);
 			}	
 	}
 	
@@ -131,4 +141,8 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 		
 		playerNameInput.requestFocusInWindow();
 	}
+	public ArrayList<String> getPlayerNames(){
+		return this.playerNames;
+	}
+	                                         
 }
