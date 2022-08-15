@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -38,6 +39,7 @@ public class AttackPopUp {
 	private ResourcesGUI resource;
 	private Controller controller;
 	private ImageIcon battleIcon;
+	private Dimension screenSize;
 	private JLabel imageLabel;
 	private  Clip clip;
 	private File warDrums;
@@ -66,10 +68,12 @@ public class AttackPopUp {
 		buttonColor = new Color(239, 228, 176);
 		resource = new ResourcesGUI();
 		
+
+		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		
 		this.diceList1 = new ArrayList<>();
 		this.diceList2 = new ArrayList<>();	
-		
-		//coatIcon = resource.getCoatIcon(controller, 2, 0);
+
 		diceIcon2 = new ImageIcon("assets\\dice1.png");
 		
 		battleIcon = new ImageIcon("assets\\Richard_Caton_Woodville's_The_Battle_of_Towton.jpg");	
@@ -77,7 +81,7 @@ public class AttackPopUp {
 		imageLabel.setBounds(0, 0, 977, 640);
 		
 		attackPopUp = new JDialog(attackFrame, true);
-		attackPopUp.setBounds(50,50,977,680);
+		attackPopUp.setBounds((screenSize.width* 194)/1366, (screenSize.height * 44)/768, 977, 680);
 		attackPopUp.setLayout(new BorderLayout());
 		attackPanelImage = new JPanel();
 		attackPanelButton = new JPanel();

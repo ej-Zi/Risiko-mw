@@ -73,23 +73,23 @@ public class ResourcesGUI implements ActionListener {
 	public void createHelpText() {
 	
 		helpText.put(0, "Klicken Sie auf das Gebiet, auf dass "
-						+ "Sie ihre Einheit setzen möchten. Drücken Sie danach den Knopf 'Einheit setzen'.");
+						+ "Sie ihre Einheit setzen mÃ¶chten. DrÃ¼cken Sie danach den Knopf 'Einheit setzen'.");
 		
 		helpText.put(1, "Klicken Sie auf das Gebiet, auf dass "
-						+ "Sie ihre Einheit setzen möchten. Bestimmen Sie im Anschluss mit dem Zähler die Anzahl der Einheiten, "
-						+ "die Sie auf das Gebiet setzen möchten und drücken Sie danach 'Armeen setzen'.");
+						+ "Sie ihre Einheit setzen mÃ¶chten. Bestimmen Sie im Anschluss mit dem ZÃ¤hler die Anzahl der Einheiten, "
+						+ "die Sie auf das Gebiet setzen mÃ¶chten und drÃ¼cken Sie danach 'Armeen setzen'.");
 		
 		helpText.put(2, "Klicken Sie auf das Gebiet, "
-						+ "Von dem aus Sie angreifen möchten und danach auf das Gebiet, das Sie angreifen möchten. "
-						+ "Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
-						+ "mit denen Sie angreifen möchten und drücken Sie danach 'Gegner angreifen'. "
-						+ "Wenn Sie nicht angreifen möchten, drücken Sie 'Phase beenden'.");
+						+ "Von dem aus Sie angreifen mÃ¶chten und danach auf das Gebiet, das Sie angreifen mÃ¶chten. "
+						+ "Bestimmen Sie mit dem ZÃ¤hler die Anzahl der Einheiten,"
+						+ "mit denen Sie angreifen mÃ¶chten und drÃ¼cken Sie danach 'Gegner angreifen'. "
+						+ "Wenn Sie nicht angreifen mÃ¶chten, drÃ¼cken Sie 'Phase beenden'.");
 		
 		helpText.put(3, "Klicken Sie auf das Gebiet, dessen Armeen "
-						+ "Sie Verschieben möchten und danach auf das Gebiet, wohin Sie die Armeen senden möchten. "
-						+ "Bestimmen Sie danach mit dem Zähler die Anzahl der Einheiten, "
-						+ "die Sie bewegen möchten und drücken Sie im Anschluss 'Armeen bewegen'. "
-						+ "Wenn Sie keine Armeen verschieben möchten, drücken Sie 'Phase beenden'.");
+						+ "Sie Verschieben mÃ¶chten und danach auf das Gebiet, wohin Sie die Armeen senden mÃ¶chten. "
+						+ "Bestimmen Sie danach mit dem ZÃ¤hler die Anzahl der Einheiten, "
+						+ "die Sie bewegen mÃ¶chten und drÃ¼cken Sie im Anschluss 'Armeen bewegen'. "
+						+ "Wenn Sie keine Armeen verschieben mÃ¶chten, drÃ¼cken Sie 'Phase beenden'.");
 	
 	}
 	
@@ -154,7 +154,9 @@ public class ResourcesGUI implements ActionListener {
 				System.exit(0);	
 			}	
 		});
-		menuBar.setBounds(-10, -1, ((screenSize.width*2/10) * 65)/273, (screenSize.height*45)/768);
+
+		menuBar.setBounds(-10, -1, ((screenSize.width*2/10) * 67)/273, (screenSize.height*45)/768);
+
 		menu.setIcon(getMenuIcon());
 		menu.add(beenden);
 		menuBar.add(menu);	
