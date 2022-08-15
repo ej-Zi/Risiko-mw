@@ -52,11 +52,15 @@ public class Controller {
 			}
 			return false;
 		case 3:
-			if(getPlayerObject().getOccupiedTerritories().contains(activeTerritory)) {
-				return true;
-			}else {
+			if(!this.getPlayerObject().getOccupiedTerritories().contains(activeTerritory)) {
 				return false;
 			}
+			for(Territory t : activeTerritory.getBorderingTerritories()) {
+				if(t.getOccupier() == getPlayerObject()) {
+					return true;
+				}
+			}
+			return false;
 		}
 		
 		return false;
@@ -71,6 +75,7 @@ public class Controller {
 			boolean possible = game.movePossible(getPlayerObject(), activeTerritory, activeTerritory2);
 			System.out.println(possible);
 			game.getTmp().clear();
+			game.valid = false;
 			return possible;
 		default:
 			return false;
@@ -90,7 +95,8 @@ public class Controller {
 		case 2:
 			gui.phase2.updateSelectedTerritory();
 			break;
-		case 3: gui.phase3.updateSelectedTerritory();
+		case 3: 
+			gui.phase3.updateSelectedTerritory();
 			break;
 		}
 	}
@@ -113,6 +119,10 @@ public class Controller {
 		}
 	}	
 	
+	public boolean moveArmies(int armies) {
+		return game.moveArmies(getPlayerObject(), activeTerritory, activeTerritory2, armies);
+	}
+	
 	public boolean placeArmyInitial() {
 		if(game.placeArmies(getPlayerObject(), activeTerritory, 1)){
 			return true;
@@ -132,11 +142,31 @@ public class Controller {
 		return game.recruiting(getPlayerObject());
 	}
 	
+	public void drawCard() {
+		for(int i = 0; i < 4; i++) {
+			game.drawCard(getPlayerObject());
+		}
+	}
+	
 	
 	public void updateMap() {
 		gui.mapPanel.drawMap();
 	}
+	public void updateCoa(int tmp, int terr) {
+		if(terr == 2) {
+			gui.mapPanel.placeCoa(activeTerritory2.getName(), playerAtTurn);
+			gui.mapPanel.placeArmy(activeTerritory2.getName(), tmp);
+		}else {
+			gui.mapPanel.placeCoa(activeTerritory.getName(), playerAtTurn);
+			gui.mapPanel.placeArmy(activeTerritory.getName(), tmp);
+		}
+		
+	}
+	public void resetTerritoryFlag() {
+		gui.mapPanel.resetTerritoryFlag();
+	}
 
+	
 	public RiskGUI getGui() {
 		return gui;
 	}

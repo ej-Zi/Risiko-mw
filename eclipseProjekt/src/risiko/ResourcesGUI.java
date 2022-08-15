@@ -123,9 +123,9 @@ public class ResourcesGUI implements ActionListener {
 		return menuIcon;
 	}
 	
-	public ImageIcon getCoatIcon(Controller controller, int choice) {
+	public ImageIcon getCoatIcon(Controller controller, int choice, int playerIndex) {
 		
-		coatIcon = new ImageIcon(getPlayerCoat().get(controller.getPlayerAtTurn()));
+		coatIcon = new ImageIcon(getPlayerCoat().get(playerIndex));
 		coatImage = coatIcon.getImage();
 		
 		if(choice == 1) {
@@ -154,7 +154,7 @@ public class ResourcesGUI implements ActionListener {
 				System.exit(0);	
 			}	
 		});
-		menuBar.setBounds(-10, -1, ((screenSize.width*2/10) * 70)/273, (screenSize.height*45)/768);
+		menuBar.setBounds(-10, -1, ((screenSize.width*2/10) * 65)/273, (screenSize.height*45)/768);
 		menu.setIcon(getMenuIcon());
 		menu.add(beenden);
 		menuBar.add(menu);	

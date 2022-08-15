@@ -134,11 +134,11 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 		
 		public void placeCoa(String territory, int numCoat) {
 			
-			if(numCoat < coa.size()+1 && getCoaCoordinates(territory).width != 0) {
+			if(numCoat < coa.size() && getCoaCoordinates(territory).width != 0) {
 				if(!coaOnMap.containsKey(territory)){
 					int x = getCoaCoordinates(territory).width;
 					int y = getCoaCoordinates(territory).height;
-					ImageIcon coaIcon = coa.get(numCoat-1);
+					ImageIcon coaIcon = coa.get(numCoat);
 					coaIcon = scaleIcon(coaIcon, 25, 40);
 					JLabel coat = new JLabel(coaIcon);
 					coat.setBounds(x-15,y-15, 30, 30);
@@ -259,10 +259,14 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 		public void drawMap() {
 			for(int i = 0; i < controller.game.getPlayers().size(); i++) {
 				for(Territory t : controller.game.getPlayers().get(i).getOccupiedTerritories()) {
-					placeCoa(t.getName(), i + 1);
+					placeCoa(t.getName(), i);
 					placeArmy(t.getName(), t.getArmiesOnTerritory());
 				}
 			}
+		}
+		
+		public void resetTerritoryFlag() {
+			this.territoryFlag = true;
 		}
 		
 	}

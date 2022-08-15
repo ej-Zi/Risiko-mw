@@ -1,34 +1,24 @@
 package risiko;
 
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
 public class TestMain {	
 	public static void main(String[] args) {
-		
-//		StartMenuGUI start = new StartMenuGUI();
-//		start.setVisible(true);
 		
 		Scanner input = new Scanner(System.in);
 		
 		if(input.nextInt() == 1) {	//Testmodus
 			System.out.println("Testmodus wird gestartet");
 			Controller ctrl = new Controller();
-			ctrl.startGame(-1, new ArrayList<>(Arrays.asList("Player 1" , "Player 2")));
+			ctrl.startGame(-1, new ArrayList<>(Arrays.asList("Player 1" , "Player 2", "Player 3", "Player 4", "Player 5")));
 		}else {
 			System.out.println("Spiel wird gestartet");
-			IntroGUI view = new IntroGUI(new Controller());
+			new IntroGUI(new Controller());
 		}
 		
+		input.close();
 		
 		
 
