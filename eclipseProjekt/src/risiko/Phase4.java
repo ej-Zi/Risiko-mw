@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,6 +42,7 @@ public class Phase4 extends JPanel{
 	private JTable territoriesTable;
 	private String [] territoriesTitel = {"Besetzte Gebiete", "Armeen"};
 	private DefaultTableModel territoriesTableModel;
+	private JButton finishRound;
 	private TableColumn territoriesColumn1;
 	private TableColumn territoriesColumn2;
 	private DefaultTableCellRenderer dtcr;
@@ -47,16 +50,20 @@ public class Phase4 extends JPanel{
 	private Color buttonColor;
 	private ResourcesGUI resource;
 	private Dimension screenSize;
+	private Controller controller;
+	private ImageIcon buttonIcon;
 	
 	
 	public Phase4(Controller controller){
 		
+		this.controller = controller;
 		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer(); 
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
+		buttonIcon = new ImageIcon("assets\\OldPaper2.png");
 		
 		controlfieldIcon = new ImageIcon("assets\\GambleTable2.jpg");
 		controlfieldImage = controlfieldIcon.getImage();
@@ -95,6 +102,23 @@ public class Phase4 extends JPanel{
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 14 / 768));
 		guideDisplay.setEditable(false);	
 		this.add(guideDisplay);
+		
+		
+		finishRound = new JButton("Phase beenden", buttonIcon);
+		finishRound.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2,(screenSize.height*445)/768, 
+				 ((screenSize.width*2/10) *240)/273, (screenSize.height*35)/768);
+		finishRound.setHorizontalTextPosition(SwingConstants.CENTER);
+		finishRound.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 16 / 768));
+		finishRound.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}}));
+		if(controller.getPlayerObject().getCardsInHand().size() > 5) {
+			finishRound.setEnabled(false);
+		}
+		
+		this.add(finishRound);
 
 		territoriesList = new String[42][2];
 		territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
@@ -109,12 +133,7 @@ public class Phase4 extends JPanel{
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 13 / 768));
 		territoriesTable.setSelectionBackground(buttonColor);
 		
-		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
-			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
-			for(int j = 0; j < controller.getPlayerObject().getOccupiedTerritories().size(); j++) {
-				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
-			}
-		}		
+		updateTable();		
 		
 		territoriesColumn1 = territoriesTable.getColumnModel().getColumn(0);
 		territoriesColumn2 = territoriesTable.getColumnModel().getColumn(1);
@@ -136,5 +155,14 @@ public class Phase4 extends JPanel{
 		this.add (territoriesDisplay);
 		
 		this.add(controlfieldLabel);		
+	}
+		
+	private void updateTable() {
+		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
+			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
+			for(int j = 0; j < controller.getPlayerObject().getOccupiedTerritories().size(); j++) {
+				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
+			}
+		}	
 	}
 }

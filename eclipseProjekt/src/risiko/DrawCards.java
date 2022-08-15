@@ -12,6 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Panel;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -41,7 +42,6 @@ public class DrawCards extends JPanel{
 	
 	public DrawCards(Controller controller) {
 		this.controller = controller;
-		
 		controller.drawCard();
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -99,9 +99,12 @@ public class DrawCards extends JPanel{
 		player = controller.getPlayerObject();
 		
 		if(numOfCards != 0) {
-			gridLayout.setHgap(150/numOfCards);
-			gridLayout.setVgap(150/numOfCards);
+			gridLayout.setHgap(bgIcon.getIconWidth()/100);
+			gridLayout.setVgap(bgIcon.getIconHeight()/100);
 		}
+		
+		int scaleWidth =  bgIcon.getIconWidth()/numOfCards * 2/4;
+		int scaleHeight = bgIcon.getIconHeight()/numOfCards;		
 		
 		for(int i = 0; i < numOfCards; ++i) {
 			JToggleButton cardBtn = new JToggleButton();
@@ -117,24 +120,23 @@ public class DrawCards extends JPanel{
 			cardBtn.setText(nameTerritory);
 			if(player.getOccupiedTerritories().contains(territory)) 
 				cardBtn.setForeground(Color.white);
-
-
+			
 			switch (symbol) {
 			case "Infanterie":
-				cardBtn.setIcon(infUnsIcon);
-				cardBtn.setSelectedIcon(infSelIcon);
+				cardBtn.setIcon(scaleIcon(infUnsIcon, scaleWidth, scaleHeight));
+				cardBtn.setSelectedIcon(scaleIcon(infSelIcon, scaleWidth, scaleHeight));
 				break;
 			case "Kavallerie":
-				cardBtn.setIcon(kavUnsIcon);
-				cardBtn.setSelectedIcon(kavSelIcon);
+				cardBtn.setIcon(scaleIcon(kavUnsIcon, scaleWidth, scaleHeight));
+				cardBtn.setSelectedIcon(scaleIcon(kavSelIcon, scaleWidth, scaleHeight));
 				break;
 			case "Artillerie":
-				cardBtn.setIcon(artUnsIcon);
-				cardBtn.setSelectedIcon(artSelIcon);
+				cardBtn.setIcon(scaleIcon(artUnsIcon, scaleWidth, scaleHeight ));
+				cardBtn.setSelectedIcon(scaleIcon(artSelIcon, scaleWidth, scaleHeight));
 				break;
 			case "Joker":
-				cardBtn.setIcon(jokerUnsIcon);
-				cardBtn.setSelectedIcon(jokerSelIcon);
+				cardBtn.setIcon(scaleIcon(jokerUnsIcon, scaleWidth, scaleHeight));
+				cardBtn.setSelectedIcon(scaleIcon(jokerSelIcon, scaleWidth, scaleHeight));
 				break;
 			}
 			

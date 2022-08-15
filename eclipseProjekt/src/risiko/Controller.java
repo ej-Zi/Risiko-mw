@@ -142,8 +142,9 @@ public class Controller {
 		return game.recruiting(getPlayerObject());
 	}
 	
+	//zum testen
 	public void drawCard() {
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < 8; i++) {
 			game.drawCard(getPlayerObject());
 		}
 	}

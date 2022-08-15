@@ -48,8 +48,8 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 			break;
 		case -1:
 			this.players = new ArrayList<>();
-			startingArmies = 40;//23
-			for(int i = 0; i < 3; i++) {
+			startingArmies = 23;
+			for(int i = 0; i < 2; i++) {
 				this.players.add(new Player(this.namen.get(i), startingArmies));
 			}
 			break;

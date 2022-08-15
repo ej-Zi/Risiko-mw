@@ -74,7 +74,7 @@ public class RiskGUI extends JFrame{
 		
 		panelMap.add(mapPanel);
 		
-		changePhase(0);
+		changePhase(4);
 	
 		//place Panel on JFrame
 		this.setLayout(new BorderLayout());

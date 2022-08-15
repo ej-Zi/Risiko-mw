@@ -38,10 +38,6 @@ public class Game extends GameInitializer {
 		player.getCardsInHand().add(this.cards.get(randomNumber));
 		this.cards.remove(randomNumber);
 	}
-	
-	public static void resetCardSetCount() {
-		cardSetCount = 0;
-	}
   
 	//Karten einsetzen: returns true if successful; irgendwo sicherstellen, dass Karten dem Spieler gehören
 	public boolean tradeCards(Player player, Card c1, Card c2, Card c3) {
