@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -16,13 +18,24 @@ public class TestMain {
 //		StartMenuGUI start = new StartMenuGUI();
 //		start.setVisible(true);
 		
-		Controller controller = new Controller();
-		controller.getGui().setVisible(true);
+		Scanner input = new Scanner(System.in);
+		
+		if(input.nextInt() == 1) {	//Testmodus
+			System.out.println("Testmodus wird gestartet");
+			Controller ctrl = new Controller();
+			ctrl.startGame(-1, new ArrayList<>(Arrays.asList("Player 1" , "Player 2")));
+		}else {
+			System.out.println("Spiel wird gestartet");
+			IntroGUI view = new IntroGUI(new Controller());
+		}
+		
+		
+		
 
 
 
 		
-		//IntroGUI view3 = new IntroGUI();
+		
 	
 		
 		//StartMenuGUI view3 = new StartMenuGUI();

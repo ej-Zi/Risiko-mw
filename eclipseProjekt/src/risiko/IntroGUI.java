@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -30,10 +31,14 @@ public class IntroGUI  extends Thread {
 	private Color displayColor;
 	private int playerCount;
 	
-	public IntroGUI() {
+	public Controller controller;
+	
+	public IntroGUI(Controller controller) {
 		
+		this.controller = controller;
+		this.playerCount = -1;
 		this.startMenu = new StartMenuPlayerCountGUI(this);
-		this.playerNameMenu = new StartMenuPlayerNameGUI();
+		this.playerNameMenu = new StartMenuPlayerNameGUI(this);
 		
 		jFrame = new JFrame();
 		basePanel = new JPanel();
@@ -109,6 +114,9 @@ public class IntroGUI  extends Thread {
 	
 	public void setPlayerCount(int playerCount) {
 		this.playerCount = playerCount;
+	}
+	public int getPlayerCount() {
+		return this.playerCount;
 	}
 	
 }
