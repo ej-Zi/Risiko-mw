@@ -41,7 +41,7 @@ import javax.imageio.ImageIO;
 
 public class RiskGUI extends JFrame{
 	
-	private JPanel panelMap;
+	public JPanel panelMap;
 	private JPanel panelCf;	
 	
 	public Phase0 phase0;
@@ -74,7 +74,7 @@ public class RiskGUI extends JFrame{
 		
 		panelMap.add(mapPanel);
 		
-		changePhase(2);
+		changePhase(0);
 	
 		//place Panel on JFrame
 		this.setLayout(new BorderLayout());
@@ -87,45 +87,43 @@ public class RiskGUI extends JFrame{
 	
 	
 	public void changePhase(int phase) {
+		controller.resetActiveTerritories();
+		panelCf.removeAll();
+		panelCf.revalidate();
+		panelCf.repaint();
 		switch(phase) {
 		case 0:
 			panelCf.add(phase0);
 			Controller.phase = phase;
 			break;
 		case 1:
-			panelCf.remove(phase0);
-			panelCf.remove(phase4);
-			panelCf.revalidate();
-			//controller.updatePhase();
-			panelCf.add(phase1);
 			Controller.phase = phase;
+			panelMap.removeAll();
+			panelMap.revalidate();
+			panelMap.repaint();
+			controller.updatePhase();
+			panelCf.add(phase1);
+			panelMap.add(mapPanel);
 			break;
 		case 2:
-			panelCf.remove(phase1);
-			panelCf.revalidate();
-			//controller.updatePhase();
-			panelCf.add(phase2);
 			Controller.phase = phase;
+			controller.updatePhase();
+			panelCf.add(phase2);
 			break;
 		case 3:
-			panelCf.remove(phase2);
-			panelCf.revalidate();
-			//controller.updatePhase();
-			panelCf.add(phase3);
 			Controller.phase = phase;
+			controller.updatePhase();
+			panelCf.add(phase3);
 			break;
 		case 4:
-			//TODO
-			panelMap.remove(mapPanel);
-			panelCf.remove(phase3);
-			panelMap.revalidate();
-			panelCf.revalidate();
-
-			//controller.updatePhase();
-
-			panelMap.add(drawCards);
-			panelCf.add(phase4);
 			Controller.phase = phase;
+			panelMap.removeAll();
+			panelMap.revalidate();
+			panelMap.repaint();
+			controller.cardTest();
+			controller.updatePhase();
+			panelMap.add(new DrawCards(controller));
+			panelCf.add(phase4);
 			break;
 		}
 	}

@@ -65,7 +65,6 @@ public class Phase0 extends JPanel implements ActionListener{
 	
 	
 	public Phase0 (Controller controller){
-		System.out.println("Phase 0 erstellt");
 		
 		this.controller = controller;
 		resource = new ResourcesGUI();
@@ -209,8 +208,8 @@ public class Phase0 extends JPanel implements ActionListener{
 						}
 					}
 					if(tmp) {
-						controller.getGui().changePhase(1);	
 						controller.nextPlayer();
+						controller.getGui().changePhase(1);	
 					}else {
 						controller.nextPlayer();
 						while(controller.getPlayerObject().getArmies() == 0) {

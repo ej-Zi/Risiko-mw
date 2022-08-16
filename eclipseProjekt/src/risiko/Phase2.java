@@ -72,7 +72,6 @@ public class Phase2 extends JPanel implements ActionListener{
 	}
 
 	public Phase2(Controller controller) {
-		System.out.println("Phase 2 erstellt");
 		this.controller = controller;
 		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer();
@@ -112,7 +111,7 @@ public class Phase2 extends JPanel implements ActionListener{
 				((screenSize.width*2/10) * 240)/273, (screenSize.height*35)/768);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
-		guideDisplay.setText("Wählen Sie das Startgebiet");
+		guideDisplay.setText("Waehlen Sie das Startgebiet");
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 14 / 768));
 		guideDisplay.setEditable(false);
 		this.add(guideDisplay);		
@@ -203,8 +202,6 @@ public class Phase2 extends JPanel implements ActionListener{
 	
 		if(e.getSource() == this.attack) {
     
-			
-
 			Player tmp = controller.activeTerritory2.getOccupier();
 			int armies = (int) unitCounterAttack.getValue();
 		
@@ -218,10 +215,11 @@ public class Phase2 extends JPanel implements ActionListener{
 				//new AttackPopUp(attackFrame, controller, dice);	
 				new ConquestPopUp(conquestFrame, controller);
 			}
-			
 			if(controller.activeTerritory2.getOccupier() != tmp) {
 				controller.updateCoa(armies, 2);
 				controller.resetTerritoryFlag();
+				//Eroberungs-PopUp
+				controller.drawCard();
 			}
 			
 			
@@ -239,7 +237,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		}else {
 			startPositionAttack.setText("");
 			attackedPosition.setText("");
-			this.guideDisplay.setText("Wählen Sie das Startgebiet");
+			this.guideDisplay.setText("Waehlen Sie das Startgebiet");
 		}
 		
 		if(controller.activeTerritory2 != null && controller.activeTerritory != null) {
@@ -248,12 +246,20 @@ public class Phase2 extends JPanel implements ActionListener{
 				guideDisplay.setText("Greifen Sie an");
 			}else {
 				attackedPosition.setText("");
-				this.guideDisplay.setText("Wählen Sie das Zielgebiet");
+				guideDisplay.setText("Waehlen Sie das Zielgebiet");
 			}
 		}else {
 			attackedPosition.setText("");
 		}
 		
+	}
+	
+	private void updatePlayerInfo() {
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
+		
+		playerInformationLabel.setText(controller.getPlayerObject().getName());
+		playerInformationLabel.setIcon(coatIcon);
+		updateTable();
 	}
 	
 	private void updateTable() {
@@ -263,6 +269,15 @@ public class Phase2 extends JPanel implements ActionListener{
 				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
 			}
 		}	
+	}
+	
+	public void updatePanel() {
+		updatePlayerInfo();
+		updateTable();
+		unitCounterAttackModel.setValue(1);
+		attackedPosition.setText("");
+		startPositionAttack.setText("");
+		guideDisplay.setText("Waehlen Sie das Startgebiet");
 	}
 		
 }

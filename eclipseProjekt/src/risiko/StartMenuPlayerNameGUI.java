@@ -112,7 +112,6 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 			System.exit(0);
 		}
 		else if(e.getSource() == this.confirmPlayerName)
-			System.out.println(playerCount);
 			if(!playerNameInput.getText().isEmpty()) {
 				
 				playerNumber += 1;
@@ -129,6 +128,7 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 			}
 			if(playerCount < 0) {
 				introGUI.controller.startGame(introGUI.getPlayerCount(), playerNames);
+				introGUI.getjframe().dispose();
 			}	
 	}
 	

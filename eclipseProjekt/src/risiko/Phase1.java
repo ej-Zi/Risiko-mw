@@ -64,10 +64,9 @@ public class Phase1 extends JPanel implements ActionListener {
 	
 	
 	public Phase1(Controller controller) {
-		System.out.println("Phase 1 erstellt");
+
 		this.controller = controller;
 		
-
 		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer(); 
 		
@@ -173,7 +172,6 @@ public class Phase1 extends JPanel implements ActionListener {
 		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 13 / 768));
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 13 / 768));
 		territoriesTable.setSelectionBackground(buttonColor);		
-		updateTable();
 		territoriesColumn1 = territoriesTable.getColumnModel().getColumn(0);
 		territoriesColumn2 = territoriesTable.getColumnModel().getColumn(1);
 		dtcr = new DefaultTableCellRenderer();  
@@ -217,9 +215,19 @@ public class Phase1 extends JPanel implements ActionListener {
 			this.selectedTerritory.setText(controller.activeTerritory.getName());
 			this.guideDisplay.setText("Verteilen Sie ihre Armeen");
 		}else {
-			this.guideDisplay.setText("Ungültige Auswahl");
+			this.guideDisplay.setText("Ungueltige Auswahl");
 			this.selectedTerritory.setText("");
 		}
+	}
+	
+	private void updatePlayerInfo() {
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
+		
+		playerInformationLabel.setText(controller.getPlayerObject().getName());
+		playerInformationLabel.setIcon(coatIcon);
+		updateTable();
+		
+		unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
 	}
 	
 	private void updateTable() {
@@ -229,6 +237,13 @@ public class Phase1 extends JPanel implements ActionListener {
 				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
 			}
 		}	
+	}
+	
+	public void updatePanel() {
+		updatePlayerInfo();
+		updateTable();
+		unitCounterManeuverModel.setValue(0);
+		this.selectedTerritory.setText("");
 	}
 	
 	

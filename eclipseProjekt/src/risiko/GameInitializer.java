@@ -46,7 +46,7 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 				this.players.add(new Player(this.namen.get(i), startingArmies));
 			}
 			break;
-		case -1:
+		case -1: //Testmodus
 			this.players = new ArrayList<>();
 			startingArmies = 23;
 			for(int i = 0; i < 2; i++) {
@@ -188,7 +188,7 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 		}
 		if(anzahlSpieler == -1) {
 			for(Territory t : this.territories) {
-				t.setArmiesOnTerritory(10);
+				t.setArmiesOnTerritory(5);
 			}
 		}
 

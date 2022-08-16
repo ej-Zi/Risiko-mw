@@ -92,6 +92,12 @@ public class ResourcesGUI implements ActionListener {
 						+ "Bestimmen Sie danach mit dem Zähler die Anzahl der Einheiten, "
 						+ "die Sie bewegen möchten und drücken Sie im Anschluss 'Armeen bewegen'. "
 						+ "Wenn Sie keine Armeen verschieben möchten, drücken Sie 'Phase beenden'.");
+		
+		helpText.put(4, "Klicken Sie auf die drei Karten, welche Sie "
+						+ "eintauschen möchten. Zu ihren Gebieten gehörige Karten werden weiß markiert und "
+						+ "bescheren Ihnen beim Eintauschen zusätzliche Einheiten, welche in der nächsten"
+						+ "Positionierungsphase gesetzt werden können. Dies ist die letzte Phase Ihres Zuges."
+						+ "Wenn Sie keine Karten mehr eintauschen können, drücken Sie 'Zug beenden'.");
 	
 	}
 	

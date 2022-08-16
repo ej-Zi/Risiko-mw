@@ -119,4 +119,8 @@ public class IntroGUI  extends Thread {
 		return this.playerCount;
 	}
 	
+	public JFrame getjframe() {
+		return this.jFrame;
+	}
+	
 }

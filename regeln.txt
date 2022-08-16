@@ -50,6 +50,5 @@ Phase 0
 ## Ziel/Spielende ##
 
 - klassisch: Sieg, wenn alle anderen Spieler besiegt sind
-- optional: wenn Mission erfüllt ist
-- schnelle Variante: wenn Haupquatiere eingenommen wurden			
+		
 

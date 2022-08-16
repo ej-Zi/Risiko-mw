@@ -33,40 +33,54 @@ import javax.swing.border.Border;
 public class DrawCards extends JPanel{
 	Dimension screenSize;
 	ArrayList<Card> selectedCards;
+	ArrayList<Card> playerCards;
 	JToggleButton checkCardsBtn;
 	Controller controller;
 	ImageIcon cardsSel;
 	ImageIcon cardUnsel;
 	Player player;
 	
+	ImageIcon bgIcon;
+	ImageIcon infUnsIcon;	
+	ImageIcon infSelIcon;
+	ImageIcon kavUnsIcon;	
+	ImageIcon kavSelIcon;
+	ImageIcon artUnsIcon;	
+	ImageIcon artSelIcon;
+	ImageIcon jokerUnsIcon;
+	ImageIcon jokerSelIcon;
+	JPanel cardPanel;
+	GridLayout gridLayout;
+	Font font;
+	JLabel contentPane;
 	
 	public DrawCards(Controller controller) {
 		this.controller = controller;
-		controller.drawCard();
+		//controller.cardTest();
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Color backgroundColor = new Color(237,223,176);
 		int width = screenSize.width*8/10;
 		int height = screenSize.height;
 		this.setPreferredSize(new Dimension(width, height));
-		Font font  = new Font("Algerian", Font.ROMAN_BASELINE, 17);
+		font  = new Font("Algerian", Font.ROMAN_BASELINE, 17);
 		Font font2  = new Font("Algerian", Font.ROMAN_BASELINE, 25);
 
 		
-		JPanel cardPanel = new JPanel();
-		ImageIcon infUnsIcon = new ImageIcon("assets\\InfCardUnsel.png");	
-		ImageIcon infSelIcon = new ImageIcon("assets\\InfCardSel.png");	
-		ImageIcon kavUnsIcon = new ImageIcon("assets\\KavCardUnsel.png");	
-		ImageIcon kavSelIcon = new ImageIcon("assets\\KavCardSel.png");	
-		ImageIcon artUnsIcon = new ImageIcon("assets\\ArtCardUnsel.png");	
-		ImageIcon artSelIcon = new ImageIcon("assets\\ArtCardSel.png");	
-		ImageIcon jokerUnsIcon = new ImageIcon("assets\\JokCardUnsel.png");	
-		ImageIcon jokerSelIcon = new ImageIcon("assets\\JokCardSel.png");	
+		cardPanel = new JPanel();
+		infUnsIcon = new ImageIcon("assets\\InfCardUnsel.png");	
+		infSelIcon = new ImageIcon("assets\\InfCardSel.png");	
+		kavUnsIcon = new ImageIcon("assets\\KavCardUnsel.png");	
+		kavSelIcon = new ImageIcon("assets\\KavCardSel.png");	
+		artUnsIcon = new ImageIcon("assets\\ArtCardUnsel.png");	
+		artSelIcon = new ImageIcon("assets\\ArtCardSel.png");	
+		jokerUnsIcon = new ImageIcon("assets\\JokCardUnsel.png");	
+		jokerSelIcon = new ImageIcon("assets\\JokCardSel.png");	
 		cardUnsel = new ImageIcon("assets\\cardBtnUnsel.png");	
 		cardsSel = new ImageIcon("assets\\cardBtnSel.png");	
-		ImageIcon bgIcon = new ImageIcon("assets\\drawCardsBG.jpg");
+		bgIcon = new ImageIcon("assets\\drawCardsBG.jpg");
 		bgIcon = scaleIcon(bgIcon, width, height);
-		JLabel contentPane = new JLabel(bgIcon);
+		contentPane = new JLabel(bgIcon);
 		contentPane.setLayout(new GridBagLayout());
 		
 	//	this.setBackground(backgroundColor);
@@ -92,19 +106,20 @@ public class DrawCards extends JPanel{
 		cardPanel.setOpaque(false);
 		cardPanel.setVisible(true);
 	
-		GridLayout gridLayout = new GridLayout();
+		gridLayout = new GridLayout();
 		cardPanel.setLayout(gridLayout);
 		
 		int numOfCards = controller.getPlayerObject().getCardsInHand().size();
 		player = controller.getPlayerObject();
 		
-		if(numOfCards != 0) {
-			gridLayout.setHgap(bgIcon.getIconWidth()/100);
-			gridLayout.setVgap(bgIcon.getIconHeight()/100);
-		}
+		int scaleWidth = 0;
+		int scaleHeight = 0;
 		
-		int scaleWidth =  bgIcon.getIconWidth()/numOfCards * 2/4;
-		int scaleHeight = bgIcon.getIconHeight()/numOfCards;		
+		if(numOfCards > 5 && numOfCards != 0) {
+			scaleWidth =  bgIcon.getIconWidth()/numOfCards * 2/4;
+			scaleHeight = bgIcon.getIconHeight()/numOfCards;
+			font = new Font("Algerian", Font.ROMAN_BASELINE, 15 - numOfCards);			
+		}
 		
 		for(int i = 0; i < numOfCards; ++i) {
 			JToggleButton cardBtn = new JToggleButton();
@@ -147,6 +162,7 @@ public class DrawCards extends JPanel{
 			cardBtn.addActionListener(e -> buttonPressed(card,cardBtn));
 			cardPanel.add(cardBtn);
 		}
+		
 		contentPane.add(cardPanel);
 		this.setLayout(new BorderLayout());
 		this.add(contentPane);
@@ -154,15 +170,12 @@ public class DrawCards extends JPanel{
 		this.setVisible(true);
 	}
 	
+	//TODO prints rausnehmen
 	public void buttonPressed(Card card, JToggleButton cardButton) {
 		if(cardButton.isSelected()) 
 			selectedCards.add(card);
 		else
-			selectedCards.remove(card);
-		for(Card c : selectedCards) {
-			System.out.println(c.getTerritory().getName());
-			}
-		System.out.println("---");		
+			selectedCards.remove(card);		
 		if(selectedCards.size() == 3 && controller.game.validCards(selectedCards.get(0),
 			selectedCards.get(1), selectedCards.get(2))) {
 			checkCardsBtn.setEnabled(true);
@@ -175,9 +188,11 @@ public class DrawCards extends JPanel{
 		if(checkCardsBtn.isSelected()) {
 			checkCardsBtn.setForeground(Color.black);
 			checkCardsBtn.setSelectedIcon(cardsSel);
-			controller.game.tradeCards(player, selectedCards.get(0),
+			int armies = controller.game.tradeCards(player, selectedCards.get(0),
 					selectedCards.get(1), selectedCards.get(2));
-			
+			controller.updateCards();
+			controller.updateFinishButton();
+			controller.updateDisplayPhase4(armies);
 		}
 		else
 			checkCardsBtn.setForeground(Color.white);
@@ -185,10 +200,13 @@ public class DrawCards extends JPanel{
 	}
 	
 	public ImageIcon scaleIcon(ImageIcon icon, int width, int height) {
-		Image image = icon.getImage();
-		Image modImage = image.getScaledInstance
+		if(width != 0 && height != 0) {
+			Image image = icon.getImage();
+			Image modImage = image.getScaledInstance
 				(width, height, java.awt.Image.SCALE_SMOOTH);
-		icon = new ImageIcon(modImage);
+			icon = new ImageIcon(modImage);
+		}
 		return icon;
 	}
+	
 }
