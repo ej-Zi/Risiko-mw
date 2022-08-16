@@ -71,7 +71,6 @@ public class Phase2 extends JPanel implements ActionListener{
 	}
 
 	public Phase2(Controller controller) {
-		System.out.println("Phase 2 erstellt");
 		this.controller = controller;
 		resource = new ResourcesGUI();
 		dtcr = new DefaultTableCellRenderer();
@@ -217,6 +216,8 @@ public class Phase2 extends JPanel implements ActionListener{
 			if(controller.activeTerritory2.getOccupier() != tmp) {
 				controller.updateCoa(armies, 2);
 				controller.resetTerritoryFlag();
+				//Eroberungs-PopUp
+				controller.drawCard();
 			}
 			
 			
@@ -234,7 +235,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		}else {
 			startPositionAttack.setText("");
 			attackedPosition.setText("");
-			this.guideDisplay.setText("Wählen Sie das Startgebiet");
+			this.guideDisplay.setText("Waehlen Sie das Startgebiet");
 		}
 		
 		if(controller.activeTerritory2 != null && controller.activeTerritory != null) {
@@ -243,7 +244,7 @@ public class Phase2 extends JPanel implements ActionListener{
 				guideDisplay.setText("Greifen Sie an");
 			}else {
 				attackedPosition.setText("");
-				this.guideDisplay.setText("Wählen Sie das Zielgebiet");
+				this.guideDisplay.setText("Waehlen Sie das Zielgebiet");
 			}
 		}else {
 			attackedPosition.setText("");

@@ -42,7 +42,7 @@ public class DrawCards extends JPanel{
 	
 	public DrawCards(Controller controller) {
 		this.controller = controller;
-		controller.drawCard();
+		//controller.cardTest();;
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		Color backgroundColor = new Color(237,223,176);
@@ -98,13 +98,15 @@ public class DrawCards extends JPanel{
 		int numOfCards = controller.getPlayerObject().getCardsInHand().size();
 		player = controller.getPlayerObject();
 		
+		int scaleWidth = 0;
+		int scaleHeight = 0;
+		
 		if(numOfCards != 0) {
 			gridLayout.setHgap(bgIcon.getIconWidth()/100);
 			gridLayout.setVgap(bgIcon.getIconHeight()/100);
+			scaleWidth =  bgIcon.getIconWidth()/numOfCards * 2/4;
+			scaleHeight = bgIcon.getIconHeight()/numOfCards;
 		}
-		
-		int scaleWidth =  bgIcon.getIconWidth()/numOfCards * 2/4;
-		int scaleHeight = bgIcon.getIconHeight()/numOfCards;		
 		
 		for(int i = 0; i < numOfCards; ++i) {
 			JToggleButton cardBtn = new JToggleButton();

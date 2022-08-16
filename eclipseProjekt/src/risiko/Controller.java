@@ -5,19 +5,18 @@ import java.util.ArrayList;
 
 
 public class Controller {
-	private ArrayList<String> names;
 	public Game game;
 	private static int playerAtTurn; 
 	public Territory activeTerritory;
 	public Territory activeTerritory2;
 	public static int phase;
 	private RiskGUI gui;
+	private Player tmp;
 	
 	public Controller() {
 		playerAtTurn = 0;
 	}
 	public void startGame(int numberOfPlayers, ArrayList<String> names) {
-		System.out.println("game start");
 		this.game = Game.getInstance(numberOfPlayers, names);
 		this.gui = new RiskGUI(this);
 	}
@@ -31,9 +30,6 @@ public class Controller {
 	}
 	public void nextPlayer() {
 		playerAtTurn = (playerAtTurn + 1) % game.players.size();
-	}
-	public Player getLastPlayer() {
-		return this.game.getPlayers().get(this.game.getPlayers().size() - 1);
 	}
 	
 	public boolean validTerritory() {
@@ -73,7 +69,6 @@ public class Controller {
 			return activeTerritory.getBorderingTerritories().contains(activeTerritory2) && activeTerritory2.getOccupier() != getPlayerObject();
 		case 3: 
 			boolean possible = game.movePossible(getPlayerObject(), activeTerritory, activeTerritory2);
-			System.out.println(possible);
 			game.getTmp().clear();
 			game.valid = false;
 			return possible;
@@ -83,7 +78,6 @@ public class Controller {
 		
 	}
 
-	//TODO
 	public void updateActiveTerritory() {
 		switch(phase) {
 		case 0:
@@ -121,12 +115,16 @@ public class Controller {
 	
 	
 	public ArrayList<Integer[]> attack(int armies) {
+		tmp = activeTerritory2.getOccupier();
 		if(activeTerritory.getArmiesOnTerritory() - armies > 0) {
 			return game.attack(getPlayerObject(), armies, activeTerritory, activeTerritory2);
 		}else {
 			return null;
 		}
 	}	
+	public Player getTmp() {
+		return tmp;
+	}
 	
 	public boolean moveArmies(int armies) {
 		return game.moveArmies(getPlayerObject(), activeTerritory, activeTerritory2, armies);
@@ -151,13 +149,16 @@ public class Controller {
 		return game.recruiting(getPlayerObject());
 	}
 	
-	//zum testen
 	public void drawCard() {
+		game.drawCard(getPlayerObject());
+	}
+	
+	//zum testen
+	public void cardTest() {
 		for(int i = 0; i < 5; i++) {
 			game.drawCard(getPlayerObject());
 		}
-	}
-	
+	}	
 	
 	public void updateMap() {
 		gui.mapPanel.drawMap();

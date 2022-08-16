@@ -94,34 +94,40 @@ public class RiskGUI extends JFrame{
 			break;
 		case 1:
 			Controller.phase = phase;
-			panelCf.remove(phase0);
-			panelCf.remove(phase4);
-			panelMap.remove(drawCards);
+			panelCf.removeAll();
+			panelMap.removeAll();
 			panelCf.revalidate();
+			panelMap.revalidate();
+			panelCf.repaint();
+			panelMap.repaint();
 			controller.updatePhase();
 			panelCf.add(phase1);
-			mapPanel.add(panelMap);
+			panelMap.add(mapPanel);
 			break;
 		case 2:
 			Controller.phase = phase;
-			panelCf.remove(phase1);
+			panelCf.removeAll();
 			panelCf.revalidate();
+			panelCf.repaint();
 			controller.updatePhase();
 			panelCf.add(phase2);
 			break;
 		case 3:
 			Controller.phase = phase;
-			panelCf.remove(phase2);
+			panelCf.removeAll();
 			panelCf.revalidate();
+			panelCf.repaint();
 			controller.updatePhase();
 			panelCf.add(phase3);
 			break;
 		case 4:
 			Controller.phase = phase;
-			panelMap.remove(mapPanel);
-			panelCf.remove(phase3);
-			panelMap.revalidate();
+			panelMap.removeAll();
+			panelCf.removeAll();
 			panelCf.revalidate();
+			panelMap.revalidate();
+			panelCf.repaint();
+			panelMap.repaint();
 			controller.updatePhase();
 			panelMap.add(drawCards);
 			panelCf.add(phase4);

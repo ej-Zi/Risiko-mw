@@ -194,13 +194,10 @@ public class Game extends GameInitializer {
 			dice.add(casualties);			
 			
 			if(territoryConquered(attacker, target, armies)) {
-				System.out.println("Eroberung");
-				target.setOccupier(attacker);
 				target.getOccupier().getOccupiedTerritories().remove(target);
+				target.setOccupier(attacker);
 				attacker.getOccupiedTerritories().add(target);
-				target.setArmiesOnTerritory(armies);
-				System.out.println(target.getOccupier().getName());
-				
+				target.setArmiesOnTerritory(armies);				
 			}else {
 				start.setArmiesOnTerritory(start.getArmiesOnTerritory() + armies);
 			}
@@ -250,6 +247,3 @@ public class Game extends GameInitializer {
 	}
 	
 }
-
-
-//TODO Funktionen ueberarbeiten basierend auf Abfragen Struktur im Controller

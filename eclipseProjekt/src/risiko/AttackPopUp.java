@@ -130,7 +130,7 @@ public class AttackPopUp {
 		attackerCasualtiesCount.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 35));
 		attackPanelImage.add(attackerCasualtiesCount);
 		
-		defenderLabel = new JLabel(resource.getCoatIcon(controller, 2, controller.game.getPlayers().indexOf(controller.activeTerritory2.getOccupier())));
+		defenderLabel = new JLabel(resource.getCoatIcon(controller, 2, controller.game.getPlayers().indexOf(controller.getTmp())));
 		defenderLabel.setBounds(540, 95, 80, 80);	
 		defenderLabel.setBackground(buttonColor);
 		defenderLabel.setOpaque(false);
