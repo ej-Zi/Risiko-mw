@@ -225,12 +225,13 @@ public class Game extends GameInitializer {
 				attacker.getCardsInHand().add(defender.getCardsInHand().get(i));
 			}
 			defender.getCardsInHand().clear();
+			removePlayer(defender);
 			return true;
 		}else {
 			return false;
 		}
 	}
-	public void removePlayer(Player player) {
+	private void removePlayer(Player player) {
 		this.players.remove(player);
 	}
 	

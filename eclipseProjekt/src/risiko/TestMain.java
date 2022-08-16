@@ -20,3 +20,5 @@ public class TestMain {
 		}
 		
 		input.close();
+	}
+}

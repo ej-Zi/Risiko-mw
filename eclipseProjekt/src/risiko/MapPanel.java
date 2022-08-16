@@ -35,7 +35,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 	private JLabel mapLabel;	
 	private Territory activeTerritory;
 	private ArrayList<Territory> territories;
-	private ArrayList<ImageIcon> coa; 
+	public ArrayList<ImageIcon> coa; 
 	private HashMap<Integer, Territory> colorToTerritory;
 	private HashMap <String, Entry<Integer, JLabel>> coaOnMap;
 	private HashMap <String, Entry<Integer, JLabel>> armiesOnMap;

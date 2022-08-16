@@ -132,6 +132,13 @@ public class Controller {
 		return tmp;
 	}
 	
+	public boolean playerDefeated() {
+		return game.playerDefeated(getPlayerObject(), activeTerritory2.getOccupier());
+	}
+	public boolean victory() {
+		return game.victory(getPlayerObject());
+	}
+	
 	public boolean moveArmies(int armies) {
 		return game.moveArmies(getPlayerObject(), activeTerritory, activeTerritory2, armies);
 	}

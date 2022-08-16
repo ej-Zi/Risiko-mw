@@ -70,7 +70,7 @@ public class ConquestPopUp {
 		occupationPanelButton.setBackground(buttonColor);
 		occupationPanelButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		conqueredTerritoryLabel = new JLabel("Southern Valoran", SwingConstants.CENTER);
+		conqueredTerritoryLabel = new JLabel(controller.activeTerritory2.getName(), SwingConstants.CENTER);
 		conqueredTerritoryLabel.setBounds(200, 100, 600, 80);	
 		conqueredTerritoryLabel.setBackground(buttonColor);
 		conqueredTerritoryLabel.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 60));

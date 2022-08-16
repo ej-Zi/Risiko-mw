@@ -29,7 +29,7 @@ public class VictoryPopUp{
 	private JDialog popUp;
 	private JButton closeBtn;
 
-	public VictoryPopUp(Frame frame, Controller controller) {
+	public VictoryPopUp(Controller controller) {
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();	
 		popUp = new JDialog(controller.getGui(), true);

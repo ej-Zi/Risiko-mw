@@ -32,6 +32,7 @@ public class Phase2 extends JPanel implements ActionListener{
 	
 	private static final Frame attackFrame = null;
 	private static final Frame conquestFrame = null;
+	private static final Frame victoryFrame = null;
 	private Controller controller;
 	private JLabel controlfieldLabel;
 	private ImageIcon controlfieldIcon;
@@ -212,14 +213,18 @@ public class Phase2 extends JPanel implements ActionListener{
 			controller.updateCoa(controller.activeTerritory.getArmiesOnTerritory(), 1);
 			
 			if(dice != null) {
-				//new AttackPopUp(attackFrame, controller, dice);	
-				new ConquestPopUp(conquestFrame, controller);
+				new AttackPopUp(attackFrame, controller, dice);	
 			}
 			if(controller.activeTerritory2.getOccupier() != tmp) {
 				controller.updateCoa(armies, 2);
 				controller.resetTerritoryFlag();
-				//Eroberungs-PopUp
+				new ConquestPopUp(conquestFrame, controller);
 				controller.drawCard();
+				if(controller.playerDefeated()) {
+					if(controller.victory()) {
+						new VictoryPopUp(controller);
+					}
+				}
 			}
 			
 			
