@@ -48,7 +48,7 @@ public class Phase4 extends JPanel{
 	private DefaultTableCellRenderer dtcr;
 	
 	private Color buttonColor;
-	private ResourcesGUI resource;
+	private Resources resource;
 	private Dimension screenSize;
 	private Controller controller;
 	private ImageIcon buttonIcon;
@@ -57,7 +57,7 @@ public class Phase4 extends JPanel{
 	public Phase4(Controller controller){
 		
 		this.controller = controller;
-		resource = new ResourcesGUI();
+		resource = new Resources();
 		dtcr = new DefaultTableCellRenderer(); 
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				

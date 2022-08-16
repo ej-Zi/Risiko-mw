@@ -120,7 +120,6 @@ public class RiskGUI extends JFrame{
 			panelMap.removeAll();
 			panelMap.revalidate();
 			panelMap.repaint();
-			controller.cardTest();
 			controller.updatePhase();
 			panelMap.add(new DrawCards(controller));
 			panelCf.add(phase4);

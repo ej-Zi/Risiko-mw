@@ -3,14 +3,12 @@ package risiko;
 import java.util.ArrayList;
 
 public class Territory {
-
-	//konkrete Gebiete in Konstruktor der GameEngine initialisieren
 	
 	private String name;
 	private ArrayList<Territory> borderingTerritories;
 	private Player occupier;
 	private int armiesOnTerritory;
-	private Continent continent; //vielleicht unnoetig
+	private Continent continent;
 	
 	Territory(String name){
 		this.name = name;

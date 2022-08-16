@@ -119,7 +119,6 @@ public class Controller {
 		}
 	}
 	
-	
 	public ArrayList<Integer[]> attack(int armies) {
 		tmp = activeTerritory2.getOccupier();
 		if(activeTerritory.getArmiesOnTerritory() - armies > 0) {
@@ -178,13 +177,6 @@ public class Controller {
 	public void updateDisplayPhase4(int armies) {
 		gui.phase4.updateGuideDisplay(armies);
 	}
-	
-	//zum testen
-	public void cardTest() {
-		for(int i = 0; i < 8; i++) {
-			game.drawCard(getPlayerObject());
-		}
-	}	
 	
 	public void updateMap() {
 		gui.mapPanel.drawMap();

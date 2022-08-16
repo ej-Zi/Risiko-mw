@@ -33,7 +33,7 @@ public class ConquestPopUp {
 	private JLabel conquererLabel;
 	private JLabel imageLabel;
 	
-	private ResourcesGUI resource;
+	private Resources resource;
 	private Color buttonColor;
 	private Dimension screenSize;
 	
@@ -47,7 +47,7 @@ public class ConquestPopUp {
 		getMusic();
 		
 		buttonColor = new Color(239, 228, 176);
-		resource = new ResourcesGUI();
+		resource = new Resources();
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		conquestIcon = new ImageIcon("assets\\OccupationTerritory.jpg");	

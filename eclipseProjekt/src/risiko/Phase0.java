@@ -29,7 +29,6 @@ import javax.swing.table.TableColumn;
 
 public class Phase0 extends JPanel implements ActionListener{
 
-	private static final Frame conquestFrame = null;
 	private Controller controller;	
 	private JLabel controlfieldLabel;
 	private ImageIcon controlfieldIcon;
@@ -60,14 +59,14 @@ public class Phase0 extends JPanel implements ActionListener{
 	private DefaultTableCellRenderer dtcr;
 	
 	private Color buttonColor;
-	private ResourcesGUI resource;
+	private Resources resource;
 	private Dimension screenSize;
 	
 	
 	public Phase0 (Controller controller){
 		
 		this.controller = controller;
-		resource = new ResourcesGUI();
+		resource = new Resources();
 		dtcr = new DefaultTableCellRenderer(); 
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				

@@ -129,7 +129,7 @@ public class Game extends GameInitializer {
 		}
 	}
 	
-	//Armeen erhalten in Nachschubphase/Verstaerkungsphase:
+	//Armeen erhalten in Nachschubphase:
 	public int recruiting(Player player) {
 		int numberOfArmies;
 		numberOfArmies = player.getOccupiedTerritories().size()/3;
@@ -154,7 +154,7 @@ public class Game extends GameInitializer {
 		return true;
 	}
 	
-	//Angriff: returns Liste mit gewuerfelten Zahlen wenn erfolgreich (attacker index 0, defender index 1), sonst returns null
+	//Angriff: returns Liste mit gewuerfelten Zahlen und Verluste wenn erfolgreich (attacker index 0,2; defender index 1,3), sonst returns null
 	public ArrayList<Integer[]> attack(Player attacker, int armies, Territory start, Territory target){
 		if(start.getOccupier() == attacker && target.getOccupier() != attacker && start.getBorderingTerritories().contains(target) && armies > 0) {
 			Random random = new Random();
@@ -209,7 +209,7 @@ public class Game extends GameInitializer {
 		}
 	}
 	
-	//Land erobert: (nach jedem Angriff aufrufen)
+	//Land erobert: 
 	private boolean territoryConquered(Player attacker, Territory target, int armies) {
 		if(target.getArmiesOnTerritory() <= 0) {
 			return true;
@@ -218,7 +218,7 @@ public class Game extends GameInitializer {
 		}
 	}
 	
-	//Spieler besiegt: (nach jeder erfolgreichen Eroberung aufrufen)
+	//Spieler besiegt:
 	public boolean playerDefeated(Player attacker, Player defender) {
 		if(defender.getOccupiedTerritories().isEmpty()) {
 			for(int i = 0; i < defender.getCardsInHand().size(); i++) {
@@ -235,7 +235,7 @@ public class Game extends GameInitializer {
 		this.players.remove(player);
 	}
 	
-	//Sieg: (nach jedem Besiegen eines Spielers aufrufen)
+	//Sieg:
 	public boolean victory(Player player) {
 		for(Territory t : this.territories) {
 			if(t.getOccupier() != player) {

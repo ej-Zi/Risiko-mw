@@ -31,7 +31,7 @@ public class AttackPopUp {
 	private JLabel imageLabel;
 	
 	private Color buttonColor;
-	private ResourcesGUI resource;
+	private Resources resource;
 	private ImageIcon battleIcon;
 	private Dimension screenSize;
 	
@@ -58,7 +58,7 @@ public class AttackPopUp {
 		getMusic();
 		
 		buttonColor = new Color(239, 228, 176);
-		resource = new ResourcesGUI();
+		resource = new Resources();
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		this.diceList1 = new ArrayList<>();

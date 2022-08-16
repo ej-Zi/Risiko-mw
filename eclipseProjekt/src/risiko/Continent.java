@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Continent {
 	
 	private String name;
-	private ArrayList<Territory> territoriesOnContinent; //benutzen, um beim Einheiten erhalten festzustellen, ob Bonuseinheiten erhalten werden
+	private ArrayList<Territory> territoriesOnContinent;
 	private int bonusArmies;
 	
 	Continent(String name, int bonusArmies){

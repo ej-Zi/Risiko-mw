@@ -22,8 +22,6 @@ public class MapGUI extends JFrame{
 		JLabel mapLabel = new JLabel(mapIcon);
 		JButton testButton  = new JButton("Test");
 		
-		
-		
 		panel1.add(mapLabel);
 		panel2.add(testButton);
 		panel1.setPreferredSize(new Dimension(screenSize.width*8/10,screenSize.height*9/10));

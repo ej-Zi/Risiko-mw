@@ -19,7 +19,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 
-public class ResourcesGUI implements ActionListener {
+public class Resources implements ActionListener {
 
 	protected static final Frame helpFrame = null;
 	private Map<Integer,String> helpText = new HashMap<>();
@@ -45,7 +45,7 @@ public class ResourcesGUI implements ActionListener {
 	
 	Color buttonColor = new Color(239, 228, 176);
 	
-	public ResourcesGUI() {
+	public Resources() {
 		
 		this.createHelpText();
 		this.addPlayerCoat();
@@ -75,29 +75,29 @@ public class ResourcesGUI implements ActionListener {
 	public void createHelpText() {
 	
 		helpText.put(0, "Klicken Sie auf das Gebiet, auf dass "
-						+ "Sie ihre Einheit setzen möchten. Drücken Sie danach den Knopf 'Einheit setzen'.");
+						+ "Sie ihre Einheit setzen moechten. Druecken Sie danach den Knopf 'Einheit setzen'.");
 		
 		helpText.put(1, "Klicken Sie auf das Gebiet, auf dass "
-						+ "Sie ihre Einheit setzen möchten. Bestimmen Sie im Anschluss mit dem Zähler die Anzahl der Einheiten, "
-						+ "die Sie auf das Gebiet setzen möchten und drücken Sie danach 'Armeen setzen'.");
+						+ "Sie ihre Einheit setzen moechten. Bestimmen Sie im Anschluss mit dem Zaehler die Anzahl der Einheiten, "
+						+ "die Sie auf das Gebiet setzen moechten und druecken Sie danach 'Armeen setzen'.");
 		
 		helpText.put(2, "Klicken Sie auf das Gebiet, "
-						+ "Von dem aus Sie angreifen möchten und danach auf das Gebiet, das Sie angreifen möchten. "
-						+ "Bestimmen Sie mit dem Zähler die Anzahl der Einheiten,"
-						+ "mit denen Sie angreifen möchten und drücken Sie danach 'Gegner angreifen'. "
-						+ "Wenn Sie nicht angreifen möchten, drücken Sie 'Phase beenden'.");
+						+ "Von dem aus Sie angreifen moechten und danach auf das Gebiet, das Sie angreifen moechten. "
+						+ "Bestimmen Sie mit dem Zaehler die Anzahl der Einheiten,"
+						+ "mit denen Sie angreifen moechten und druecken Sie danach 'Gegner angreifen'. "
+						+ "Wenn Sie nicht angreifen moechten, druecken Sie 'Phase beenden'.");
 		
 		helpText.put(3, "Klicken Sie auf das Gebiet, dessen Armeen "
-						+ "Sie Verschieben möchten und danach auf das Gebiet, wohin Sie die Armeen senden möchten. "
-						+ "Bestimmen Sie danach mit dem Zähler die Anzahl der Einheiten, "
-						+ "die Sie bewegen möchten und drücken Sie im Anschluss 'Armeen bewegen'. "
-						+ "Wenn Sie keine Armeen verschieben möchten, drücken Sie 'Phase beenden'.");
+						+ "Sie Verschieben moechten und danach auf das Gebiet, wohin Sie die Armeen senden moechten. "
+						+ "Bestimmen Sie danach mit dem Zaehler die Anzahl der Einheiten, "
+						+ "die Sie bewegen moechten und druecken Sie im Anschluss 'Armeen bewegen'. "
+						+ "Wenn Sie keine Armeen verschieben moechten, druecken Sie 'Phase beenden'.");
 		
 		helpText.put(4, "Klicken Sie auf die drei Karten, welche Sie "
-						+ "eintauschen möchten. Zu ihren Gebieten gehörige Karten werden weiß markiert und "
-						+ "bescheren Ihnen beim Eintauschen zusätzliche Einheiten, welche in der nächsten"
-						+ "Positionierungsphase gesetzt werden können. Dies ist die letzte Phase Ihres Zuges."
-						+ "Wenn Sie keine Karten mehr eintauschen können, drücken Sie 'Zug beenden'.");
+						+ "eintauschen moechten. Zu ihren Gebieten gehoerige Karten werden weiss markiert und "
+						+ "bescheren Ihnen beim Eintauschen zusaetzliche Einheiten, welche in der naechsten"
+						+ "Positionierungsphase gesetzt werden koennen. Dies ist die letzte Phase Ihres Zuges."
+						+ "Wenn Sie keine Karten mehr eintauschen koennen, druecken Sie 'Zug beenden'.");
 	
 	}
 	
@@ -206,8 +206,6 @@ public class ResourcesGUI implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) {		
 	}
 }

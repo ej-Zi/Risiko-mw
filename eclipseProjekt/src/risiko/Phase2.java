@@ -32,7 +32,6 @@ public class Phase2 extends JPanel implements ActionListener{
 	
 	private static final Frame attackFrame = null;
 	private static final Frame conquestFrame = null;
-	private static final Frame victoryFrame = null;
 	private Controller controller;
 	private JLabel controlfieldLabel;
 	private ImageIcon controlfieldIcon;
@@ -61,7 +60,7 @@ public class Phase2 extends JPanel implements ActionListener{
 	private DefaultTableCellRenderer dtcr;
 	
 	private Color buttonColor;
-	private ResourcesGUI resource;
+	private Resources resource;
 	private Dimension screenSize;
 	
 	private ArrayList<Integer[]> dice;
@@ -74,7 +73,7 @@ public class Phase2 extends JPanel implements ActionListener{
 
 	public Phase2(Controller controller) {
 		this.controller = controller;
-		resource = new ResourcesGUI();
+		resource = new Resources();
 		dtcr = new DefaultTableCellRenderer();
 	
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
@@ -205,7 +204,6 @@ public class Phase2 extends JPanel implements ActionListener{
     
 			Player tmp = controller.activeTerritory2.getOccupier();
 			int armies = (int) unitCounterAttack.getValue();
-		
 			dice = controller.attack(armies);
 	
 			updateTable();

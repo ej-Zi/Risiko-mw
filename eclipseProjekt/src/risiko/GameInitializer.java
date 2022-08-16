@@ -67,7 +67,6 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 		
 		//-----Territorien erstellen-----
 		this.territories = new ArrayList<>(42);
-		//Schataria
 		Territory shalathra = createTerritory("Shalathra", 0);//0
 		Territory northernSchataria = createTerritory("Northern Schataria", 0);//1
 		Territory azealon = createTerritory("Azealon", 0);//2
@@ -186,19 +185,14 @@ public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; 
 				this.players.get(i).setArmies(this.players.get(i).getArmies() - 1);
 			}
 		}
+		//Testmodus:
 		if(anzahlSpieler == -1) {
 			for(Territory t : this.territories) {
 				t.setArmiesOnTerritory(5);
 			}
-		}
-
-		
-		
-		
+		}	
 	}
 	
-	
-
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}

@@ -59,7 +59,6 @@ public class DrawCards extends JPanel{
 		//controller.cardTest();
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Color backgroundColor = new Color(237,223,176);
 		int width = screenSize.width*8/10;
 		int height = screenSize.height;
 		this.setPreferredSize(new Dimension(width, height));
@@ -170,7 +169,6 @@ public class DrawCards extends JPanel{
 		this.setVisible(true);
 	}
 	
-	//TODO prints rausnehmen
 	public void buttonPressed(Card card, JToggleButton cardButton) {
 		if(cardButton.isSelected()) 
 			selectedCards.add(card);

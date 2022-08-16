@@ -59,7 +59,7 @@ public class Phase1 extends JPanel implements ActionListener {
 		private DefaultTableCellRenderer dtcr;
 		
 		private Color buttonColor;
-		private ResourcesGUI resource;
+		private Resources resource;
 		private Dimension screenSize;
 	
 	
@@ -67,7 +67,7 @@ public class Phase1 extends JPanel implements ActionListener {
 
 		this.controller = controller;
 		
-		resource = new ResourcesGUI();
+		resource = new Resources();
 		dtcr = new DefaultTableCellRenderer(); 
 		
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				

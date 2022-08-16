@@ -40,8 +40,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 	private HashMap <String, Entry<Integer, JLabel>> coaOnMap;
 	private HashMap <String, Entry<Integer, JLabel>> armiesOnMap;
 	public static boolean territoryFlag;
-
-
+	
 	public MapPanel(Controller controller) {
 		
 		territoryFlag = true;
@@ -96,7 +95,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 	}
 	
 
-	//Functions
+	//Methods
 		public Dimension getCoaCoordinates(String t) {
 			int x = 0;
 		    int y = 0;
@@ -115,10 +114,8 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 			    	}
 			    }
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			return new Dimension(x,y);	
@@ -229,31 +226,22 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
 		
 		public void drawMap() {
@@ -266,7 +254,7 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 		}
 		
 		public void resetTerritoryFlag() {
-			this.territoryFlag = true;
+			territoryFlag = true;
 		}
 		
 	}

@@ -27,13 +27,12 @@ public class HelpPopUp {
 	private JScrollPane scrollHelpDisplay;
 	private JButton closeHelp;
 	private Color buttonColor;
-	private ResourcesGUI resource;
-	
+	private Resources resource;
 	
 	public HelpPopUp (Frame phase0, int phase) {
 		
 		buttonColor = new Color(239, 228, 176);
-		resource = new ResourcesGUI();
+		resource = new Resources();
 				
 		helpPopUp = new JDialog(phase0, true);
 		helpPopUp.setBounds(300, 50, 250, 200);

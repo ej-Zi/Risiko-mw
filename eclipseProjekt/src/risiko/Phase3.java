@@ -55,14 +55,14 @@ public class Phase3 extends JPanel implements ActionListener{
 		private DefaultTableCellRenderer dtcr;
 		
 		private Color buttonColor;
-		private ResourcesGUI resource;
+		private Resources resource;
 		private Dimension screenSize;
 	
 		
 		public Phase3(Controller controller) {
 			
 			this.controller = controller;
-			resource = new ResourcesGUI();
+			resource = new Resources();
 			dtcr = new DefaultTableCellRenderer(); 
 			
 			screenSize = Toolkit.getDefaultToolkit().getScreenSize();				

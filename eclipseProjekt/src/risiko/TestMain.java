@@ -12,8 +12,8 @@ public class TestMain {
 		if(input.nextInt() == 1) {	//Testmodus
 			System.out.println("Testmodus wird gestartet");
 			Controller ctrl = new Controller();
-			ctrl.startGame(-1, new ArrayList<>(Arrays.asList("Player 1" , "Player 2", "Player 3", "Player 4", "Player 5")));
-		}else {
+			ctrl.startGame(-1, new ArrayList<>(Arrays.asList("Player 1" , "Player 2")));
+		}else { //Spielmodus
 			System.out.println("Spiel wird gestartet");
 			new IntroGUI(new Controller());
 			

@@ -28,10 +28,6 @@ public class StartMenuPlayerCountGUI extends JPanel implements ActionListener{
 	private JButton starten;
 	private JButton verlassen;
 	
-	private JLabel playerNameRequest;
-	private JTextField playerNameInput;
-	private JButton confirmPlayerName;
-	
 	private ImageIcon origBackgroundImage;
 	private Dimension screenSize;
 	private Icon buttonIcon;
