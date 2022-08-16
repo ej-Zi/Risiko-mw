@@ -31,6 +31,7 @@ import javax.swing.table.TableColumn;
 public class Phase2 extends JPanel implements ActionListener{
 	
 	private static final Frame attackFrame = null;
+	private static final Frame conquestFrame = null;
 	private Controller controller;
 	private JLabel controlfieldLabel;
 	private ImageIcon controlfieldIcon;
@@ -211,7 +212,8 @@ public class Phase2 extends JPanel implements ActionListener{
 			controller.updateCoa(controller.activeTerritory.getArmiesOnTerritory(), 1);
 			
 			if(dice != null) {
-				new AttackPopUp(attackFrame, controller, dice);	
+				//new AttackPopUp(attackFrame, controller, dice);	
+				new ConquestPopUp(conquestFrame, controller);
 			}
 			if(controller.activeTerritory2.getOccupier() != tmp) {
 				controller.updateCoa(armies, 2);
