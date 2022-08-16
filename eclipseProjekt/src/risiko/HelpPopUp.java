@@ -2,7 +2,6 @@ package risiko;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
@@ -21,7 +20,6 @@ import javax.swing.SwingConstants;
 
 public class HelpPopUp {
 
-	private JButton help;
 	private JDialog helpPopUp;
 	private JTextArea helpDisplay;
 	private JPanel helpPanelText;
@@ -30,7 +28,6 @@ public class HelpPopUp {
 	private JButton closeHelp;
 	private Color buttonColor;
 	private ResourcesGUI resource;
-	private Controller controller;
 	
 	
 	public HelpPopUp (Frame phase0, int phase) {
@@ -39,7 +36,7 @@ public class HelpPopUp {
 		resource = new ResourcesGUI();
 				
 		helpPopUp = new JDialog(phase0, true);
-		helpPopUp.setBounds(300,50,250,200);
+		helpPopUp.setBounds(300, 50, 250, 200);
 		helpPopUp.setLayout(new BorderLayout());
 		helpPanelText = new JPanel();
 		helpPanelButton = new JPanel();
@@ -52,18 +49,18 @@ public class HelpPopUp {
 		helpPanelButton.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		helpDisplay = new JTextArea();
-		helpDisplay.setBounds(1,1,248,160);
+		helpDisplay.setBounds( 1, 1, 248, 160);
 		helpDisplay.setBackground(buttonColor);
 		helpDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		helpDisplay.setEditable(false);
-		helpDisplay.setText(resource.getHelpText().get(phase)); //wegen for-Schleife
+		helpDisplay.setText(resource.getHelpText().get(phase)); 
 		helpDisplay.setCaretPosition(0);
 		helpDisplay.setLineWrap(true);
 		helpDisplay.setWrapStyleWord(true);
 		scrollHelpDisplay = new JScrollPane(helpDisplay);
 		
 		scrollHelpDisplay.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollHelpDisplay.setBounds(1,1,248,160);
+		scrollHelpDisplay.setBounds(1, 1, 248, 160);
 		scrollHelpDisplay.getViewport().setBackground(buttonColor);
 		scrollHelpDisplay.getVerticalScrollBar().setBackground(buttonColor);
 		scrollHelpDisplay.getVerticalScrollBar().getComponent(0).setBackground(buttonColor);
@@ -71,7 +68,7 @@ public class HelpPopUp {
 		helpPopUp.add(scrollHelpDisplay);
 		
 		closeHelp = new JButton("Ok", new ImageIcon("assets\\OldPaper2.png"));
-		closeHelp.setPreferredSize(new Dimension(60,30));
+		closeHelp.setPreferredSize(new Dimension(60, 30));
 		closeHelp.setHorizontalTextPosition(SwingConstants.CENTER);
 		closeHelp.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, 16));
 		closeHelp.addActionListener(new ActionListener() {
@@ -80,6 +77,7 @@ public class HelpPopUp {
 				
 			}
 		});
+		
 		helpPanelButton.add(closeHelp);
 		helpPopUp.add(helpPanelText);
 		helpPopUp.add(helpPanelButton);

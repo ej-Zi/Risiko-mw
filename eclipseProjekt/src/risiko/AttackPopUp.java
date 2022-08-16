@@ -5,43 +5,37 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 public class AttackPopUp {
 	
-	public JDialog attackPopUp;
+	private JDialog attackPopUp;
 	private JPanel attackPanelImage;
 	private JPanel attackPanelButton;
 	private JButton closeAttack;
+	private JLabel imageLabel;
+	
 	private Color buttonColor;
 	private ResourcesGUI resource;
-	private Controller controller;
 	private ImageIcon battleIcon;
 	private Dimension screenSize;
-	private JLabel imageLabel;
-	private  Clip clip;
+	
+	private Clip attackMusic;
 	private File warDrums;
 	
 	private JLabel attackerLabel;
@@ -56,42 +50,27 @@ public class AttackPopUp {
 	private JLabel attackerCasualtiesCount;
 	private JLabel defenderCasualtiesCount;
 	
-	private ImageIcon diceIcon2;
-	private ImageIcon coatIcon;
-	private ImageIcon diceIcon;
-	
 	private ArrayList<JLabel> diceList1;
 	private ArrayList<JLabel> diceList2;
 	
 	public AttackPopUp (Frame attackFrame, Controller controller, ArrayList<Integer[]> dice) {
 		
+		getMusic();
+		
 		buttonColor = new Color(239, 228, 176);
 		resource = new ResourcesGUI();
-		
-
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		this.diceList1 = new ArrayList<>();
 		this.diceList2 = new ArrayList<>();	
-
-		diceIcon2 = new ImageIcon("assets\\dice1.png");
 		
 		battleIcon = new ImageIcon("assets\\Richard_Caton_Woodville's_The_Battle_of_Towton.jpg");	
 		imageLabel = new JLabel (battleIcon);
 		imageLabel.setBounds(0, 0, 977, 640);
 		
 		attackPopUp = new JDialog(attackFrame, true);
-<<<<<<< HEAD
-<<<<<<< HEAD
-		attackPopUp.setBounds((screenSize.width* 194)/1366 + ((screenSize.width * 977)/1366 - 977)/2, (screenSize.height * 44)/768 + ((screenSize.height * 680)/768 - 680)/2, 977, 680);
-=======
-		attackPopUp.setBounds((screenSize.width * 194)/1366, (screenSize.height * 44)/768, 977, 680);
->>>>>>> e9e7894 (HelpButton)
-=======
-
 		attackPopUp.setBounds((screenSize.width* 194)/1366 + ((screenSize.width * 977)/1366 - 977)/2, 
 				(screenSize.height * 44)/768 + ((screenSize.height * 680)/768 - 680)/2, 977, 680);
->>>>>>> d3b2311 (Lost again)
 		attackPopUp.setLayout(new BorderLayout());
 		attackPanelImage = new JPanel();
 		attackPanelButton = new JPanel();
@@ -190,8 +169,7 @@ public class AttackPopUp {
 				attackPopUp.dispose();	
 			}
 		});
-		getMusic();
-		
+	
 		displayDice(dice, resource.getDiceImages());
        
 		attackPanelImage.add(imageLabel);
@@ -220,9 +198,9 @@ public class AttackPopUp {
 	    warDrums = new File("assets\\mixkit-drums-of-war-call-2780.wav");
 
 	    try{
-	        clip = AudioSystem.getClip();
-	        clip.open(AudioSystem.getAudioInputStream(warDrums));
-	        clip.start();
+	        attackMusic = AudioSystem.getClip();
+	        attackMusic.open(AudioSystem.getAudioInputStream(warDrums));
+	        attackMusic.start();
 	    } 
 	    catch (Exception e){
 	        e.printStackTrace();

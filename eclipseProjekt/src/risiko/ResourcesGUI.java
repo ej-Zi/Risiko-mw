@@ -138,6 +138,10 @@ public class ResourcesGUI implements ActionListener {
 			modCoatImage = coatImage.getScaledInstance((303*1)/6, 
 					(448*1)/6, java.awt.Image.SCALE_SMOOTH);
 		}
+		else if(choice == 3) {
+			modCoatImage = coatImage.getScaledInstance((303*1)/2, 
+					(448*1)/2, java.awt.Image.SCALE_SMOOTH);
+		}
 		coatIcon = new ImageIcon(modCoatImage);
 	
 		return coatIcon;

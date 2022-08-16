@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ import javax.swing.table.TableColumn;
 
 public class Phase0 extends JPanel implements ActionListener{
 
+	private static final Frame conquestFrame = null;
 	private Controller controller;	
 	private JLabel controlfieldLabel;
 	private ImageIcon controlfieldIcon;
