@@ -98,13 +98,13 @@ public class Phase4 extends JPanel{
 				((screenSize.width*2/10) * 240)/273, (screenSize.height*35)/768);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
-		guideDisplay.setText("Verteilen Sie ihre Armeen" );
+		guideDisplay.setText("Tauschen Sie Ihre Karten ein");
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 14 / 768));
 		guideDisplay.setEditable(false);	
 		this.add(guideDisplay);
 		
 		
-		finishRound = new JButton("Phase beenden", buttonIcon);
+		finishRound = new JButton("Zug beenden", buttonIcon);
 		finishRound.setBounds((screenSize.width*2/10 - ((screenSize.width*2/10) * 240)/273)/2,(screenSize.height*445)/768, 
 				 ((screenSize.width*2/10) *240)/273, (screenSize.height*35)/768);
 		finishRound.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -114,13 +114,9 @@ public class Phase4 extends JPanel{
 				controller.nextPlayer();
 				controller.getGui().changePhase(1);
 				
-			}}));
-		if(controller.getPlayerObject().getCardsInHand().size() > 5) {
-			finishRound.setEnabled(false);
-		}
-		
+			}}));	
+		finishRound.setEnabled(false);
 		this.add(finishRound);
-
 		territoriesList = new String[42][2];
 		territoriesTableModel = new DefaultTableModel(territoriesList, territoriesTitel);
 		territoriesTable = new JTable();
@@ -176,5 +172,19 @@ public class Phase4 extends JPanel{
 	public void updatePanel() {
 		updatePlayerInfo();
 		updateTable();
+		toggleFinishRound();
+		guideDisplay.setText("Tauschen Sie Ihre Karten ein");
+	}
+	
+	public void toggleFinishRound() {
+		if(controller.getPlayerObject().getCardsInHand().size() > 4) {
+			finishRound.setEnabled(false);
+		}else {
+			finishRound.setEnabled(true);
+		}
+	}
+	
+	public void updateGuideDisplay(int armies) {
+		guideDisplay.setText("Sie haben " + armies + " Einheiten erhalten");
 	}
 }

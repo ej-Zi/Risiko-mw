@@ -39,23 +39,25 @@ public class Game extends GameInitializer {
 		this.cards.remove(randomNumber);
 	}
   
-	//Karten einsetzen: returns true if successful; irgendwo sicherstellen, dass Karten dem Spieler gehören
-	public boolean tradeCards(Player player, Card c1, Card c2, Card c3) {
+	//Karten einsetzen: returns Anzahl, der dazugewonnenen Armeen
+	public int tradeCards(Player player, Card c1, Card c2, Card c3) {
 		Card[] tmpCards = {c1, c2, c3};
+		int armies = 0;
 		if(validCards(c1, c2, c3)) {
 			int[] numberOfArmies = {4, 6, 8, 10, 12, 15};
-			player.setArmies(player.getArmies() + numberOfArmies[cardSetCount]);
+			armies = numberOfArmies[cardSetCount];
 			if(c1.getTerritory().getOccupier() == player || c2.getTerritory().getOccupier() == player || c3.getTerritory().getOccupier() == player) {
-				player.setArmies(player.getArmies() + 2);
+				armies += 2;
 			}
+			player.setArmies(player.getArmies() + armies);
 			cardSetCount += 1;
 			for(Card c : tmpCards) {
 				player.getCardsInHand().remove(c);
 				this.cards.add(c);
 			}
-			return true;
+			return armies;
 		}else {
-			return false;
+			return armies;
 		}	
 	}
 	

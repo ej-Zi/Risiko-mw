@@ -110,7 +110,7 @@ public class Phase2 extends JPanel implements ActionListener{
 				((screenSize.width*2/10) * 240)/273, (screenSize.height*35)/768);
 		guideDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		guideDisplay.setBackground(buttonColor);
-		guideDisplay.setText("Wählen Sie das Startgebiet");
+		guideDisplay.setText("Waehlen Sie das Startgebiet");
 		guideDisplay.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 14 / 768));
 		guideDisplay.setEditable(false);
 		this.add(guideDisplay);		
@@ -244,7 +244,7 @@ public class Phase2 extends JPanel implements ActionListener{
 				guideDisplay.setText("Greifen Sie an");
 			}else {
 				attackedPosition.setText("");
-				this.guideDisplay.setText("Waehlen Sie das Zielgebiet");
+				guideDisplay.setText("Waehlen Sie das Zielgebiet");
 			}
 		}else {
 			attackedPosition.setText("");
@@ -272,6 +272,10 @@ public class Phase2 extends JPanel implements ActionListener{
 	public void updatePanel() {
 		updatePlayerInfo();
 		updateTable();
+		unitCounterAttackModel.setValue(1);
+		attackedPosition.setText("");
+		startPositionAttack.setText("");
+		guideDisplay.setText("Waehlen Sie das Startgebiet");
 	}
 		
 }

@@ -39,12 +39,12 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 	private HashMap<Integer, Territory> colorToTerritory;
 	private HashMap <String, Entry<Integer, JLabel>> coaOnMap;
 	private HashMap <String, Entry<Integer, JLabel>> armiesOnMap;
-	private boolean territoryFlag;
+	public static boolean territoryFlag;
 
 
 	public MapPanel(Controller controller) {
 		
-		this.territoryFlag = true;
+		territoryFlag = true;
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);	
 		
