@@ -81,7 +81,7 @@ public class Phase4 extends JPanel{
 		this.add(menuBar, BorderLayout.NORTH);
 		this.setLayout(null);
 		
-		help = resource.getHelpButton(0);
+		help = resource.getHelpButton(4);
 		this.add(help);
 		
 		playerInformationLabel = new JLabel(controller.getPlayerObject().getName(), coatIcon, SwingConstants.CENTER);
