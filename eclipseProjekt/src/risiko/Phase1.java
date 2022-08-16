@@ -173,7 +173,6 @@ public class Phase1 extends JPanel implements ActionListener {
 		territoriesTable.getTableHeader().setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 13 / 768));
 		territoriesTable.setFont(new java.awt.Font("Algerian", Font.ROMAN_BASELINE, screenSize.height * 13 / 768));
 		territoriesTable.setSelectionBackground(buttonColor);		
-		updateTable();
 		territoriesColumn1 = territoriesTable.getColumnModel().getColumn(0);
 		territoriesColumn2 = territoriesTable.getColumnModel().getColumn(1);
 		dtcr = new DefaultTableCellRenderer();  
@@ -222,6 +221,16 @@ public class Phase1 extends JPanel implements ActionListener {
 		}
 	}
 	
+	private void updatePlayerInfo() {
+		coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
+		
+		playerInformationLabel.setText(controller.getPlayerObject().getName());
+		playerInformationLabel.setIcon(coatIcon);
+		updateTable();
+		
+		unitsTable.setValueAt(Integer.toString(controller.getPlayerObject().getArmies()) ,0,0);
+	}
+	
 	private void updateTable() {
 		for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
 			territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
@@ -229,6 +238,11 @@ public class Phase1 extends JPanel implements ActionListener {
 				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
 			}
 		}	
+	}
+	
+	public void updatePanel() {
+		updatePlayerInfo();
+		updateTable();
 	}
 	
 	

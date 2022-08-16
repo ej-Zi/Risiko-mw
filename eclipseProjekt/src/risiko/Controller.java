@@ -103,9 +103,18 @@ public class Controller {
 	
 	public void updatePhase() {
 		switch(phase) {
-		case 1 : 
+		case 1: 
 			recruitArmies();
-			//TODO Komponenten aktualisieren
+			gui.phase1.updatePanel();
+			break;
+		case 2:
+			gui.phase2.updatePanel();
+			break;
+		case 3:
+			gui.phase3.updatePanel();
+			break;
+		case 4:
+			gui.phase4.updatePanel();	
 			break;
 		}
 	}
@@ -144,7 +153,7 @@ public class Controller {
 	
 	//zum testen
 	public void drawCard() {
-		for(int i = 0; i < 8; i++) {
+		for(int i = 0; i < 5; i++) {
 			game.drawCard(getPlayerObject());
 		}
 	}

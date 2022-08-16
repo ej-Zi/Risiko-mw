@@ -226,6 +226,14 @@ public class Phase3 extends JPanel implements ActionListener{
 			
 		}
 		
+		private void updatePlayerInfo() {
+			coatIcon = resource.getCoatIcon(controller, 1, controller.game.getPlayers().indexOf(controller.getPlayerObject()));
+			
+			playerInformationLabel.setText(controller.getPlayerObject().getName());
+			playerInformationLabel.setIcon(coatIcon);
+			updateTable();
+		}
+		
 		private void updateTable() {
 			for(int i = 0; i < controller.getPlayerObject().getOccupiedTerritories().size(); i++) {
 				territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getName(),i,0);
@@ -233,5 +241,10 @@ public class Phase3 extends JPanel implements ActionListener{
 					territoriesTable.setValueAt(controller.getPlayerObject().getOccupiedTerritories().get(i).getArmiesOnTerritory(),i,1);
 				}
 			}	
+		}
+		
+		public void updatePanel() {
+			updatePlayerInfo();
+			updateTable();
 		}
 }

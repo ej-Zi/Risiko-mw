@@ -56,10 +56,6 @@ public class AttackPopUp {
 	private JLabel attackerCasualtiesCount;
 	private JLabel defenderCasualtiesCount;
 	
-	private ImageIcon diceIcon2;
-	private ImageIcon coatIcon;
-	private ImageIcon diceIcon;
-	
 	private ArrayList<JLabel> diceList1;
 	private ArrayList<JLabel> diceList2;
 	
@@ -73,8 +69,6 @@ public class AttackPopUp {
 		
 		this.diceList1 = new ArrayList<>();
 		this.diceList2 = new ArrayList<>();	
-
-		diceIcon2 = new ImageIcon("assets\\dice1.png");
 		
 		battleIcon = new ImageIcon("assets\\Richard_Caton_Woodville's_The_Battle_of_Towton.jpg");	
 		imageLabel = new JLabel (battleIcon);

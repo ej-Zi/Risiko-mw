@@ -207,8 +207,8 @@ public class Phase0 extends JPanel implements ActionListener{
 						}
 					}
 					if(tmp) {
-						controller.getGui().changePhase(1);	
 						controller.nextPlayer();
+						controller.getGui().changePhase(1);	
 					}else {
 						controller.nextPlayer();
 						while(controller.getPlayerObject().getArmies() == 0) {

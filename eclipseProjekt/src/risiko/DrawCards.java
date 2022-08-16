@@ -154,6 +154,7 @@ public class DrawCards extends JPanel{
 		this.setVisible(true);
 	}
 	
+	//TODO prints rausnehmen
 	public void buttonPressed(Card card, JToggleButton cardButton) {
 		if(cardButton.isSelected()) 
 			selectedCards.add(card);

@@ -74,7 +74,7 @@ public class RiskGUI extends JFrame{
 		
 		panelMap.add(mapPanel);
 		
-		changePhase(4);
+		changePhase(0);
 	
 		//place Panel on JFrame
 		this.setLayout(new BorderLayout());
@@ -93,39 +93,38 @@ public class RiskGUI extends JFrame{
 			Controller.phase = phase;
 			break;
 		case 1:
+			Controller.phase = phase;
 			panelCf.remove(phase0);
 			panelCf.remove(phase4);
+			panelMap.remove(drawCards);
 			panelCf.revalidate();
-			//controller.updatePhase();
+			controller.updatePhase();
 			panelCf.add(phase1);
-			Controller.phase = phase;
+			mapPanel.add(panelMap);
 			break;
 		case 2:
+			Controller.phase = phase;
 			panelCf.remove(phase1);
 			panelCf.revalidate();
-			//controller.updatePhase();
+			controller.updatePhase();
 			panelCf.add(phase2);
-			Controller.phase = phase;
 			break;
 		case 3:
+			Controller.phase = phase;
 			panelCf.remove(phase2);
 			panelCf.revalidate();
-			//controller.updatePhase();
+			controller.updatePhase();
 			panelCf.add(phase3);
-			Controller.phase = phase;
 			break;
 		case 4:
-			//TODO
+			Controller.phase = phase;
 			panelMap.remove(mapPanel);
 			panelCf.remove(phase3);
 			panelMap.revalidate();
 			panelCf.revalidate();
-
-			//controller.updatePhase();
-
+			controller.updatePhase();
 			panelMap.add(drawCards);
 			panelCf.add(phase4);
-			Controller.phase = phase;
 			break;
 		}
 	}
