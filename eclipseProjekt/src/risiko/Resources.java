@@ -84,7 +84,7 @@ public class Resources implements ActionListener {
 		helpText.put(2, "Klicken Sie auf das Gebiet, "
 						+ "Von dem aus Sie angreifen moechten und danach auf das Gebiet, das Sie angreifen moechten. "
 						+ "Bestimmen Sie mit dem Zaehler die Anzahl der Einheiten,"
-						+ "mit denen Sie angreifen moechten und druecken Sie danach 'Gegner angreifen'. "
+						+ " mit denen Sie angreifen moechten und druecken Sie danach 'Gegner angreifen'. "
 						+ "Wenn Sie nicht angreifen moechten, druecken Sie 'Phase beenden'.");
 		
 		helpText.put(3, "Klicken Sie auf das Gebiet, dessen Armeen "
