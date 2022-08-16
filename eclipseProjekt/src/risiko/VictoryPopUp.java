@@ -64,7 +64,6 @@ public class VictoryPopUp{
 		closeBtn.setHorizontalTextPosition(JButton.CENTER);
 		closeBtn.setContentAreaFilled(false);
 		closeBtn.setIcon(btnBg);
-//		closeBtn.setRolloverIcon(black);
 		closeBtn.setSize(popUp.getWidth()/4, popUp.getHeight()/10);
 		closeBtn.setBorder(BorderFactory.createLineBorder(Color.black));
 		closeBtn.addActionListener(e -> close());
