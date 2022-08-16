@@ -246,5 +246,9 @@ public class Phase3 extends JPanel implements ActionListener{
 		public void updatePanel() {
 			updatePlayerInfo();
 			updateTable();
+			unitCounterMovementModel.setValue(0);
+			startPositionMovement.setText("");
+			movedToPosition.setText("");
+			guideDisplay.setText("Bewegen Sie Ihre Armeen");
 		}
 }

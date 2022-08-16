@@ -95,6 +95,12 @@ public class Controller {
 		}
 	}
 	
+	public void resetActiveTerritories() {
+		this.activeTerritory = null;
+		this.activeTerritory2 = null;
+		MapPanel.territoryFlag = true;
+	}
+	
 	public void updatePhase() {
 		switch(phase) {
 		case 1: 
@@ -153,9 +159,22 @@ public class Controller {
 		game.drawCard(getPlayerObject());
 	}
 	
+	public void updateCards() {
+		gui.panelMap.removeAll();
+		gui.panelMap.revalidate();
+		gui.panelMap.repaint();
+		gui.panelMap.add(new DrawCards(this));
+	}
+	public void updateFinishButton() {
+		gui.phase4.toggleFinishRound();
+	}
+	public void updateDisplayPhase4(int armies) {
+		gui.phase4.updateGuideDisplay(armies);
+	}
+	
 	//zum testen
 	public void cardTest() {
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < 8; i++) {
 			game.drawCard(getPlayerObject());
 		}
 	}	
@@ -181,5 +200,5 @@ public class Controller {
 	public RiskGUI getGui() {
 		return gui;
 	}
-	
 }
+

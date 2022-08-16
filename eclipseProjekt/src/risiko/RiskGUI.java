@@ -41,7 +41,7 @@ import javax.imageio.ImageIO;
 
 public class RiskGUI extends JFrame{
 	
-	private JPanel panelMap;
+	public JPanel panelMap;
 	private JPanel panelCf;	
 	
 	public Phase0 phase0;
@@ -87,6 +87,10 @@ public class RiskGUI extends JFrame{
 	
 	
 	public void changePhase(int phase) {
+		controller.resetActiveTerritories();
+		panelCf.removeAll();
+		panelCf.revalidate();
+		panelCf.repaint();
 		switch(phase) {
 		case 0:
 			panelCf.add(phase0);
@@ -94,11 +98,8 @@ public class RiskGUI extends JFrame{
 			break;
 		case 1:
 			Controller.phase = phase;
-			panelCf.removeAll();
 			panelMap.removeAll();
-			panelCf.revalidate();
 			panelMap.revalidate();
-			panelCf.repaint();
 			panelMap.repaint();
 			controller.updatePhase();
 			panelCf.add(phase1);
@@ -106,30 +107,22 @@ public class RiskGUI extends JFrame{
 			break;
 		case 2:
 			Controller.phase = phase;
-			panelCf.removeAll();
-			panelCf.revalidate();
-			panelCf.repaint();
 			controller.updatePhase();
 			panelCf.add(phase2);
 			break;
 		case 3:
 			Controller.phase = phase;
-			panelCf.removeAll();
-			panelCf.revalidate();
-			panelCf.repaint();
 			controller.updatePhase();
 			panelCf.add(phase3);
 			break;
 		case 4:
 			Controller.phase = phase;
 			panelMap.removeAll();
-			panelCf.removeAll();
-			panelCf.revalidate();
 			panelMap.revalidate();
-			panelCf.repaint();
 			panelMap.repaint();
+			controller.cardTest();
 			controller.updatePhase();
-			panelMap.add(drawCards);
+			panelMap.add(new DrawCards(controller));
 			panelCf.add(phase4);
 			break;
 		}

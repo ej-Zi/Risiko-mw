@@ -242,6 +242,8 @@ public class Phase1 extends JPanel implements ActionListener {
 	public void updatePanel() {
 		updatePlayerInfo();
 		updateTable();
+		unitCounterManeuverModel.setValue(0);
+		this.selectedTerritory.setText("");
 	}
 	
 	
