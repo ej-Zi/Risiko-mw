@@ -38,7 +38,7 @@ public class StartMenuPlayerCountGUI extends JPanel implements ActionListener{
 			this.introGUI = introGUI;
 			screenSize = Toolkit.getDefaultToolkit().getScreenSize();	
 			
-			origBackgroundImage = new ImageIcon("assets\\La_Rendición_de_Granada_-_Pradilla.jpg");
+			origBackgroundImage = new ImageIcon("assets\\La_Rendicion_de_Granada_-_Pradilla.jpg");
 			Image backgroundImage = origBackgroundImage.getImage();
 			Image modBackgroundImage = backgroundImage.getScaledInstance(screenSize.width, screenSize.height,  java.awt.Image.SCALE_SMOOTH);
 			origBackgroundImage = new ImageIcon(modBackgroundImage);
