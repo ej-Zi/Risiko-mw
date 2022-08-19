@@ -64,7 +64,7 @@ public class Phase2 extends JPanel implements ActionListener{
 	private Dimension screenSize;
 	
 	private ArrayList<Integer[]> dice;
-		
+	private boolean conquered;
 
 	
 	public ArrayList<Integer[]> getDice() {
@@ -76,6 +76,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		resource = new Resources();
 		dtcr = new DefaultTableCellRenderer();
 	
+		conquered = false;
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();				
 		
 		controlfieldIcon = resource.getControlfieldIcon();
@@ -217,7 +218,10 @@ public class Phase2 extends JPanel implements ActionListener{
 				controller.updateCoa(armies, 2);
 				controller.resetTerritoryFlag();
 				new ConquestPopUp(conquestFrame, controller);
-				controller.drawCard();
+				if(!conquered) {
+					controller.drawCard();
+				}
+				conquered = true;
 				if(controller.playerDefeated()) {
 					if(controller.victory()) {
 						new VictoryPopUp(controller);
@@ -281,6 +285,7 @@ public class Phase2 extends JPanel implements ActionListener{
 		attackedPosition.setText("");
 		startPositionAttack.setText("");
 		guideDisplay.setText("Waehlen Sie das Startgebiet");
+		conquered = false;
 	}
 		
 }

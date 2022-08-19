@@ -50,7 +50,9 @@ public class Game extends GameInitializer {
 				armies += 2;
 			}
 			player.setArmies(player.getArmies() + armies);
-			cardSetCount += 1;
+			if(cardSetCount < 5) {
+				cardSetCount += 1;
+			}
 			for(Card c : tmpCards) {
 				player.getCardsInHand().remove(c);
 				this.cards.add(c);
