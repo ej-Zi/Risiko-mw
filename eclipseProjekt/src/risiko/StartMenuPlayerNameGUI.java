@@ -86,7 +86,7 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 		playerNameInput.setEditable(true);
 		panelStartMenu.add(playerNameInput);
 		
-		confirmPlayerName = new JButton("Name bestätigen", buttonIcon);
+		confirmPlayerName = new JButton("Name bestï¿½tigen", buttonIcon);
 		confirmPlayerName.setBounds((screenSize.width - (screenSize.width * 620)/1366)/2,(screenSize.height*350)/768, 
 				(screenSize.width * 320)/1366, (screenSize.height*40)/768);
 		confirmPlayerName.setPreferredSize(new Dimension((screenSize.width * 320)/1366, (screenSize.height*40)/768));
@@ -123,7 +123,7 @@ public class StartMenuPlayerNameGUI extends JPanel implements ActionListener {
 			}
 			else if(playerNameInput.getText().isEmpty()) {
 				
-				playerNameRequest.setText("Name benötigt");
+				playerNameRequest.setText("Name benï¿½tigt");
 				playerNameInput.requestFocusInWindow();
 			}
 			if(playerCount < 0) {

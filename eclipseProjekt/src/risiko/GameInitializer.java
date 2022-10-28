@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public abstract class GameInitializer { //Bezeichnung vielleicht noch ändern?; Konstruktor in Main aufrufen -> erstellt Spieler, Gebiete etc.
+public abstract class GameInitializer {
 
 	protected ArrayList<Territory> territories;
 	protected ArrayList<Continent> continents;
