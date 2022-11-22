@@ -257,8 +257,4 @@ public class MapPanel extends JPanel implements MouseListener, MouseMotionListen
 			territoryFlag = true;
 		}
 		
-	}
-
-	
-
-
+}

@@ -3,31 +3,21 @@ package risiko;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Panel;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.SpringLayout.Constraints;
-import javax.swing.border.Border;
 
 
 public class DrawCards extends JPanel{
@@ -192,9 +182,10 @@ public class DrawCards extends JPanel{
 			controller.updateFinishButton();
 			controller.updateDisplayPhase4(armies);
 		}
-		else
+		else {
 			checkCardsBtn.setForeground(Color.white);
 			checkCardsBtn.setIcon(cardUnsel);
+		}
 	}
 	
 	public ImageIcon scaleIcon(ImageIcon icon, int width, int height) {

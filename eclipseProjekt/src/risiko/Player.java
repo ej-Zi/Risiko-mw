@@ -39,14 +39,5 @@ public class Player {
 	public ArrayList<Card> getCardsInHand(){
 		return cardsInHand;
 	}
-	
 
-	
-	
-	
 }
-	
-	
-	
-	
-

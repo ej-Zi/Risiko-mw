@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -63,7 +62,7 @@ public class IntroGUI  extends Thread {
 		gameTitel.setOpaque(false);	
 		introPanel.add(gameTitel);
 		
-		author = new JLabel("Zimmermann | Hübenthal | Mäder",SwingConstants.CENTER);
+		author = new JLabel("Zimmermann | Hï¿½benthal | Mï¿½der",SwingConstants.CENTER);
 		author.setBounds(screenSize.width-(screenSize.width * 280)/1366, screenSize.height - (screenSize.height*30)/768,
 				(screenSize.width * 280)/1366,(screenSize.height*30)/768);
 		author.setBackground(displayColor);

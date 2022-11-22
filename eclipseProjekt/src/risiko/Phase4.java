@@ -177,11 +177,7 @@ public class Phase4 extends JPanel{
 	}
 	
 	public void toggleFinishRound() {
-		if(controller.getPlayerObject().getCardsInHand().size() > 4) {
-			finishRound.setEnabled(false);
-		}else {
-			finishRound.setEnabled(true);
-		}
+		finishRound.setEnabled(controller.getPlayerObject().getCardsInHand().size() <= 4);
 	}
 	
 	public void updateGuideDisplay(int armies) {

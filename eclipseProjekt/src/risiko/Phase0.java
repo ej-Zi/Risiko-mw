@@ -4,13 +4,10 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,7 +16,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-//import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -227,7 +223,7 @@ public class Phase0 extends JPanel implements ActionListener{
 			this.selectedTerritory.setText(controller.activeTerritory.getName());
 			this.guideDisplay.setText("Verteilen Sie ihre Armeen");
 		}else {
-			this.guideDisplay.setText("Ungültige Auswahl");
+			this.guideDisplay.setText("Ungï¿½ltige Auswahl");
 			this.selectedTerritory.setText("");
 		}
 	}

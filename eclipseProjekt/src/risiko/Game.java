@@ -60,7 +60,7 @@ public class Game extends GameInitializer {
 			return armies;
 		}else {
 			return armies;
-		}	
+		}
 	}
 	
 	public boolean validCards(Card c1, Card c2, Card c3) {
@@ -72,12 +72,10 @@ public class Game extends GameInitializer {
 		}		
 		int[] counter = new int[3];
 		for(String s : cardSymbols) {
-			if(s.equals("Kavallerie")) {
-				counter[0] += 1;
-			}else if(s.equals("Artillerie")) {
-				counter[1] += 1;
-			}else if(s.equals("Infanterie")) {
-				counter[2] += 1;
+			switch (s) {
+				case "Kavallerie" -> counter[0] += 1;
+				case "Artillerie" -> counter[1] += 1;
+				case "Infanterie" -> counter[2] += 1;
 			}
 		}
 		for(int c : counter) {
@@ -85,11 +83,7 @@ public class Game extends GameInitializer {
 				return true;
 			}
 		}
-		if(counter[0] == 1 && counter[1] == 1 && counter[2] == 1) {
-			return true;
-		}else {
-			return false;
-		}
+		return counter[0] == 1 && counter[1] == 1 && counter[2] == 1;
 	}
 	
 	//Armee setzen
@@ -213,11 +207,7 @@ public class Game extends GameInitializer {
 	
 	//Land erobert: 
 	private boolean territoryConquered(Player attacker, Territory target, int armies) {
-		if(target.getArmiesOnTerritory() <= 0) {
-			return true;
-		}else {
-			return false;
-		}
+		return target.getArmiesOnTerritory() <= 0;
 	}
 	
 	//Spieler besiegt:
@@ -233,9 +223,7 @@ public class Game extends GameInitializer {
 			return false;
 		}
 	}
-	private void removePlayer(Player player) {
-		this.players.remove(player);
-	}
+	private void removePlayer(Player player) {this.players.remove(player);}
 	
 	//Sieg:
 	public boolean victory(Player player) {

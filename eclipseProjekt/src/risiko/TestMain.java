@@ -8,7 +8,8 @@ public class TestMain {
 	public static void main(String[] args) {
 		
 		Scanner input = new Scanner(System.in);
-		
+
+		System.out.println("Bitte Modus auswaehlen:\nTestmodus [1]\nSpiel [2]\n");
 		if(input.nextInt() == 1) {	//Testmodus
 			System.out.println("Testmodus wird gestartet");
 			Controller ctrl = new Controller();

@@ -3,7 +3,6 @@ package risiko;
 import java.util.ArrayList;
 
 
-
 public class Controller {
 	public Game game;
 	private static int playerAtTurn; 
@@ -143,18 +142,10 @@ public class Controller {
 	}
 	
 	public boolean placeArmyInitial() {
-		if(game.placeArmies(getPlayerObject(), activeTerritory, 1)){
-			return true;
-		}else {
-			return false;
-		}
+		return game.placeArmies(getPlayerObject(), activeTerritory, 1);
 	}
 	public boolean placeArmies(int armies) {
-		if(game.placeArmies(getPlayerObject(), activeTerritory, armies)) {
-			return true;
-		}else {
-			return false;
-		}
+		return game.placeArmies(getPlayerObject(), activeTerritory, armies);
 	}
 	
 	public int recruitArmies() {
@@ -200,4 +191,3 @@ public class Controller {
 		return gui;
 	}
 }
-

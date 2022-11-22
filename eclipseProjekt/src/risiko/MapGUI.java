@@ -1,10 +1,6 @@
 package risiko;
 import java.awt.*;
-import java.awt.image.*;
-import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class MapGUI extends JFrame{
 	
